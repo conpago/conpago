@@ -151,7 +151,7 @@
 				case "application/x-www-form-urlencoded":
 					return new FormParametersExtractor($body);
 				default:
-					throw;
+					throw new \BadMethodCallException();
 			}
 		}
 
