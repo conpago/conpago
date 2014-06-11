@@ -10,6 +10,15 @@
 			"homepage": "http://bartosz.golek.biz"
 		}
 	],
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://bartoszgolek@bitbucket.org/bartoszgolek/di.git"
+		}
+	],
+	"require": {
+		"bartekb/di": "dev-master"
+	},
 	"require-dev": {
 		"pdepend/pdepend": "2.0.0",
 		"phpmd/phpmd": "2.0.0",
