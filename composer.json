@@ -1,0 +1,26 @@
+{
+	"name": "saigon/conpago",
+	"description": "Conpago",
+	"version": "0.0.1-alpha",
+	"type": "library",
+	"authors": [
+		{
+			"name": "Bartosz Gołek",
+			"email": "bartosz.golek@gmail.com",
+			"homepage": "http://bartosz.golek.biz"
+		}
+	]
+	"require-dev": {
+		"pdepend/pdepend": "2.0.0",
+		"phpmd/phpmd": "2.0.0",
+		"squizlabs/php_codesniffer": "1.5.3",
+		"sebastian/phpcpd": "2.0.1",
+		"sebastian/phpdcd": "1.0.2",
+		"phpunit/phpunit": "4.1.1"
+	},
+	"autoload": {
+		"psr-0": {
+			"Saigon\\Conpago\\": "src/",
+		}
+	}
+}

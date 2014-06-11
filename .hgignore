@@ -1,0 +1,6 @@
+syntax: glob
+nbproject
+tmp
+vendor
+.idea
+build

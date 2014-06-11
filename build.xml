@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<project name="TeamMate" default="build" basedir=".">
+	<description>TeamMate</description>
+
+	<property name="src" location="src"/>
+	<property name="lib" location="lib"/>
+	<property name="build" location="build"/>
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}"/>
+	</target>
+
+	<target name="update" description="update composer packages">
+		<exec executable="composer.bat" osfamily="windows" failonerror="true">
+			<arg value="update"/>
+		</exec>
+		<exec executable="composer" osfamily="unix" failonerror="true">
+			<arg value="update"/>
+		</exec>
+	</target>
+
+	<target name="dev-update" description="update composer packages">
+		<exec executable="composer.bat" osfamily="windows" failonerror="true">
+			<arg value="--dev"/>
+			<arg value="update"/>
+		</exec>
+		<exec executable="composer" osfamily="unix" failonerror="true">
+			<arg value="--dev"/>
+			<arg value="update"/>
+		</exec>
+	</target>
+
+	<target name="test">
+		<exec executable=".\vendor\bin\phpunit.bat" osfamily="windows" failonerror="true">
+			<arg value="-c"/>
+			<arg value="tests\phpunit.xml"/>
+		</exec>
+		<exec executable="./vendor/bin/phpunit" osfamily="unix" failonerror="true">
+			<arg value="-c"/>
+			<arg value="tests/phpunit.xml"/>
+		</exec>
+	</target>
+	<target name="test-ci">
+		<exec executable=".\vendor\bin\phpunit.bat" osfamily="windows" failonerror="true">
+			<arg value="--log-junit"/>
+			<arg value="${build}\phpunit.xml"/>
+			<arg value="--coverage-html"/>
+			<arg value="${build}\CodeCoverage"/>
+			<arg value="--coverage-clover"/>
+			<arg value="${build}\CodeCoverage\clover.xml"/>
+			<arg value="-c"/>
+			<arg value="tests\phpunit.xml"/>
+		</exec>
+		<exec executable="./vendor/bin/phpunit" osfamily="unix" failonerror="true">
+			<arg value="--log-junit"/>
+			<arg value="${build}/phpunit.xml"/>
+			<arg value="--coverage-html"/>
+			<arg value="${build}/CodeCoverage"/>
+			<arg value="--coverage-clover"/>
+			<arg value="${build}/CodeCoverage/clover.xml"/>
+			<arg value="-c"/>
+			<arg value="./tests/phpunit.xml"/>
+		</exec>
+	</target>
+
+	<target name="phpmd">
+		<exec executable=".\vendor\bin\phpmd.bat" osfamily="windows" failonerror="true">
+			<arg value="src"/>
+			<arg value="text"/>
+			<arg value="codesize,design,naming,unusedcode,controversial,cleancode"/>
+		</exec>
+		<exec executable="./vendor/bin/phpmd" osfamily="unix" failonerror="true">
+			<arg value="src"/>
+			<arg value="text"/>
+			<arg value="codesize,design,naming,unusedcode,controversial,cleancode"/>
+		</exec>
+	</target>
+	<target name="phpmd-ci">
+		<!--<exec executable=".\vendor\bin\phpmd.bat" osfamily="windows" failonerror="true">
+			<arg value="src"/>
+			<arg value="xml"/>
+			<arg value="codesize,design,naming,unusedcode,controversial,cleancode"/>
+			<arg value="- -reportfile"/>
+			<arg value="${build}\pmd.xml"/>
+		</exec>
+		<exec executable="./vendor/bin/phpmd" osfamily="unix" failonerror="true">
+			<arg value="src"/>
+			<arg value="xml"/>
+			<arg value="codesize,design,naming,unusedcode,controversial,cleancode"/>
+			<arg value="- -reportfile"/>
+			<arg value="${build}/pmd.xml"/>
+		</exec>-->
+	</target>
+
+	<target name="pdepend">
+		<exec executable=".\vendor\bin\pdepend.bat" osfamily="windows" failonerror="true">
+			<arg value="--summary-xml=${build}\summary.xml"/>
+            <arg value="--jdepend-xml=${build}\jdepend.xml"/>
+			<arg value="--jdepend-chart=${build}\jdepend.svg"/>
+			<arg value="--overview-pyramid=${build}\pyramid.svg"/>
+			<arg value="src"/>
+		</exec>
+		<exec executable="./vendor/bin/pdepend" osfamily="unix" failonerror="true">
+			<arg value="--summary-xml=${build}/summary.xml"/>
+            <arg value="--jdepend-xml=${build}/jdepend.xml"/>
+			<arg value="--jdepend-chart=${build}/jdepend.svg"/>
+			<arg value="--overview-pyramid=${build}/pyramid.svg"/>
+			<arg value="src"/>
+		</exec>
+	</target>
+	<target name="pdepend-ci" depends="pdepend">
+	</target>
+
+	<target name="phpcs">
+		<exec executable=".\vendor\bin\phpcs.bat" osfamily="windows" failonerror="true">
+			<arg value="--report=checkstyle"/>
+			<arg value="--report-file=${build}\phpcs.xml"/>
+			<arg value="--standard=.\build_scripts\ruleset.xml"/>
+			<arg value="src"/>
+		</exec>
+		<exec executable="./vendor/bin/phpcs" osfamily="unix" failonerror="true">
+			<arg value="--report=checkstyle"/>
+			<arg value="--report-file=${build}/phpcs.xml"/>
+			<arg value="--standard=./build_scripts/ruleset.xml"/>
+			<arg value="src"/>
+		</exec>
+	</target>
+	<target name="phpcs-ci" /><!--depends="phpcs"-->
+
+	<target name="phpcpd">
+		<exec executable=".\vendor\bin\phpcpd.bat" osfamily="windows" failonerror="true">
+			<arg value="src" />
+		</exec>
+		<exec executable="./vendor/bin/phpcpd" osfamily="unix" failonerror="true">
+			<arg value="src" />
+		</exec>
+	</target>
+	<target name="phpcpd-ci">
+		<exec executable=".\vendor\bin\phpcpd.bat" osfamily="windows" failonerror="true">
+			<arg value="--log-pmd"/>
+			<arg value="${build}\phpcpd.xml" />
+			<arg value="src" />
+		</exec>
+		<exec executable="./vendor/bin/phpcpd" osfamily="unix" failonerror="true">
+			<arg value="--log-pmd"/>
+			<arg value="${build}/phpcpd.xml" />
+			<arg value="src" />
+		</exec>
+	</target>
+
+	<target name="phpdcd">
+		<exec executable=".\vendor\bin\phpdcd.bat" osfamily="windows" failonerror="true">
+			<arg value="src" />
+		</exec>
+		<exec executable="./vendor/bin/phpdcd" osfamily="unix" failonerror="true">
+			<arg value="src" />
+		</exec>
+	</target>
+	<target name="phpdcd-ci">
+		<!--<exec executable=".\vendor\bin\phpdcd.bat" osfamily="windows" failonerror="true">
+			<arg value="- -log-pmd"/>
+			<arg value="${build}\phpdcd.xml" />
+			<arg value="src" />
+		</exec>
+		<exec executable="./vendor/bin/phpdcd" osfamily="unix" failonerror="true">
+			<arg value="- -log-pmd"/>
+			<arg value="${build}/phpdcd.xml" />
+			<arg value="src" />
+		</exec>-->
+	</target>
+
+	<target name="cp-config">
+		<exec executable="/bin/cp" osfamily="unix" failonerror="true">
+			<arg value="-rf"/>
+			<arg value="./build_scripts/database_jenkins.php"/>
+			<arg value="./config/database.php"/>
+		</exec>
+	</target>
+
+	<target name="ci" depends="dev-update,test-ci,phpdcd-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci" />
+</project>
