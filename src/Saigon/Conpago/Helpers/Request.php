@@ -16,6 +16,8 @@
 		 * @param $name
 		 *
 		 * @return null
+		 *
+		 * @SuppressWarnings(PHPMD.Superglobals)
 		 */
 		private function getValue($name)
 		{

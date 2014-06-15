@@ -9,7 +9,7 @@
 namespace Saigon\Conpago;
 
 
-use Saigon\Conpago\AccessRight\IRole;
+use Saigon\Conpago\AccessRight\Contract\IRole;
 
 interface IRolesConfig {
 	/**

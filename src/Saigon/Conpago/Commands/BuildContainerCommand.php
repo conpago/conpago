@@ -11,12 +11,12 @@
 	use Saigon\Conpago\AppBuilder;
 	use Saigon\Conpago\IAppPath;
 	use Saigon\Conpago\ICommand;
-	use Saigon\Utils\Args;
+	use Saigon\Conpago\Helpers\Args;
 
 	class BuildContainerCommand implements ICommand
 	{
 		/**
-		 * @var \Saigon\Utils\Args
+		 * @var Args
 		 */
 		private $args;
 		/**

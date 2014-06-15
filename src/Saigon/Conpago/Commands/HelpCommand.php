@@ -9,22 +9,23 @@
 	namespace Saigon\Conpago\Commands;
 
 	use Saigon\Conpago\ICommand;
+	use Saigon\Conpago\ICommandPresenter;
 
 	class HelpCommand implements ICommand
 	{
 		/**
-		 * @var \Saigon\Conpago\IPresenter
+		 * @var ICommandPresenter
 		 */
 		private $presenter;
 
 		/**
 		 * @param \DI\Meta[] $commands
-		 * @param \Saigon\Conpago\IPresenter $presenter
+		 * @param ICommandPresenter $presenter
 		 *
 		 * @inject Meta<\Saigon\Conpago\ICommand> $commands
-		 * @inject \Saigon\Conpago\IPresenter $presenter
+		 * @inject ICommandPresenter $presenter
 		 */
-		function __construct(array $commands, IPresenter $presenter)
+		function __construct(array $commands, ICommandPresenter $presenter)
 		{
 			$this->commands = $commands;
 			$this->presenter = $presenter;
@@ -35,7 +36,7 @@
 			foreach ($this->commands as $key => $command)
 			{
 				$metaData = $command->getMetadata();
-				$this->presenter->run(new StringPresenterModel($key.'     '.$metaData['desc'].PHP_EOL));
+				$this->presenter->run($key.'     '.$metaData['desc'].PHP_EOL);
 			}
 		}
 	}

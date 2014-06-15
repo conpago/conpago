@@ -12,7 +12,7 @@
 	use Saigon\Conpago\Exceptions\CommandNotFoundException;
 	use Saigon\Conpago\IApp;
 	use Saigon\Conpago\ICommand;
-	use Saigon\Utils\Args;
+	use Saigon\Conpago\Helpers\Args;
 
 	class ConsoleApp implements IApp
 	{
@@ -21,13 +21,13 @@
 		 */
 		private $commands;
 		/**
-		 * @var \Saigon\Utils\Args
+		 * @var Args
 		 */
 		private $args;
 
 		/**
 		 * @param Factory[] $commands
-		 * @param \Saigon\Utils\Args $args
+		 * @param Args $args
 		 *
 		 * @inject Factory<\Saigon\Conpago\ICommand> $commands
 		 * @inject \Saigon\Utils\Args $args

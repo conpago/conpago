@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bartosz.golek
+ * User: Bartosz Gołek
  * Date: 23.12.13
  * Time: 06:19
  */

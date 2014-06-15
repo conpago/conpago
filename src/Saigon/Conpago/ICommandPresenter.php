@@ -2,14 +2,13 @@
 	/**
 	 * Created by PhpStorm.
 	 * User: Bartosz Gołek
-	 * Date: 22.01.14
-	 * Time: 07:59
+	 * Date: 2014-06-15
+	 * Time: 11:53
 	 */
 
 	namespace Saigon\Conpago;
 
-
-	interface IUpgrade
+	interface ICommandPresenter
 	{
-		public function run();
+		public function run($string);
 	}

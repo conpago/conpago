@@ -36,9 +36,9 @@
 			$pathArray = explode('.', $path);
 			$currentElement = $this->config;
 
-			foreach ($pathArray as $cuurentName)
+			foreach ($pathArray as $curentName)
 			{
-				$currentElement = $currentElement[$cuurentName];
+				$currentElement = $currentElement[$curentName];
 			}
 
 			return $currentElement;

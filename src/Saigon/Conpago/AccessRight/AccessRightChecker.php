@@ -9,6 +9,8 @@
 	namespace Saigon\Conpago\AccessRight;
 
 	use Saigon\Conpago\AccessRight\Contract\IAccessRightChecker;
+	use Saigon\Conpago\AccessRight\Contract\IAccessRightRequester;
+	use Saigon\Conpago\IRolesConfig;
 	use Saigon\Conpago\ISessionManager;
 
 	class AccessRightChecker implements IAccessRightChecker
@@ -24,11 +26,8 @@
 		private $rolesConfig;
 
 		/**
-		 * @param \Saigon\Conpago\ISessionManager $sessionManager
-		 * @param \Saigon\Conpago\IRolesConfig $rolesConfig
-		 *
-		 * @inject \Saigon\Conpago\ISessionManager $sessionManager
-		 * @inject \Saigon\Conpago\IRolesConfig $rolesConfig
+		 * @param ISessionManager $sessionManager
+		 * @param IRolesConfig $rolesConfig
 		 */
 		function __construct(
 			ISessionManager $sessionManager,

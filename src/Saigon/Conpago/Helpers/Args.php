@@ -13,17 +13,21 @@ class Args {
 	private $options;
 	private $arguments;
 	private $script;
+	/** @var Server */
+	private $server;
 
 	public function __construct(){
 		$this->options = array();
 		$this->arguments = array();
+		$this->server = new Server();
 
-		if (!isset($_SERVER['argv']))
+		if (!$this->server->Contains('argv'))
 			return;
 
 		$option = null;
 		$first = true;
-		foreach($_SERVER['argv'] as $arg)
+		$argv = $this->server->getValue('argv');
+		foreach($argv as $arg)
 		{
 			if ($first == true)
 			{

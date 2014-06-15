@@ -283,6 +283,8 @@
 
 		/**
 		 * @param $pairs
+		 *
+		 * @return array
 		 */
 		private function parseNameValuePairs($pairs)
 		{
