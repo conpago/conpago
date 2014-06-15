@@ -6,7 +6,7 @@
 	 * Time: 23:10
 	 */
 
-	namespace Saigon\Conpago\AccessRight;
+	namespace Saigon\Conpago\AccessRight\Contract;
 
 	interface IAccessRightDao
 	{

@@ -44,7 +44,7 @@
 		</exec>
 	</target>
 	<target name="test-ci">
-		<exec executable=".\vendor\bin\phpunit.bat" osfamily="windows" failonerror="true">
+		<exec executable=".\vendor\bin\phpunit.bat" osfamily="windows">
 			<arg value="--log-junit"/>
 			<arg value="${build}\phpunit.xml"/>
 			<arg value="--coverage-html"/>
@@ -54,7 +54,7 @@
 			<arg value="-c"/>
 			<arg value="tests\phpunit.xml"/>
 		</exec>
-		<exec executable="./vendor/bin/phpunit" osfamily="unix" failonerror="true">
+		<exec executable="./vendor/bin/phpunit" osfamily="unix">
 			<arg value="--log-junit"/>
 			<arg value="${build}/phpunit.xml"/>
 			<arg value="--coverage-html"/>
@@ -79,20 +79,20 @@
 		</exec>
 	</target>
 	<target name="phpmd-ci">
-		<!--<exec executable=".\vendor\bin\phpmd.bat" osfamily="windows" failonerror="true">
+		<exec executable=".\vendor\bin\phpmd.bat" osfamily="windows">
 			<arg value="src"/>
 			<arg value="xml"/>
 			<arg value="codesize,design,naming,unusedcode,controversial,cleancode"/>
-			<arg value="- -reportfile"/>
+			<arg value="--reportfile"/>
 			<arg value="${build}\pmd.xml"/>
 		</exec>
-		<exec executable="./vendor/bin/phpmd" osfamily="unix" failonerror="true">
+		<exec executable="./vendor/bin/phpmd" osfamily="unix">
 			<arg value="src"/>
 			<arg value="xml"/>
 			<arg value="codesize,design,naming,unusedcode,controversial,cleancode"/>
-			<arg value="- -reportfile"/>
+			<arg value="--reportfile"/>
 			<arg value="${build}/pmd.xml"/>
-		</exec>-->
+		</exec>
 	</target>
 
 	<target name="pdepend">
@@ -128,7 +128,20 @@
 			<arg value="src"/>
 		</exec>
 	</target>
-	<target name="phpcs-ci" /><!--depends="phpcs"-->
+	<target name="phpcs-ci">
+		<exec executable=".\vendor\bin\phpcs.bat" osfamily="windows">
+			<arg value="--report=checkstyle"/>
+			<arg value="--report-file=${build}\phpcs.xml"/>
+			<arg value="--standard=.\build_scripts\ruleset.xml"/>
+			<arg value="src"/>
+		</exec>
+		<exec executable="./vendor/bin/phpcs" osfamily="unix">
+			<arg value="--report=checkstyle"/>
+			<arg value="--report-file=${build}/phpcs.xml"/>
+			<arg value="--standard=./build_scripts/ruleset.xml"/>
+			<arg value="src"/>
+		</exec>
+	</target>
 
 	<target name="phpcpd">
 		<exec executable=".\vendor\bin\phpcpd.bat" osfamily="windows" failonerror="true">
@@ -139,37 +152,16 @@
 		</exec>
 	</target>
 	<target name="phpcpd-ci">
-		<exec executable=".\vendor\bin\phpcpd.bat" osfamily="windows" failonerror="true">
+		<exec executable=".\vendor\bin\phpcpd.bat" osfamily="windows">
 			<arg value="--log-pmd"/>
 			<arg value="${build}\phpcpd.xml" />
 			<arg value="src" />
 		</exec>
-		<exec executable="./vendor/bin/phpcpd" osfamily="unix" failonerror="true">
+		<exec executable="./vendor/bin/phpcpd" osfamily="unix">
 			<arg value="--log-pmd"/>
 			<arg value="${build}/phpcpd.xml" />
 			<arg value="src" />
 		</exec>
-	</target>
-
-	<target name="phpdcd">
-		<exec executable=".\vendor\bin\phpdcd.bat" osfamily="windows" failonerror="true">
-			<arg value="src" />
-		</exec>
-		<exec executable="./vendor/bin/phpdcd" osfamily="unix" failonerror="true">
-			<arg value="src" />
-		</exec>
-	</target>
-	<target name="phpdcd-ci">
-		<!--<exec executable=".\vendor\bin\phpdcd.bat" osfamily="windows" failonerror="true">
-			<arg value="- -log-pmd"/>
-			<arg value="${build}\phpdcd.xml" />
-			<arg value="src" />
-		</exec>
-		<exec executable="./vendor/bin/phpdcd" osfamily="unix" failonerror="true">
-			<arg value="- -log-pmd"/>
-			<arg value="${build}/phpdcd.xml" />
-			<arg value="src" />
-		</exec>-->
 	</target>
 
 	<target name="cp-config">
@@ -180,5 +172,5 @@
 		</exec>
 	</target>
 
-	<target name="ci" depends="dev-update,test-ci,phpdcd-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci" />
+	<target name="ci" depends="dev-update,test-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci" />
 </project>

@@ -6,7 +6,7 @@
  * Time: 22:12
  */
 
-namespace Saigon\Conpago\AccessRight;
+namespace Saigon\Conpago\AccessRight\Contract;
 
 
 interface IRole {

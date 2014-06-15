@@ -9,6 +9,7 @@
 namespace Saigon\Conpago\AccessRight;
 
 
+use Saigon\Conpago\AccessRight\Contract\IRole;
 use string;
 
 class Role implements IRole {

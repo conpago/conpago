@@ -29,8 +29,7 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"Saigon\\Conpago\\": "src/",
-			"Saigon\\Utils\\": "src/"
+			"Saigon\\Conpago\\": "src/"
 		}
 	}
 }

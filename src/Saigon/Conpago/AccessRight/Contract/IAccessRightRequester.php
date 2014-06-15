@@ -6,7 +6,7 @@
  * Time: 22:08
  */
 
-namespace Saigon\Conpago\AccessRight;
+namespace Saigon\Conpago\AccessRight\Contract;
 
 
 interface IAccessRightRequester {

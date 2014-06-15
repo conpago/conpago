@@ -6,7 +6,7 @@
  * Time: 19:27
  */
 
-namespace Saigon\Utils;
+namespace Saigon\Conpago\Helpers;
 
 
 class Args {
