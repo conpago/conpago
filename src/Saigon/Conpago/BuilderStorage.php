@@ -23,7 +23,8 @@ class BuilderStorage implements IContainerBuilderStorage {
 	 *
 	 * @internal param string $fileName
 	 */
-	function __construct($appRootPath, $contextName){
+	function __construct($appRootPath, $contextName)
+	{
 		$this->fileName = implode(DIRECTORY_SEPARATOR, array($appRootPath, 'tmp', 'persistent', $contextName.'Container'));
 	}
 

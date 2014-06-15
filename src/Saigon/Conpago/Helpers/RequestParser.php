@@ -60,13 +60,13 @@
 		}
 
 		/**
-		 * @param $path_info
+		 * @param $pathInfo
 		 *
 		 * @return array
 		 */
-		private function convertPathInfoToArray($path_info)
+		private function convertPathInfoToArray($pathInfo)
 		{
-			return $path_info != null ? explode('/', $path_info) : array();
+			return $pathInfo != null ? explode('/', $pathInfo) : array();
 		}
 
 		private function parseIncomingParams()
@@ -142,16 +142,13 @@
 
 	abstract class ParametersExtractor
 	{
-		static function getExtractor($content_type, $body)
+		static function getExtractor($contentType, $body)
 		{
-			switch ($content_type)
+			switch ($contentType)
 			{
-				case "application/json":
-					return new JsonParametersExtractor($body);
-				case "application/x-www-form-urlencoded":
-					return new FormParametersExtractor($body);
-				default:
-					throw new \BadMethodCallException();
+				case "application/json": return new JsonParametersExtractor($body);
+				case "application/x-www-form-urlencoded": return new FormParametersExtractor($body);
+				default: throw new \BadMethodCallException();
 			}
 		}
 

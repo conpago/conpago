@@ -27,13 +27,13 @@
 		/**
 		 * @param \Saigon\Conpago\IDbConfig $dbConfig
 		 * @param \Saigon\Conpago\IDoctrineConfig $doctrineConfig
-		 * @param \Saigon\Conpago\Core\DoctrineEntityManagerProvider $doctrineEntityManagerProvider
+		 * @param \Saigon\Conpago\Core\DoctrineEntityManagerProvider $entityManagerProvider
 		 */
 		public function __construct(IDbConfig $dbConfig, IDoctrineConfig $doctrineConfig,
-		                            DoctrineEntityManagerProvider $doctrineEntityManagerProvider)
+		                            DoctrineEntityManagerProvider $entityManagerProvider)
 		{
 			$this->dbConfig = $dbConfig;
-			$this->doctrineEntityManagerProvider = $doctrineEntityManagerProvider;
+			$this->doctrineEntityManagerProvider = $entityManagerProvider;
 			$this->doctrineConfig = $doctrineConfig;
 		}
 

@@ -8,13 +8,21 @@
 
 	namespace Saigon\Conpago\Helpers;
 
-	class Server
+	/**
+	 * Class Server
+	 *
+	 * @package Saigon\Conpago\Accessor
+	 *
+	 * @SuppressWarnings(PHPMD)
+	 */
+	class ServerAccessor
 	{
 		/**
 		 * @param $key
 		 *
 		 * @return bool
-		 */function Contains($key)
+		 */
+		function contains($key)
 		{
 			return $_SERVER != null && array_key_exists($key, $_SERVER);
 		}

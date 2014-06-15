@@ -58,8 +58,8 @@
 				$role = $roles[$roleName];
 
 				$roleAccessRights = $role->getAccessRights();
-				$in_array = in_array('*', $roleAccessRights);
-				if ($in_array)
+				$inArray = in_array('*', $roleAccessRights);
+				if ($inArray)
 					return true;
 
 				if (in_array($accessRight, $role->getAccessRights()))

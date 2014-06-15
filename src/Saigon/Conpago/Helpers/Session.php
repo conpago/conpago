@@ -12,7 +12,6 @@
 
 	class Session implements ISession
 	{
-
 		/**
 		 * @return bool
 		 */
@@ -148,4 +147,9 @@
 		{
 			return $_SESSION[$name];
 		}
+	}
+
+	class SessionAccessor
+	{
+		function contains($key)
 	}

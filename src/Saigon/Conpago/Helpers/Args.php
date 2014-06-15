@@ -9,6 +9,8 @@
 namespace Saigon\Conpago\Helpers;
 
 
+use Saigon\Conpago\Accessor\ServerAccessor;
+
 class Args {
 	private $options;
 	private $arguments;
@@ -19,9 +21,9 @@ class Args {
 	public function __construct(){
 		$this->options = array();
 		$this->arguments = array();
-		$this->server = new Server();
+		$this->server = new ServerAccessor();
 
-		if (!$this->server->Contains('argv'))
+		if (!$this->server->contains('argv'))
 			return;
 
 		$option = null;
