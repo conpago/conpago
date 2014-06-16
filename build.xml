@@ -98,14 +98,14 @@
 	<target name="pdepend">
 		<exec executable=".\vendor\bin\pdepend.bat" osfamily="windows" failonerror="true">
 			<arg value="--summary-xml=${build}\summary.xml"/>
-            <arg value="--jdepend-xml=${build}\jdepend.xml"/>
+			<arg value="--jdepend-xml=${build}\jdepend.xml"/>
 			<arg value="--jdepend-chart=${build}\jdepend.svg"/>
 			<arg value="--overview-pyramid=${build}\pyramid.svg"/>
 			<arg value="src"/>
 		</exec>
 		<exec executable="./vendor/bin/pdepend" osfamily="unix" failonerror="true">
 			<arg value="--summary-xml=${build}/summary.xml"/>
-            <arg value="--jdepend-xml=${build}/jdepend.xml"/>
+			<arg value="--jdepend-xml=${build}/jdepend.xml"/>
 			<arg value="--jdepend-chart=${build}/jdepend.svg"/>
 			<arg value="--overview-pyramid=${build}/pyramid.svg"/>
 			<arg value="src"/>
