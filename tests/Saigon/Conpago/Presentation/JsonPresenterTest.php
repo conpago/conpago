@@ -8,7 +8,7 @@
 
 	namespace Saigon\Conpago\Presentation;
 
-	class JsonPresenterTest extends PHPUnit_Framework_TestCase
+	class JsonPresenterTest extends \PHPUnit_Framework_TestCase
 	{
 		public function testGeneratesNullJson()
 		{
