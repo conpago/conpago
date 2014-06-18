@@ -10,5 +10,5 @@
 
 	interface IAppConfig
 	{
-		function getDefaultUseCase();
+		function getDefaultController();
 	}
