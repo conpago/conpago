@@ -12,12 +12,12 @@
 	],
 	"repositories": [
 		{
-			"type": "vcs",
-			"url": "https://bartoszgolek@bitbucket.org/bartoszgolek/di.git"
+			"type": "hg",
+			"url": "http://scm.golek.biz/scm/hg/Conpago.DI"
 		}
 	],
 	"require": {
-		"bartekb/di": "dev-master"
+		"saigon/conpago-di": "dev-master"
 	},
 	"require-dev": {
 		"pdepend/pdepend": "2.0.0",

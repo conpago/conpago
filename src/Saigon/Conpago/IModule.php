@@ -8,7 +8,7 @@
 
 	namespace Saigon\Conpago;
 
-	use DI\IContainerBuilder;
+	use Saigon\Conpago\DI\IContainerBuilder;
 
 	interface IModule
 	{

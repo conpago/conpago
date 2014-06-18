@@ -8,27 +8,18 @@
 
 	namespace Saigon\Conpago\Helpers;
 
-	/**
-	 * Class Request
-	 *
-	 * @package Saigon\Conpago\Helpers
-	 * @SuppressWarnings(PHPMD.SuperGlobals)
-	 */
+	use Saigon\Conpago\Helpers\Contract\IRequest;
+	use Saigon\Conpago\Accessor\ServerAccessor;
+
 	class Request implements IRequest
 	{
 		private $server;
 
 		function __construct()
 		{
-			$this->server = new Server();
+			$this->server = new ServerAccessor();
 		}
-		/**
-		 * Safely return value from $_SERVER
-		 *
-		 * @param $name
-		 *
-		 * @return null
-		 */
+
 		private function getValue($name)
 		{
 			if (!$this->server->contains($name))

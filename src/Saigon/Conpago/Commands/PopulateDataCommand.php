@@ -8,19 +8,20 @@
 
 	namespace Saigon\Conpago\Commands;
 
-	use Saigon\Conpago\ICommand;
+	use Saigon\Conpago\Commands\Contract\ICommand;
+	use Saigon\Conpago\Upgrades\Contract\IUpgrade;
 
 	class PopulateDataCommand implements ICommand
 	{
 		/**
-		 * @var \Saigon\Conpago\IUpgrade[]
+		 * @var IUpgrade[]
 		 */
 		private $upgrades;
 
 		/**
-		 * @param \Saigon\Conpago\IUpgrade[] $upgrades
+		 * @param IUpgrade[] $upgrades
 		 *
-		 * @inject \Saigon\Conpago\IUpgrade $upgrades
+		 * @inject IUpgrade $upgrades
 		 */
 		function __construct(array $upgrades)
 		{

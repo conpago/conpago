@@ -6,7 +6,7 @@
 	 * Time: 12:09
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Saigon\Conpago\Accessor;
 
 	/**
 	 * Class Server

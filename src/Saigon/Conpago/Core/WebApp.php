@@ -8,16 +8,10 @@
 
 	namespace Saigon\Conpago\Core;
 
+	use Saigon\Conpago\Helpers\Contract\IRequestDataReader;
 	use Saigon\Conpago\IApp;
-	use Saigon\Conpago\IController;
-	use Saigon\Conpago\IRequestDataReader;
+	use Saigon\Conpago\Presentation\Contract\IController;
 
-	/**
-	 * Class WebApp
-	 * Main application class.
-	 *
-	 * @package Saigon\Conpago\Core
-	 */
 	class WebApp implements IApp
 	{
 		/**

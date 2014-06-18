@@ -9,14 +9,14 @@
 	namespace Saigon\Conpago\Commands;
 
 	use Saigon\Conpago\AppBuilder;
-	use Saigon\Conpago\IAppPath;
-	use Saigon\Conpago\ICommand;
-	use Saigon\Conpago\Helpers\Args;
+	use Saigon\Conpago\Commands\Contract\ICommand;
+	use Saigon\Conpago\Helpers\Contract\IAppPath;
+	use Saigon\Conpago\Helpers\Contract\IArgs;
 
 	class BuildContainerCommand implements ICommand
 	{
 		/**
-		 * @var Args
+		 * @var IArgs
 		 */
 		private $args;
 		/**
@@ -24,7 +24,7 @@
 		 */
 		private $appPath;
 
-		function __construct(Args $args, IAppPath $appPath)
+		function __construct(IArgs $args, IAppPath $appPath)
 		{
 			$this->args = $args;
 			$this->appPath = $appPath;

@@ -8,11 +8,11 @@
 
 	namespace Saigon\Conpago\Core;
 
-	use DI\Factory;
+	use Saigon\Conpago\Commands\Contract\ICommand;
+	use Saigon\Conpago\DI\Factory;
 	use Saigon\Conpago\Exceptions\CommandNotFoundException;
+	use Saigon\Conpago\Helpers\Contract\IArgs;
 	use Saigon\Conpago\IApp;
-	use Saigon\Conpago\ICommand;
-	use Saigon\Conpago\Helpers\Args;
 
 	class ConsoleApp implements IApp
 	{
@@ -21,18 +21,18 @@
 		 */
 		private $commands;
 		/**
-		 * @var Args
+		 * @var IArgs
 		 */
 		private $args;
 
 		/**
 		 * @param Factory[] $commands
-		 * @param Args $args
+		 * @param IArgs $args
 		 *
 		 * @inject Factory<\Saigon\Conpago\ICommand> $commands
-		 * @inject \Saigon\Utils\Args $args
+		 * @inject \Saigon\Conpago\Helpers\IArgs $args
 		 */
-		function __construct(array $commands, Args $args)
+		function __construct(array $commands, IArgs $args)
 		{
 			$this->commands = $commands;
 			$this->args = $args;

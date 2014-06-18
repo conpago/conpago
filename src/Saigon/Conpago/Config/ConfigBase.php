@@ -1,0 +1,27 @@
+<?php
+	/**
+	 * Created by PhpStorm.
+	 * User: Bartosz Gołek
+	 * Date: 09.11.13
+	 * Time: 15:30
+	 */
+
+	namespace Saigon\Conpago\Config;
+
+	use Saigon\Conpago\Config\Contract\IConfig;
+
+	abstract class ConfigBase
+	{
+		/**
+		 * @var IConfig
+		 */
+		protected $config;
+
+		/**
+		 * @param IConfig $config
+		 */
+		function __construct(IConfig $config)
+		{
+			$this->config = $config;
+		}
+	}

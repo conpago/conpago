@@ -8,42 +8,53 @@
 
 	namespace Saigon\Conpago\Core;
 
-	use DI\Factory;
-	use Saigon\Conpago\IRequestDataReader;
-	use Saigon\Conpago\IControllerResolver;
+	use Saigon\Conpago\Config\Contract\IAppConfig;
+	use Saigon\Conpago\DI\Factory;
+	use Saigon\Conpago\Helpers\Contract\IRequestDataReader;
+	use Saigon\Conpago\Presentation\Contract\IController;
+	use Saigon\Conpago\Presentation\Contract\IControllerResolver;
 
 	class ControllerResolver implements IControllerResolver
 	{
+		/**
+		 * @var \Saigon\Conpago\Config\Contract\IAppConfig
+		 */
+		private $appConfig;
 
 		/**
 		 * @param IRequestDataReader $requestDataReader
+		 * @param IAppConfig $appConfig
 		 * @param Factory[] $controllerFactories
 		 *
 		 * @inject Factory <\Saigon\Conpago\IController> $controllerFactories
 		 */
-		public function __construct(IRequestDataReader $requestDataReader, array $controllerFactories)
+		public function __construct(IRequestDataReader $requestDataReader, IAppConfig $appConfig, array $controllerFactories)
 		{
 			$this->controllerFactories = $controllerFactories;
 			$this->requestDataReader = $requestDataReader;
+			$this->appConfig = $appConfig;
 		}
 
 		/**
-		 * @return \Saigon\Conpago\IController
+		 * @return IController
 		 */
 		public function getController()
 		{
 			$params = $this->requestDataReader->getRequestData()->getParameters();
+			$useCaseName = isset($params['use_case'])
+				? $params['use_case']
+				: $this->appConfig->getDefaultUseCase();
 
-			return $this->controllerFactories[$params['use_case'] . 'Controller']->createInstance();
+			return $this->controllerFactories[$useCaseName.'Controller']->createInstance();
 		}
 
 		/**
-		 * @var \DI\Factory[]
+		 * @var Factory[]
 		 */
 		protected $controllerFactories;
 
 		/**
-		 * @var \Saigon\Conpago\IRequestDataReader
+		 * @var IRequestDataReader
 		 */
 		private $requestDataReader;
 	}

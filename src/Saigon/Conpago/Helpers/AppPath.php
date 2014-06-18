@@ -8,7 +8,7 @@
 
 	namespace Saigon\Conpago\Helpers;
 
-	use Saigon\Conpago\IAppPath;
+	use Saigon\Conpago\Helpers\Contract\IAppPath;
 
 	class AppPath implements IAppPath
 	{

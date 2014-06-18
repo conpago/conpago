@@ -4,23 +4,28 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "24da0cd90389643544bb0102fdb3cef9",
+    "hash": "2fa5cbe232e9f938d103a1c7802fa463",
     "packages": [
         {
-            "name": "bartekb/di",
-            "version": "dev-master",
+            "name": "saigon/conpago-di",
+            "version": "dev-default",
             "source": {
-                "type": "git",
-                "url": "https://bartoszgolek@bitbucket.org/bartoszgolek/di.git",
-                "reference": "90c28df71da9cbf35a43fa42dcfb91c0721497d7"
+                "type": "hg",
+                "url": "http://scm.golek.biz/scm/hg/Conpago.DI",
+                "reference": "51f8e0b657b4"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "pdepend/pdepend": "2.0.0",
+                "phpmd/phpmd": "2.0.0",
+                "phpunit/phpunit": "3.7.*",
+                "sebastian/phpcpd": "2.0.1",
+                "sebastian/phpdcd": "1.0.2",
+                "squizlabs/php_codesniffer": "1.5.3"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "DI\\": "core"
+                    "Saigon\\Conpago\\DI\\": "src"
                 }
             },
             "authors": [
@@ -29,8 +34,8 @@
                     "email": "bartosz@borowik.net"
                 }
             ],
-            "description": "PHP IoC by BB",
-            "time": "2014-06-12 20:42:46"
+            "description": "Conpago.DI",
+            "time": "2014-06-18 16:46:20"
         }
     ],
     "packages-dev": [
@@ -1340,7 +1345,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bartekb/di": 20
+        "saigon/conpago-di": 20
     },
     "platform": [
 

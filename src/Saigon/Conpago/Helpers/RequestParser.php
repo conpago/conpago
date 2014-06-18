@@ -8,7 +8,9 @@
 
 	namespace Saigon\Conpago\Helpers;
 
-	use Saigon\Conpago\RequestData;
+	use Saigon\Conpago\Core\RequestData;
+	use Saigon\Conpago\Helpers\Contract\IRequest;
+	use Saigon\Conpago\Helpers\Contract\IRequestParser;
 
 	class RequestParser implements IRequestParser
 	{
@@ -191,10 +193,10 @@
 		function getParameters()
 		{
 			$parameterTreeBuilder = new ParameterTreeBuilder();
-			$postvars = $parameterTreeBuilder->getParams($this->body);
+			$postVars = $parameterTreeBuilder->getParams($this->body);
 
 			$parameters = array();
-			foreach ($postvars as $field => $value)
+			foreach ($postVars as $field => $value)
 				$parameters[$field] = $value;
 
 			return $parameters;
@@ -213,11 +215,11 @@
 		/**
 		 * @param $array
 		 * @param string $delimiter
-		 * @param bool $baseval
+		 * @param bool $baseValue
 		 *
 		 * @return array|bool
 		 */
-		private function explodeTree($array, $delimiter = '_', $baseval = false)
+		private function explodeTree($array, $delimiter = '_', $baseValue = false)
 		{
 			if (!is_array($array))
 				return false;
@@ -241,7 +243,7 @@
 					}
 					elseif (!is_array($parentArr[$part]))
 					{
-						if ($baseval)
+						if ($baseValue)
 						{
 							$parentArr[$part] = array('__base_val' => $parentArr[$part]);
 						}
@@ -258,7 +260,7 @@
 				{
 					$parentArr[$leafPart] = $val;
 				}
-				elseif ($baseval && is_array($parentArr[$leafPart]))
+				elseif ($baseValue && is_array($parentArr[$leafPart]))
 				{
 					$parentArr[$leafPart]['__base_val'] = $val;
 				}

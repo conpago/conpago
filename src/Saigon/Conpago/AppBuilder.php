@@ -8,9 +8,11 @@
 
 	namespace Saigon\Conpago;
 
-	use DI\ContainerBuilderPersister;
-	use DI\IContainer;
-	use DI\ContainerBuilder;
+	use Saigon\Conpago\Core\BuilderStorage;
+	use Saigon\Conpago\DI\ContainerBuilder;
+	use Saigon\Conpago\DI\ContainerBuilderPersister;
+	use Saigon\Conpago\DI\IContainer;
+	use Saigon\Conpago\DI\IPersistableContainerBuilder;
 
 	class AppBuilder
 	{
@@ -21,7 +23,7 @@
 		protected $appRootPath;
 
 		/**
-		 * @var \DI\IPersistableContainerBuilder
+		 * @var IPersistableContainerBuilder
 		 */
 		protected $builder;
 
@@ -98,7 +100,9 @@
 			}
 		}
 
+		/** @var IModule[] */
 		protected $additionalModules = array();
+
 		public function registerAdditionalModule(IModule $module)
 		{
 			$this->additionalModules[] = $module;

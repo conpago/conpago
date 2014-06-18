@@ -8,16 +8,16 @@
 
 	namespace Saigon\Conpago\Helpers;
 
-	use Saigon\Conpago\IPasswordHasher;
+	use Saigon\Conpago\Helpers\Contract\IPasswordHasher;
 
 	class SHA2PasswordHasher implements IPasswordHasher
 	{
 
-		private $algo = 'sha512';
+		private $algorithm = 'sha512';
 
 		public function getHash($password)
 		{
-			return hash($this->algo, $password);
+			return hash($this->algorithm, $password);
 		}
 
 	}
