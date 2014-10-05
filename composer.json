@@ -24,7 +24,6 @@
 		"phpmd/phpmd": "2.0.0",
 		"squizlabs/php_codesniffer": "1.5.3",
 		"sebastian/phpcpd": "2.0.1",
-		"sebastian/phpdcd": "1.0.2",
 		"phpunit/phpunit": "4.1.1"
 	},
 	"autoload": {
