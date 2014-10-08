@@ -10,7 +10,6 @@
 
 	use Saigon\Conpago\Commands\Contract\ICommand;
 	use Saigon\Conpago\Commands\Contract\ICommandPresenter;
-	use Saigon\Conpago\DI\Meta;
 
 	class HelpCommand implements ICommand
 	{
@@ -20,24 +19,23 @@
 		private $presenter;
 
 		/**
-		 * @param Meta[] $commands
-		 * @param ICommandPresenter $presenter
-		 *
-		 * @inject Meta<\Saigon\Conpago\ICommand> $commands
-		 * @inject ICommandPresenter $presenter
+		 * @var array
 		 */
-		function __construct(array $commands, ICommandPresenter $presenter)
+		private $commandsMetadata;
+
+		/**
+		 * @param array $commandsMetadata
+		 * @param ICommandPresenter $presenter
+		 */
+		function __construct(array $commandsMetadata, ICommandPresenter $presenter)
 		{
-			$this->commands = $commands;
+			$this->commandsMetadata = $commandsMetadata;
 			$this->presenter = $presenter;
 		}
 
 		function execute()
 		{
-			foreach ($this->commands as $key => $command)
-			{
-				$metaData = $command->getMetadata();
+			foreach ($this->commandsMetadata as $key => $metaData)
 				$this->presenter->run($key . '     ' . $metaData['desc'] . PHP_EOL);
-			}
 		}
 	}
