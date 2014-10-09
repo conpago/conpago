@@ -27,7 +27,7 @@
 
 	class HelpCommandTest extends \PHPUnit_Framework_TestCase
 	{
-		public function testContains()
+		public function testExecute()
 		{
 			$command1 = array('desc' => 'a');
 			$command2 = array('desc' => 'b');
