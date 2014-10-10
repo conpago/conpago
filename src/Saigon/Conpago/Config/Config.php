@@ -10,6 +10,7 @@
 
 	use Saigon\Conpago\Config\Contract\IConfig;
 	use Saigon\Conpago\Helpers\Contract\IAppMask;
+	use Saigon\Conpago\Helpers\Contract\IFileSystem;
 
 	class Config implements IConfig
 	{
@@ -24,11 +25,11 @@
 		 *
 		 * @inject \Saigon\Conpago\IAppMask $appMask
 		 */
-		function __construct(IAppMask $appMask)
+		function __construct(IAppMask $appMask, IFileSystem $fileSystem)
 		{
 			foreach (glob($appMask->configMask()) as $filePath)
 			{
-				$this->config = array_merge($this->config, include $filePath);
+				$this->config = array_merge($this->config, $fileSystem->includeFile($filePath));
 			}
 		}
 
