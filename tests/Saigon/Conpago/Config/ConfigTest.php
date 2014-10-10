@@ -26,15 +26,8 @@
 		protected function setUp()
 		{
 			$appMask = $this->getMock('Saigon\Conpago\Helpers\Contract\IAppMask');
-			$fileSystem = $this->getMock('Saigon\Conpago\Helpers\Contract\IFileSystem');
-			$fileSystem->expects($this->any())->method('includeFile')->willReturn(
-				array(
-					self::SIMPLE_KEY => self::SIMPLE_VALUE,
-					self::NESTING_KEY => array(
-						self::NESTED_KEY => self::NESTED_VALUE
-					)
-				)
-			);
+			$fileSystem = $this->getFileSystemMock();
+
 			$this->config = new Config($appMask, $fileSystem);
 		}
 
@@ -56,6 +49,27 @@
 		private function buildNestedPath(array $elements)
 		{
 			return implode('.', $elements);
+		}
+
+		/**
+		 * @return \PHPUnit_Framework_MockObject_MockObject
+		 */
+		protected function getFileSystemMock()
+		{
+			$fileSystem = $this->getMock('Saigon\Conpago\Helpers\Contract\IFileSystem');
+
+			$fileSystem->expects($this->any())->method('glob')->willReturn(array('fakePath1'));
+
+			$fileSystem->expects($this->any())->method('includeFile')->willReturn(
+				array(
+					self::SIMPLE_KEY => self::SIMPLE_VALUE,
+					self::NESTING_KEY => array(
+						self::NESTED_KEY => self::NESTED_VALUE
+					)
+				)
+			);
+
+			return $fileSystem;
 		}
 	}
  

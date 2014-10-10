@@ -12,4 +12,5 @@
 	interface IFileSystem
 	{
 		function includeFile($filePath);
+		function glob($pattern);
 	}

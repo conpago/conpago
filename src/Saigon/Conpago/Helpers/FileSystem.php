@@ -18,4 +18,9 @@
 		{
 			return include $filePath;
 		}
+
+		function glob($pattern, $flags = null)
+		{
+			return glob($pattern, $flags);
+		}
 	}

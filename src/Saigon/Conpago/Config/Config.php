@@ -27,7 +27,7 @@
 		 */
 		function __construct(IAppMask $appMask, IFileSystem $fileSystem)
 		{
-			foreach (glob($appMask->configMask()) as $filePath)
+			foreach ($fileSystem->glob($appMask->configMask()) as $filePath)
 			{
 				$this->config = array_merge($this->config, $fileSystem->includeFile($filePath));
 			}
