@@ -23,4 +23,9 @@
 		{
 			return glob($pattern, $flags);
 		}
+
+		function realPath($path)
+		{
+			return realpath($path);
+		}
 	}

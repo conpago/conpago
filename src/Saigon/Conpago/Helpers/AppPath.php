@@ -9,15 +9,21 @@
 	namespace Saigon\Conpago\Helpers;
 
 	use Saigon\Conpago\Helpers\Contract\IAppPath;
+	use Saigon\Conpago\Helpers\Contract\IFileSystem;
 
 	class AppPath implements IAppPath
 	{
 
 		protected $path;
+		/**
+		 * @var IFileSystem
+		 */
+		private $fileSystem;
 
-		public function __construct($path)
+		public function __construct(IFileSystem $fileSystem, $path)
 		{
 			$this->path = $path;
+			$this->fileSystem = $fileSystem;
 		}
 
 		private function getPath($real, array $elements)
@@ -25,9 +31,7 @@
 			$result = implode(DIRECTORY_SEPARATOR, $elements);
 
 			if ($real)
-			{
-				$result = realpath($result);
-			}
+				$result = $this->fileSystem->realPath($result);
 
 			return $result;
 		}

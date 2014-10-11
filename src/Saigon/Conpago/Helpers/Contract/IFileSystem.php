@@ -13,4 +13,5 @@
 	{
 		function includeFile($filePath);
 		function glob($pattern);
+		function realPath($path);
 	}
