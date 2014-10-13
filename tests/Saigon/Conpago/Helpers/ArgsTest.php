@@ -26,6 +26,15 @@
 			$this->assertEquals('script', $this->args->getScript());
 		}
 
+		function testNoArgv()
+		{
+			$this->serverAccessor = $this->getMock('Saigon\Conpago\Accessor\ServerAccessor');
+			$this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(false);
+			$this->serverAccessor->expects($this->never())->method('getValue')->with('argv');
+
+			$this->args = new Args($this->serverAccessor);
+		}
+
 		function testScriptWithArgs()
 		{
 			$this->serverAccessor = $this->getMock('Saigon\Conpago\Accessor\ServerAccessor');
