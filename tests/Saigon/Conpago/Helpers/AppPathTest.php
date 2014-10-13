@@ -30,22 +30,22 @@
 
 		public function testAppPathReturnsConfigPath()
 		{
-			$this->assertEquals('base_path/config', $this->appPath->config());
+			$this->assertEquals('base_path'.DIRECTORY_SEPARATOR.'config', $this->appPath->config());
 		}
 
 		public function testAppPathReturnsRealConfigPath()
 		{
-			$this->assertEquals('real/base_path/config', $this->appPath->config(true));
+			$this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'config', $this->appPath->config(true));
 		}
 
 		public function testAppPathReturnsCachePath()
 		{
-			$this->assertEquals('base_path/tmp/cache', $this->appPath->cache());
+			$this->assertEquals('base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'cache', $this->appPath->cache());
 		}
 
 		public function testAppPathReturnsRealCachePath()
 		{
-			$this->assertEquals('real/base_path/tmp/cache', $this->appPath->cache(true));
+			$this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'cache', $this->appPath->cache(true));
 		}
 
 		public function testAppPathReturnsRootPath()
@@ -55,27 +55,27 @@
 
 		public function testAppPathReturnsRealRootPath()
 		{
-			$this->assertEquals('real/base_path', $this->appPath->root(true));
+			$this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path', $this->appPath->root(true));
 		}
 
 		public function testAppPathReturnsSourcePath()
 		{
-			$this->assertEquals('base_path/src', $this->appPath->source());
+			$this->assertEquals('base_path'.DIRECTORY_SEPARATOR.'src', $this->appPath->source());
 		}
 
 		public function testAppPathReturnsRealSourcePath()
 		{
-			$this->assertEquals('real/base_path/src', $this->appPath->source(true));
+			$this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'src', $this->appPath->source(true));
 		}
 
 		public function testAppPathReturnsTemplatesPath()
 		{
-			$this->assertEquals('base_path/templates', $this->appPath->templates());
+			$this->assertEquals('base_path'.DIRECTORY_SEPARATOR.'templates', $this->appPath->templates());
 		}
 
 		public function testAppPathReturnsTemplatesSourcePath()
 		{
-			$this->assertEquals('real/base_path/templates', $this->appPath->templates(true));
+			$this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'templates', $this->appPath->templates(true));
 		}
 	}
 
@@ -94,7 +94,7 @@
 
 		function realPath($path)
 		{
-			return AppPathTest::REAL_PATH . '/' . $path;
+			return AppPathTest::REAL_PATH.DIRECTORY_SEPARATOR.$path;
 		}
 	}
  

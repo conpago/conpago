@@ -19,11 +19,11 @@
 		/** @var ServerAccessor */
 		private $server;
 
-		public function __construct()
+		public function __construct(ServerAccessor $serverAccessor)
 		{
 			$this->options = array();
 			$this->arguments = array();
-			$this->server = new ServerAccessor();
+			$this->server = $serverAccessor;
 
 			if (!$this->server->contains('argv'))
 			{
