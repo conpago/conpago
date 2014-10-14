@@ -6,11 +6,11 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago;
+	namespace Saigon\Conpago\Helpers\Contract;
 
 	interface IPath
 	{
-		public function cretePath($elements);
+		public function createPath($elements);
 
 		public function fileName($filePath);
 	}

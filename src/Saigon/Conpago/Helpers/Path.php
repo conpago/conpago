@@ -8,12 +8,19 @@
 
 	namespace Saigon\Conpago\Helpers;
 
-	class Path
+	use Saigon\Conpago\Helpers\Contract\IPath;
+
+	class Path implements IPath
 	{
-		public static function createPath($elements = null)
+		public function createPath($elements)
 		{
 			$elements = func_get_args();
 
 			return implode(DIRECTORY_SEPARATOR, $elements);
+		}
+
+		public function fileName($filePath)
+		{
+			return basename($filePath);
 		}
 	}
