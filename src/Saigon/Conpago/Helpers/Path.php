@@ -21,6 +21,6 @@
 
 		public function fileName($filePath)
 		{
-			return basename($filePath);
+			return basename(str_replace('\\', '/', $filePath));
 		}
 	}
