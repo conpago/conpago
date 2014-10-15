@@ -97,8 +97,7 @@
 		 */
 		private function parseBody()
 		{
-			$body = $this->request->getBody();
-			return $this->extractParameters($this->contentType, $body);
+			return $this->extractParameters($this->request->getBody());
 		}
 
 		/**
