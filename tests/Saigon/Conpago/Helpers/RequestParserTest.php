@@ -10,73 +10,114 @@
 
 	class RequestParserTest extends \PHPUnit_Framework_TestCase
 	{
+		private $request;
+
+		private $requestParser;
+
+		protected function setUp()
+		{
+			$this->request = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequest');
+			$this->requestParser = new RequestParser($this->request);
+		}
+
 		function testThrowsBadMethodCallExceptionFor()
 		{
 			$this->setExpectedException('BadMethodCallException');
-			$request = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequest');
-			$request->expects($this->any())->method('getContentType')->willReturn('bad content type');
+			$this->request->expects($this->any())->method('getContentType')->willReturn('bad content type');
 
-			$requestParser = new RequestParser($request);
+			$requestParser = new RequestParser($this->request);
 			$requestParser->parseRequestData();
 		}
 
 		function testEmptyJsonRequest()
 		{
-			$request = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequest');
-			$request->expects($this->any())->method('getContentType')->willReturn('application/json');
-
-			$requestParser = new RequestParser($request);
-			$requestData = $requestParser->parseRequestData();
-
-			$this->assertRequestData($requestData, 'json', array(), '', array());
+			$this->setUp();
+			$this->setContentType('application/json');
+			$this->_testRequestParser('json', array(), '', array());
 		}
 
 		function testJsonRequestWithUrlElements()
 		{
-			$request = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequest');
-			$request->expects($this->any())->method('getContentType')->willReturn('application/json');
-			$request->expects($this->any())->method('getPathInfo')->willReturn('path/info');
-
-			$requestParser = new RequestParser($request);
-			$requestData = $requestParser->parseRequestData();
-
-			$this->assertRequestData($requestData, 'json', array(), '', array('path', 'info'));
+			$this->setContentType('application/json');
+			$this->setPathInfo('path/info');
+			$this->_testRequestParser('json', array(), '', array('path', 'info'));
 		}
 
 		function testJsonRequestWithRequestMethod()
 		{
-			$request = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequest');
-			$request->expects($this->any())->method('getContentType')->willReturn('application/json');
-			$request->expects($this->any())->method('getRequestMethod')->willReturn('requestMethod');
-
-			$requestParser = new RequestParser($request);
-			$requestData = $requestParser->parseRequestData();
-
-			$this->assertRequestData($requestData, 'json', array(), 'requestMethod', array());
+			$this->setContentType('application/json');
+			$this->setRequestMethod('requestMethod');
+			$this->_testRequestParser('json', array(), 'requestMethod', array());
 		}
 
 		function testJsonRequestWithQueryString()
 		{
-			$request = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequest');
-			$request->expects($this->any())->method('getContentType')->willReturn('application/json');
-			$request->expects($this->any())->method('getQueryString')->willReturn('a=1&b=2');
-
-			$requestParser = new RequestParser($request);
-			$requestData = $requestParser->parseRequestData();
-
-			$this->assertRequestData($requestData, 'json', array('a' => 1, 'b' => 2), '', array());
+			$this->setContentType('application/json');
+			$this->setQueryString('a=1&b=2');
+			$this->_testRequestParser('json', array('a' => 1, 'b' => 2), '', array());
 		}
 
 		function testJsonRequestWithSimpleBody()
 		{
-			$request = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequest');
-			$request->expects($this->any())->method('getContentType')->willReturn('application/json');
-			$request->expects($this->any())->method('getBody')->willReturn(json_encode(array('a' => 1, 'b' => 2)));
+			$this->setContentType('application/json');
+			$body = json_encode(array(
+					'a' => 1,
+					'b' => 2
+				));
+			$this->setBody($body);
+			$this->_testRequestParser('json', array('a' => 1, 'b' => 2), '', array());
+		}
 
-			$requestParser = new RequestParser($request);
-			$requestData = $requestParser->parseRequestData();
+		function testJsonRequestWithTreeBody()
+		{
+			$this->setContentType('application/json');
+			$body = json_encode(array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2));
+			$this->setBody($body);
+			$this->_testRequestParser('json', array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2), '', array());
+		}
 
-			$this->assertRequestData($requestData, 'json', array('a' => 1, 'b' => 2), '', array());
+		function testEmptyHtmlRequest()
+		{
+			$this->setUp();
+			$this->setContentType('application/x-www-form-urlencoded');
+			$this->_testRequestParser('html', array(), '', array());
+		}
+
+		function testHtmlRequestWithUrlElements()
+		{
+			$this->setContentType('application/x-www-form-urlencoded');
+			$this->setPathInfo('path/info');
+			$this->_testRequestParser('html', array(), '', array('path', 'info'));
+		}
+
+		function testHtmlRequestWithRequestMethod()
+		{
+			$this->setContentType('application/x-www-form-urlencoded');
+			$this->setRequestMethod('requestMethod');
+			$this->_testRequestParser('html', array(), 'requestMethod', array());
+		}
+
+		function testHtmlRequestWithQueryString()
+		{
+			$this->setContentType('application/x-www-form-urlencoded');
+			$this->setQueryString('a=1&b=2');
+			$this->_testRequestParser('html', array('a' => 1, 'b' => 2), '', array());
+		}
+
+		function testHtmlRequestWithSimpleBody()
+		{
+			$this->setContentType('application/x-www-form-urlencoded');
+			$body = 'a=1&b=2';
+			$this->setBody($body);
+			$this->_testRequestParser('html', array('a' => 1, 'b' => 2), '', array());
+		}
+
+		function testHtmlRequestWithTreeBody()
+		{
+			$this->setContentType('application/x-www-form-urlencoded');
+			$body = 'a.a=1.1&a.b=1.2&b=2';
+			$this->setBody($body);
+			$this->_testRequestParser('html', array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2), '', array());
 		}
 
 		/**
@@ -100,5 +141,59 @@
 					'getRequestMethod' => $requestData->getRequestMethod(),
 					'getUrlElements' => $requestData->getUrlElements()
 				));
+		}
+
+		/**
+		 * @param $contentType
+		 *
+		 * @return mixed
+		 */
+		protected function setContentType($contentType)
+		{
+			return $this->request->expects($this->any())->method('getContentType')->willReturn($contentType);
+		}
+
+		/**
+		 * @param $format
+		 * @param $parameters
+		 * @param $requestMethod
+		 * @param $urlElements
+		 */
+		protected function _testRequestParser($format, $parameters, $requestMethod, $urlElements)
+		{
+			$requestData = $this->requestParser->parseRequestData();
+			$this->assertRequestData($requestData, $format, $parameters, $requestMethod, $urlElements);
+		}
+
+		/**
+		 * @param $pathInfo
+		 */
+		protected function setPathInfo($pathInfo)
+		{
+			$this->request->expects($this->any())->method('getPathInfo')->willReturn($pathInfo);
+		}
+
+		/**
+		 * @param $requestMethod
+		 */
+		protected function setRequestMethod($requestMethod)
+		{
+			$this->request->expects($this->any())->method('getRequestMethod')->willReturn($requestMethod);
+		}
+
+		/**
+		 * @param $queryString
+		 */
+		protected function setQueryString($queryString)
+		{
+			$this->request->expects($this->any())->method('getQueryString')->willReturn($queryString);
+		}
+
+		/**
+		 * @param $body
+		 */
+		protected function setBody($body)
+		{
+			$this->request->expects($this->any())->method('getBody')->willReturn($body);
 		}
 	}

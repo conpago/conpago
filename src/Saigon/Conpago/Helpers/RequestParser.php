@@ -315,6 +315,9 @@
 		private function createNamedValueFromNameValueString($pair)
 		{
 			$exploded = explode('=', urldecode($pair), 2);
+			if (count($exploded) < 2)
+				return null;
+
 			return (object)array("name" => $exploded[0], "value" => $exploded[1]);
 		}
 
@@ -382,6 +385,9 @@
 		 */
 		private function addNamedValue($namedValue)
 		{
+			if ($namedValue == null)
+				return;
+
 			if ($this->isNameAlreadyExists($namedValue->name))
 				$this->addArrayValue($namedValue->name, $namedValue->value);
 			else
