@@ -96,5 +96,10 @@
 		{
 			return AppPathTest::REAL_PATH.DIRECTORY_SEPARATOR.$path;
 		}
+
+		function getFileContent($filename, $use_include_path, $context, $offset, $maxlen)
+		{
+			throw new \Exception('Not implemented!');
+		}
 	}
  

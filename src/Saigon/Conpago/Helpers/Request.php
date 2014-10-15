@@ -8,16 +8,26 @@
 
 	namespace Saigon\Conpago\Helpers;
 
+	use Saigon\Conpago\Helpers\Contract\IFileSystem;
 	use Saigon\Conpago\Helpers\Contract\IRequest;
 	use Saigon\Conpago\Accessor\ServerAccessor;
 
 	class Request implements IRequest
 	{
 		private $server;
+		/**
+		 * @var IFileSystem
+		 */
+		private $fileSystem;
 
-		function __construct()
+		/**
+		 * @param ServerAccessor $serverAccessor
+		 * @param IFileSystem $fileSystem
+		 */
+		function __construct(ServerAccessor $serverAccessor, IFileSystem $fileSystem)
 		{
-			$this->server = new ServerAccessor();
+			$this->server = $serverAccessor;
+			$this->fileSystem = $fileSystem;
 		}
 
 		private function getValue($name)
@@ -50,6 +60,6 @@
 
 		function getBody()
 		{
-			return file_get_contents("php://input");
+			return $this->fileSystem->getFileContent("php://input");
 		}
 	}

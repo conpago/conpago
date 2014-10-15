@@ -28,4 +28,13 @@
 		{
 			return realpath($path);
 		}
+
+		/**
+		 * @param string $filename
+		 * @return string
+		 */
+		function getFileContent($filename)
+		{
+			return file_get_contents($filename);
+		}
 	}

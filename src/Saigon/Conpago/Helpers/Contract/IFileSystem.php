@@ -14,4 +14,10 @@
 		function includeFile($filePath);
 		function glob($pattern);
 		function realPath($path);
+
+		/**
+		 * @param string $filename
+		 * @return string
+		 */
+		function getFileContent($filename);
 	}
