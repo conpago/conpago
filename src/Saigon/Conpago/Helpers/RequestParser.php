@@ -214,11 +214,10 @@
 		/**
 		 * @param $array
 		 * @param string $delimiter
-		 * @param bool $baseValue
 		 *
 		 * @return array|bool
 		 */
-		private function explodeTree($array, $delimiter = '_', $baseValue = false)
+		private function explodeTree($array, $delimiter = '_')
 		{
 			if (!is_array($array))
 				return false;
@@ -237,32 +236,14 @@
 				foreach ($parts as $part)
 				{
 					if (!isset($parentArr[$part]))
-					{
 						$parentArr[$part] = array();
-					}
-					elseif (!is_array($parentArr[$part]))
-					{
-						if ($baseValue)
-						{
-							$parentArr[$part] = array('__base_val' => $parentArr[$part]);
-						}
-						else
-						{
-							$parentArr[$part] = array();
-						}
-					}
+
 					$parentArr = & $parentArr[$part];
 				}
 
 				// Add the final part to the structure
 				if (empty($parentArr[$leafPart]))
-				{
 					$parentArr[$leafPart] = $val;
-				}
-				elseif ($baseValue && is_array($parentArr[$leafPart]))
-				{
-					$parentArr[$leafPart]['__base_val'] = $val;
-				}
 			}
 
 			return $returnArr;

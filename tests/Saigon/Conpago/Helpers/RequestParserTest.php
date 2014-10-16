@@ -76,6 +76,22 @@
 			$this->_testRequestParser('json', array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2), '', array());
 		}
 
+		function testJsonRequestIntegration()
+		{
+			$this->setContentType('application/json');
+			$this->setPathInfo('path/info');
+			$this->setRequestMethod('requestMethod');
+			$this->setQueryString('a=1&b=2');
+
+			$body = json_encode(array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2));
+			$this->setBody($body);
+
+			$this->_testRequestParser('json',
+				array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2),
+				'requestMethod',
+				array('path', 'info'));
+		}
+
 		function testEmptyHtmlRequest()
 		{
 			$this->setUp();
@@ -118,6 +134,45 @@
 			$body = 'a.a=1.1&a.b=1.2&b=2';
 			$this->setBody($body);
 			$this->_testRequestParser('html', array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2), '', array());
+		}
+
+		function testHtmlRequestWithDeepTreeBody()
+		{
+			$this->setContentType('application/x-www-form-urlencoded');
+			$body = 'a.a.a=1.1.1&a.a.b=1.1.2';
+			$this->setBody($body);
+			$this->_testRequestParser('html', array('a' => array('a' => array('a' => '1.1.1', 'b' => '1.1.2'))), '', array());
+		}
+
+		function testHtmlRequestIntegration()
+		{
+			$this->setContentType('application/x-www-form-urlencoded');
+			$this->setPathInfo('path/info');
+			$this->setRequestMethod('requestMethod');
+			$this->setQueryString('a=1&b=2');
+
+			$body = 'a=2&b=1&c.a=3&c.b=4&d=5&d=6';
+			$this->setBody($body);
+
+			$this->_testRequestParser('html',
+				array(
+					'a' => '2',
+					'b' => '1',
+					'c' => array(
+						'a' => '3',
+						'b' => '4'
+					),
+					'd' => array('5', '6')),
+				'requestMethod',
+				array('path', 'info'));
+		}
+
+		function testHtmlRequestWithArrayBody()
+		{
+			$this->setContentType('application/x-www-form-urlencoded');
+			$body = 'a=1&a=2&a=3';
+			$this->setBody($body);
+			$this->_testRequestParser('html', array('a' => array('1', '2', '3')), '', array());
 		}
 
 		/**
