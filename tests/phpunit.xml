@@ -28,7 +28,10 @@
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../src</directory>
-        </whitelist>
+        <directory suffix=".php">../src</directory>
+        <exclude>
+            <file>../src/Saigon/Conpago/Helpers/FileSystem.php</file>
+        </exclude>
+    </whitelist>
     </filter>
 </phpunit>
