@@ -101,5 +101,10 @@
 		{
 			throw new \Exception('Not implemented!');
 		}
+
+		function setFileContent($filename, $content)
+		{
+			throw new \Exception('Not implemented!');
+		}
 	}
  

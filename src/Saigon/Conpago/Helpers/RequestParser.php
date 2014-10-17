@@ -288,6 +288,12 @@
 			return $this->flatParameterList;
 		}
 
+		private function convertPairsToList()
+		{
+			foreach ($this->pairs as $pair)
+				$this->addNamedValue($this->createNamedValueFromNameValueString($pair));
+		}
+
 		/**
 		 * @param $pair
 		 *
@@ -300,64 +306,6 @@
 				return null;
 
 			return (object)array("name" => $exploded[0], "value" => $exploded[1]);
-		}
-
-		/**
-		 * @param $name
-		 *
-		 * @return bool
-		 */
-		private function isNameAlreadyExists($name)
-		{
-			return isset($this->flatParameterList[$name]);
-		}
-
-		/**
-		 * @param $name
-		 * @param $value
-		 */
-		private function addScalarValue($name, $value)
-		{
-			$this->flatParameterList[$name] = $value;
-		}
-
-		/**
-		 * @param $name
-		 * @param $value
-		 */
-		private function addArrayValue($name, $value)
-		{
-			if ($this->isScalarValueConversionNeeded($name))
-				$this->convertScalarToArray($name);
-
-			$this->addValueToArray($name, $value);
-		}
-
-		/**
-		 * @param $name
-		 * @param $value
-		 */
-		private function addValueToArray($name, $value)
-		{
-			$this->flatParameterList[$name][] = $value;
-		}
-
-		/**
-		 * @param $name
-		 */
-		private function convertScalarToArray($name)
-		{
-			$this->flatParameterList[$name] = array($this->flatParameterList[$name]);
-		}
-
-		/**
-		 * @param $name
-		 *
-		 * @return bool
-		 */
-		private function isScalarValueConversionNeeded($name)
-		{
-			return !is_array($this->flatParameterList[$name]);
 		}
 
 		/**
@@ -375,9 +323,61 @@
 				$this->addScalarValue($namedValue->name, $namedValue->value);
 		}
 
-		private function convertPairsToList()
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		private function isNameAlreadyExists($name)
 		{
-			foreach ($this->pairs as $pair)
-				$this->addNamedValue($this->createNamedValueFromNameValueString($pair));
+			return isset($this->flatParameterList[$name]);
+		}
+
+		/**
+		 * @param $name
+		 * @param $value
+		 */
+		private function addArrayValue($name, $value)
+		{
+			if ($this->isScalarValueConversionNeeded($name))
+				$this->convertScalarToArray($name);
+
+			$this->addValueToArray($name, $value);
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		private function isScalarValueConversionNeeded($name)
+		{
+			return !is_array($this->flatParameterList[$name]);
+		}
+
+		/**
+		 * @param $name
+		 */
+		private function convertScalarToArray($name)
+		{
+			$this->flatParameterList[$name] = array($this->flatParameterList[$name]);
+		}
+
+		/**
+		 * @param $name
+		 * @param $value
+		 */
+		private function addValueToArray($name, $value)
+		{
+			$this->flatParameterList[$name][] = $value;
+		}
+
+		/**
+		 * @param $name
+		 * @param $value
+		 */
+		private function addScalarValue($name, $value)
+		{
+			$this->flatParameterList[$name] = $value;
 		}
 	}

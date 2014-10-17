@@ -20,4 +20,6 @@
 		 * @return string
 		 */
 		function getFileContent($filename);
+
+		function setFileContent($filename, $content);
 	}

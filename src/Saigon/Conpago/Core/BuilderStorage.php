@@ -9,6 +9,8 @@
 	namespace Saigon\Conpago\Core;
 
 	use Saigon\Conpago\DI\IContainerBuilderStorage;
+	use Saigon\Conpago\Helpers\Contract\IAppPath;
+	use Saigon\Conpago\Helpers\Contract\IFileSystem;
 
 	class BuilderStorage implements IContainerBuilderStorage
 	{
@@ -17,18 +19,22 @@
 		 * @var string
 		 */
 		private $fileName;
+		/**
+		 * @var IFileSystem
+		 */
+		private $filesystem;
 
 		/**
-		 * @param string $appRootPath
+		 * @param IFileSystem $filesystem
+		 * @param IAppPath $appPath
 		 * @param string $contextName
-		 *
-		 * @internal param string $fileName
 		 */
-		function __construct($appRootPath, $contextName)
+		function __construct(IFileSystem $filesystem, IAppPath $appPath, $contextName)
 		{
+			$this->filesystem = $filesystem;
 			$this->fileName = implode(DIRECTORY_SEPARATOR,
 				array(
-					$appRootPath,
+					$appPath->root(),
 					'tmp',
 					'persistent',
 					$contextName . 'Container'
@@ -39,13 +45,13 @@
 		{
 			$results = print_r($configuration, true);
 
-			$results = "<?php\r\nreturn " . str_replace("    ", "\t", $results);
+			$results = "<?php".PHP_EOL."return " . str_replace("    ", "\t", $results);
 
-			file_put_contents($this->fileName, $results);
+			$this->filesystem->setFileContent($this->fileName, $results);
 		}
 
 		function getConfiguration()
 		{
-			return include $this->fileName;
+			return $this->filesystem->includeFile($this->fileName);
 		}
 	}

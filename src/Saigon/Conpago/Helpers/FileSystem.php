@@ -29,12 +29,13 @@
 			return realpath($path);
 		}
 
-		/**
-		 * @param string $filename
-		 * @return string
-		 */
 		function getFileContent($filename)
 		{
 			return file_get_contents($filename);
+		}
+
+		function setFileContent($filename, $data)
+		{
+			file_put_contents($filename, $data);
 		}
 	}
