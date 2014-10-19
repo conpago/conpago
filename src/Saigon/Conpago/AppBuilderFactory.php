@@ -28,8 +28,24 @@
 			$containerBuilder = new ContainerBuilder();
 			$appPath = new AppPath($fileSystem, $appRootPath);
 			$storage = new BuilderStorage($fileSystem, $appPath, $contextName);
-			$containerBuilderPersister = new ContainerBuilderPersister($storage);
 
-			return new AppBuilder($fileSystem, $appPath, $containerBuilder, $containerBuilderPersister, $contextName);
+			return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
+		}
+
+	/**
+	 * @param string $contextName
+	 * @param string $appRootPath
+	 *
+	 * @return AppBuilder
+	 */
+		function createAppBuilderFromPersisted($contextName, $appRootPath)
+		{
+			$fileSystem = new FileSystem();
+			$appPath = new AppPath($fileSystem, $appRootPath);
+			$storage = new BuilderStorage($fileSystem, $appPath, $contextName);
+			$containerBuilderPersister = new ContainerBuilderPersister($storage);
+			$containerBuilder = $containerBuilderPersister->loadContainerBuilder();
+
+			return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
 		}
 	}

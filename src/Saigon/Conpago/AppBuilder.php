@@ -10,27 +10,15 @@
 
 	use Saigon\Conpago\DI\IContainer;
 	use Saigon\Conpago\DI\IContainerBuilder;
-	use Saigon\Conpago\DI\IContainerBuilderPersister;
-	use Saigon\Conpago\DI\IPersistableContainerBuilder;
 	use Saigon\Conpago\Helpers\Contract\IAppPath;
 	use Saigon\Conpago\Helpers\Contract\IFileSystem;
 
 	class AppBuilder
 	{
 		/**
-		 * @var IContainerBuilderPersister
-		 */
-		private $persister;
-
-		/**
 		 * @var IAppPath
 		 */
-		protected $appRoot;
-
-		/**
-		 * @var IPersistableContainerBuilder
-		 */
-		protected $builder;
+		protected $appPath;
 
 		/**
 		 * @var IContainer
@@ -53,23 +41,21 @@
 
 		/**
 		 * @param IFileSystem $fileSystem
-		 * @param IAppPath $appRoot
+		 * @param IAppPath $appPath
 		 * @param IContainerBuilder $containerBuilder
 		 * @param IContainerBuilderPersister $persister
 		 * @param string $contextName
 		 */
 		public function __construct(
 			IFileSystem $fileSystem,
-			IAppPath $appRoot,
+			IAppPath $appPath,
 			IContainerBuilder $containerBuilder,
-			IContainerBuilderPersister $persister,
 			$contextName)
 		{
-			$this->appRoot = $appRoot;
+			$this->appPath = $appPath;
 			$this->contextName = $contextName;
 			$this->fileSystem = $fileSystem;
 			$this->containerBuilder = $containerBuilder;
-			$this->persister = $persister;
 		}
 
 		/**
@@ -79,29 +65,15 @@
 		{
 			if (!$this->container)
 			{
-				$this->container = $this->builder->build();
+				$this->container = $this->containerBuilder->build();
 			}
 
 			return $this->container;
 		}
 
-		protected function getBuilder()
-		{
-			return $this->containerBuilder;
-		}
-
-		private function getFileName($filePath)
-		{
-			$filePathArray = explode(DIRECTORY_SEPARATOR, $filePath);
-
-			return array_pop($filePathArray);
-		}
-
 		private function getClassName($filePath)
 		{
-			$fileName = $this->getFileName($filePath);
-
-			return substr($fileName, 0, strlen($fileName) - strlen('.php'));
+			return basename($filePath, '.php');
 		}
 
 		protected function loadModules()
@@ -121,7 +93,7 @@
 
 				/** @var \Saigon\Conpago\IModule $class */
 				$class = new $className();
-				$class->build($this->builder);
+				$class->build($this->containerBuilder);
 			}
 		}
 
@@ -136,12 +108,7 @@
 		protected function loadAdditionalModules()
 		{
 			foreach ($this->additionalModules as $additionalModule)
-				$additionalModule->build($this->builder);
-		}
-
-		protected function initializeContainer()
-		{
-			$this->builder = $this->getBuilder();
+				$additionalModule->build($this->containerBuilder);
 		}
 
 		public function buildApp()
@@ -164,7 +131,7 @@
 		private function registerFileSystem()
 		{
 			$this
-				->builder
+				->containerBuilder
 				->registerInstance($this->fileSystem)
 				->asA('Saigon\Conpago\Helpers\IFileSystem');
 		}
@@ -172,18 +139,8 @@
 		private function registerAppPath()
 		{
 			$this
-				->builder
-				->registerInstance($this->appRoot)
+				->containerBuilder
+				->registerInstance($this->appPath)
 				->asA('Saigon\Conpago\IAppPath');
-		}
-
-		public function persistApp()
-		{
-			$this->persister->saveContainerBuilder($this->builder);
-		}
-
-		public function readPersistedApp()
-		{
-			$this->builder = $this->persister->loadContainerBuilder();
 		}
 	}
