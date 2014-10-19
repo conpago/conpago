@@ -14,6 +14,8 @@
 		function includeFile($filePath);
 		function glob($pattern);
 		function realPath($path);
+		function requireOnce($filePath);
+		function requireFile($filePath);
 
 		/**
 		 * @param string $filename

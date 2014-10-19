@@ -9,7 +9,7 @@
 	namespace Saigon\Conpago\Core;
 
 	use Saigon\Conpago\Commands\Contract\ICommand;
-	use Saigon\Conpago\DI\Factory;
+	use Saigon\Conpago\DI\IFactory;
 	use Saigon\Conpago\Exceptions\CommandNotFoundException;
 	use Saigon\Conpago\Helpers\Contract\IArgs;
 	use Saigon\Conpago\IApp;
@@ -17,7 +17,7 @@
 	class ConsoleApp implements IApp
 	{
 		/**
-		 * @var Factory[]
+		 * @var IFactory[]
 		 */
 		private $commands;
 		/**
@@ -26,7 +26,7 @@
 		private $args;
 
 		/**
-		 * @param Factory[] $commands
+		 * @param IFactory[] $commands
 		 * @param IArgs $args
 		 *
 		 * @inject Factory<\Saigon\Conpago\ICommand> $commands
@@ -44,9 +44,7 @@
 			$commandName = $arguments[0];
 
 			if (!array_key_exists($commandName, $this->commands))
-			{
 				throw new CommandNotFoundException("Command '".$commandName."' not found.");
-			}
 
 			/** @var Factory $commandFactory */
 			$commandFactory = $this->commands[$commandName];

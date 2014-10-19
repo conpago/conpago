@@ -9,7 +9,8 @@
 	namespace Saigon\Conpago\Core;
 
 	use Saigon\Conpago\Config\Contract\IAppConfig;
-	use Saigon\Conpago\DI\Factory;
+	use Saigon\Conpago\DI\IFactory;
+	use Saigon\Conpago\Exceptions\ControllerNotFoundException;
 	use Saigon\Conpago\Helpers\Contract\IRequestDataReader;
 	use Saigon\Conpago\Presentation\Contract\IController;
 	use Saigon\Conpago\Presentation\Contract\IControllerResolver;
@@ -24,7 +25,7 @@
 		/**
 		 * @param IRequestDataReader $requestDataReader
 		 * @param IAppConfig $appConfig
-		 * @param Factory[] $controllerFactories
+		 * @param IFactory[] $controllerFactories
 		 *
 		 * @inject Factory <\Saigon\Conpago\IController> $controllerFactories
 		 */
@@ -41,11 +42,16 @@
 		public function getController()
 		{
 			$params = $this->requestDataReader->getRequestData()->getParameters();
-			$useCaseName = isset($params['use_case'])
-				? $params['use_case']
-				: $this->appConfig->getDefaultUseCase();
+			$controllerName = isset($params['interactor'])
+				? $params['interactor']
+				: $this->appConfig->getDefaultInteractor();
 
-			return $this->controllerFactories[$useCaseName.'Controller']->createInstance();
+			$controllerArrayKey = $controllerName . 'Controller';
+
+			if (!array_key_exists($controllerArrayKey, $this->controllerFactories))
+				throw new ControllerNotFoundException('Controller \''.$controllerName.'\' not found.');
+
+			return $this->controllerFactories[$controllerArrayKey]->createInstance();
 		}
 
 		/**

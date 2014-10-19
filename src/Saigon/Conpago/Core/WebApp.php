@@ -9,6 +9,7 @@
 	namespace Saigon\Conpago\Core;
 
 	use Saigon\Conpago\Helpers\Contract\IRequestDataReader;
+	use Saigon\Conpago\Helpers\Contract\IResponse;
 	use Saigon\Conpago\IApp;
 	use Saigon\Conpago\Presentation\Contract\IController;
 
@@ -23,11 +24,16 @@
 		 * @var IRequestDataReader
 		 */
 		private $requestDataReader;
+		/**
+		 * @var IResponse
+		 */
+		private $response;
 
-		public function __construct(IRequestDataReader $requestDataReader, IController $controller)
+		public function __construct(IRequestDataReader $requestDataReader, IController $controller, IResponse $response)
 		{
 			$this->requestDataReader = $requestDataReader;
 			$this->controller = $controller;
+			$this->response = $response;
 		}
 
 		/**
@@ -41,7 +47,7 @@
 			}
 			catch (\Exception $e)
 			{
-				http_response_code(500);
+				$this->response->setHttpResponseCode(500);
 			}
 		}
 

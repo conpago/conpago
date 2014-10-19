@@ -38,4 +38,14 @@
 		{
 			file_put_contents($filename, $data);
 		}
+
+		function requireOnce($filePath)
+		{
+			require_once $filePath;
+		}
+
+		function requireFile($filePath)
+		{
+			require $filePath;
+		}
 	}

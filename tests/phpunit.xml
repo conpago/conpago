@@ -31,6 +31,8 @@
         <directory suffix=".php">../src</directory>
         <exclude>
             <file>../src/Saigon/Conpago/Helpers/FileSystem.php</file>
+            <file>../src/Saigon/Conpago/Core/TimeService.php</file>
+            <file>../src/Saigon/Conpago/Helpers/Response.php</file>
         </exclude>
     </whitelist>
     </filter>

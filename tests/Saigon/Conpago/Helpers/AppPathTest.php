@@ -106,5 +106,14 @@
 		{
 			throw new \Exception('Not implemented!');
 		}
+
+		function requireOnce($filePath)
+		{
+			throw new \Exception('Not implemented!');
+		}
+
+		function requireFile($filePath)
+		{
+			throw new \Exception('Not implemented!');
+		}
 	}
- 
