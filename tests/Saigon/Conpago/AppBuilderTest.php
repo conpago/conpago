@@ -18,6 +18,7 @@
 		private $appPath;
 
 		private $containerBuilder;
+		private $xModulePath;
 
 		/**
 		 * @var AppBuilder
@@ -35,7 +36,7 @@
 		function testAppBuilderBuildAppWithoutModules()
 		{
 			$this->fileSystem->expects($this->any())
-				->method('glob')->with('\src\xModule.php')->willReturn(array());
+				->method('glob')->with($this->xModulePath)->willReturn(array());
 
 			$this->setContainerBuilderMocks();
 
@@ -75,6 +76,7 @@
 
 		protected function setUp()
 		{
+			$this->xModulePath = DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'xModule.php';
 			$this->fileSystem = $this->getMock('Saigon\Conpago\Helpers\Contract\IFileSystem');
 			$this->appPath = $this->getMock('Saigon\Conpago\Helpers\Contract\IAppPath');
 			$this->containerBuilder = $this->getMock('Saigon\Conpago\DI\IContainerBuilder');
@@ -104,14 +106,14 @@
 		protected function setModuleMocks()
 		{
 			$this->fileSystem->expects($this->any())
-				->method('glob')->with('\src\xModule.php')->willReturn(array('\src\xModule.php'));
+				->method('glob')->with($this->xModulePath)->willReturn(array($this->xModulePath));
 
 			$module = $this->getMock('Saigon\Conpago\IModule');
 			$module->expects($this->once())->method('build')->with($this->containerBuilder);
 
 			$this->fileSystem->expects($this->once())
 				->method('loadClass')
-				->with('\src\xModule.php')
+				->with($this->xModulePath)
 				->willReturn($module);
 		}
 	}
