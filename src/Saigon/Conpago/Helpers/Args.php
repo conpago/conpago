@@ -13,57 +13,29 @@
 
 	class Args implements IArgs
 	{
-		private $options;
-		private $arguments;
-		private $script;
 		/** @var ServerAccessor */
 		private $server;
 
+		private $argv;
+
 		public function __construct(ServerAccessor $serverAccessor)
 		{
-			$this->options = array();
-			$this->arguments = array();
 			$this->server = $serverAccessor;
 
 			if (!$this->server->contains('argv'))
-			{
 				return;
-			}
 
-			$option = null;
-			$first = true;
-			$argv = $this->server->getValue('argv');
-			foreach ($argv as $arg)
-			{
-				if ($first == true)
-				{
-					$this->script = $arg;
-					$first = false;
-				}
-				elseif ($option != null)
-				{
-					$this->options[$option] = $arg;
-					$option = null;
-				}
-				elseif ($this->isOption($arg))
-				{
-					$option = $this->option($arg);
-				}
-				else
-				{
-					$this->arguments[] = $arg;
-				}
-			}
+			$this->argv = $this->parseArgv();
 		}
 
 		public function getArguments()
 		{
-			return $this->arguments;
+			return $this->argv->arguments;
 		}
 
 		public function getScript()
 		{
-			return $this->script;
+			return $this->argv->script;
 		}
 
 		/**
@@ -73,7 +45,7 @@
 		 */
 		public function getOption($option)
 		{
-			return $this->options[$option];
+			return $this->argv->options[$option];
 		}
 
 		/**
@@ -83,7 +55,54 @@
 		 */
 		public function hasOption($option)
 		{
-			return array_key_exists($option, $this->options);
+			return array_key_exists($option, $this->argv->options);
+		}
+
+		protected function parseArgv()
+		{
+			$argv = $this->server->getValue('argv');
+
+			$argvParser = new ArgvParser($argv);
+			return $argvParser->parse();
+		}
+	}
+
+	class ArgvParser
+	{
+		private $argv;
+
+		function __construct(array $argv)
+		{
+			$this->argv = $argv;
+		}
+
+		function parse()
+		{
+			$result = new Argv();
+			$option = null;
+			$first = true;
+			foreach ($this->argv as $arg) {
+				if ($first == true) {
+					$result->script = $arg;
+					$first = false;
+					continue;
+				}
+
+				if ($option != null) {
+					$result->options[$option] = $arg;
+					$option = null;
+					continue;
+				}
+
+				if ($this->isOption($arg)) {
+					$option = $this->option($arg);
+					continue;
+				}
+
+				$result->arguments[] = $arg;
+			}
+
+			return $result;
 		}
 
 		private function isOption($arg)
@@ -95,4 +114,17 @@
 		{
 			return substr($arg, 1);
 		}
+	}
+
+	class Argv
+	{
+		function __construct()
+		{
+			$this->options = array();
+			$this->arguments = array();
+		}
+
+		public $options;
+		public $arguments;
+		public $script;
 	}
