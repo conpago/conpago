@@ -10,13 +10,23 @@
 
 	interface IAppPath
 	{
-		public function root($real = false);
+		public function realRoot();
 
-		public function config($real = false);
+		public function realConfig();
 
-		public function cache($real = false);
+		public function realCache();
 
-		public function templates($real = false);
+		public function realTemplates();
 
-		public function source($real = false);
+		public function realSource();
+
+		public function root();
+
+		public function config();
+
+		public function cache();
+
+		public function templates();
+
+		public function source();
 	}

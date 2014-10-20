@@ -118,8 +118,18 @@
 		 */
 		private function extractParameters($body)
 		{
-			$parametersExtractor = ParametersExtractor::getExtractor($this->contentType, $body);
+			$parametersExtractor = $this->getExtractor($this->contentType, $body);
 			return $parametersExtractor->getParameters();
+		}
+
+		function getExtractor($contentType, $body)
+		{
+			switch ($contentType)
+			{
+				case "application/json": return new JsonParametersExtractor($body);
+				case "application/x-www-form-urlencoded": return new FormParametersExtractor($body);
+				default: throw new \BadMethodCallException();
+			}
 		}
 
 		/**
@@ -143,16 +153,6 @@
 
 	abstract class ParametersExtractor
 	{
-		static function getExtractor($contentType, $body)
-		{
-			switch ($contentType)
-			{
-				case "application/json": return new JsonParametersExtractor($body);
-				case "application/x-www-form-urlencoded": return new FormParametersExtractor($body);
-				default: throw new \BadMethodCallException();
-			}
-		}
-
 		protected $body;
 
 		function __construct($body){
@@ -172,13 +172,13 @@
 		 */
 		function getParameters()
 		{
-			$body_params = json_decode($this->body, true);
-			if (!$body_params)
+			$bodyParams = json_decode($this->body, true);
+			if (!$bodyParams)
 				return array();
 
 			$parameters = array();
-			foreach ($body_params as $param_name => $param_value)
-				$parameters[$param_name] = $param_value;
+			foreach ($bodyParams as $paramName => $paramValue)
+				$parameters[$paramName] = $paramValue;
 
 			return $parameters;
 		}
@@ -340,9 +340,9 @@
 		private function addArrayValue($name, $value)
 		{
 			if ($this->isScalarValueConversionNeeded($name))
-				$this->convertScalarToArray($name);
+				$this->flatParameterList[$name] = array($this->flatParameterList[$name]);
 
-			$this->addValueToArray($name, $value);
+			$this->flatParameterList[$name][] = $value;
 		}
 
 		/**
@@ -353,23 +353,6 @@
 		private function isScalarValueConversionNeeded($name)
 		{
 			return !is_array($this->flatParameterList[$name]);
-		}
-
-		/**
-		 * @param $name
-		 */
-		private function convertScalarToArray($name)
-		{
-			$this->flatParameterList[$name] = array($this->flatParameterList[$name]);
-		}
-
-		/**
-		 * @param $name
-		 * @param $value
-		 */
-		private function addValueToArray($name, $value)
-		{
-			$this->flatParameterList[$name][] = $value;
 		}
 
 		/**

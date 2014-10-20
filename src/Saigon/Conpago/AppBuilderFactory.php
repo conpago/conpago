@@ -27,7 +27,6 @@
 			$fileSystem = new FileSystem();
 			$containerBuilder = new ContainerBuilder();
 			$appPath = new AppPath($fileSystem, $appRootPath);
-			$storage = new BuilderStorage($fileSystem, $appPath, $contextName);
 
 			return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
 		}
@@ -39,11 +38,11 @@
 		 *
 		 * @return AppBuilder
 		 */
-		function createAppBuilderFromPersisted(IContainerBuilderPersister $containerBuilderPersister, $contextName, $appRootPath)
+		function createAppBuilderFromPersisted(IContainerBuilderPersister $persister, $contextName, $appRootPath)
 		{
 			$fileSystem = new FileSystem();
 			$appPath = new AppPath($fileSystem, $appRootPath);
-			$containerBuilder = $containerBuilderPersister->loadContainerBuilder();
+			$containerBuilder = $persister->loadContainerBuilder();
 
 			return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
 		}

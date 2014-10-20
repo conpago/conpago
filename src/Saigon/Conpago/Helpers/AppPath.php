@@ -36,6 +36,11 @@
 			return $result;
 		}
 
+		private function getRealPath(array $elements)
+		{
+			return $this->fileSystem->realPath($$this->getPath($elements));
+		}
+
 		public function cache($real = false)
 		{
 			return $this->getPath($real, array(
@@ -74,4 +79,41 @@
 			));
 		}
 
+		public function realCache($real = false)
+		{
+			return $this->getRealPath($real, array(
+				$this->path,
+				"tmp",
+				"cache"
+			));
+		}
+
+		public function realConfig($real = false)
+		{
+			return $this->getRealPath($real, array(
+				$this->path,
+				"config"
+			));
+		}
+
+		public function realRoot($real = false)
+		{
+			return $this->getRealPath($real, array($this->path));
+		}
+
+		public function realTemplates($real = false)
+		{
+			return $this->getRealPath($real, array(
+				$this->path,
+				"templates"
+			));
+		}
+
+		public function realSource($real = false)
+		{
+			return $this->getRealPath($real, array(
+				$this->path,
+				"src"
+			));
+		}
 	}
