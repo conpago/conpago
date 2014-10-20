@@ -10,7 +10,7 @@
 
 	use Saigon\Conpago\Core\BuilderStorage;
 	use Saigon\Conpago\DI\ContainerBuilder;
-	use Saigon\Conpago\DI\ContainerBuilderPersister;
+	use Saigon\Conpago\DI\IContainerBuilderPersister;
 	use Saigon\Conpago\Helpers\AppPath;
 	use Saigon\Conpago\Helpers\FileSystem;
 
@@ -32,18 +32,17 @@
 			return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
 		}
 
-	/**
-	 * @param string $contextName
-	 * @param string $appRootPath
-	 *
-	 * @return AppBuilder
-	 */
-		function createAppBuilderFromPersisted($contextName, $appRootPath)
+		/**
+		 * @param IContainerBuilderPersister $containerBuilderPersister
+		 * @param string $contextName
+		 * @param string $appRootPath
+		 *
+		 * @return AppBuilder
+		 */
+		function createAppBuilderFromPersisted(IContainerBuilderPersister $containerBuilderPersister, $contextName, $appRootPath)
 		{
 			$fileSystem = new FileSystem();
 			$appPath = new AppPath($fileSystem, $appRootPath);
-			$storage = new BuilderStorage($fileSystem, $appPath, $contextName);
-			$containerBuilderPersister = new ContainerBuilderPersister($storage);
 			$containerBuilder = $containerBuilderPersister->loadContainerBuilder();
 
 			return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);

@@ -48,4 +48,15 @@
 		{
 			require $filePath;
 		}
+
+		private function getClassName($filePath)
+		{
+			return basename($filePath, '.php');
+		}
+
+		function loadClass($filePath)
+		{
+			$className = $this->getClassName($filePath);
+			return new $className();
+		}
 	}

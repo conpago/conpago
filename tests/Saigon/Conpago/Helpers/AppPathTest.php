@@ -116,4 +116,9 @@
 		{
 			throw new \Exception('Not implemented!');
 		}
+
+		function loadClass($className)
+		{
+			throw new \Exception('Not implemented!');
+		}
 	}

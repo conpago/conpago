@@ -43,7 +43,6 @@
 		 * @param IFileSystem $fileSystem
 		 * @param IAppPath $appPath
 		 * @param IContainerBuilder $containerBuilder
-		 * @param IContainerBuilderPersister $persister
 		 * @param string $contextName
 		 */
 		public function __construct(
@@ -64,16 +63,9 @@
 		public function getContainer()
 		{
 			if (!$this->container)
-			{
 				$this->container = $this->containerBuilder->build();
-			}
 
 			return $this->container;
-		}
-
-		private function getClassName($filePath)
-		{
-			return basename($filePath, '.php');
 		}
 
 		protected function loadModules()
@@ -87,12 +79,8 @@
 
 			foreach ($this->fileSystem->glob($moduleMask) as $filePath)
 			{
-				$this->fileSystem->requireOnce($filePath);
-
-				$className = $this->getClassName($filePath);
-
 				/** @var \Saigon\Conpago\IModule $class */
-				$class = new $className();
+				$class = $this->fileSystem->loadClass($filePath);
 				$class->build($this->containerBuilder);
 			}
 		}
@@ -113,7 +101,6 @@
 
 		public function buildApp()
 		{
-			$this->initializeContainer();
 			$this->registerFileSystem();
 			$this->registerAppPath();
 			$this->loadModules();

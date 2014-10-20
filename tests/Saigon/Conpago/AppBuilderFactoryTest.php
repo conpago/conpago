@@ -17,4 +17,17 @@
 
 			$this->assertNotNull($appBuilder);
 		}
+
+		public function testCreateAppBuilderFromPersisted()
+		{
+			$containerBuilder = $this->getMock('Saigon\Conpago\DI\IContainerBuilder');
+
+			$persister = $this->getMock('Saigon\Conpago\DI\IContainerBuilderPersister');
+			$persister->expects($this->once())->method('loadContainerBuilder')->willReturn($containerBuilder);
+
+			$appBuilderFactory = new AppBuilderFactory();
+			$appBuilder = $appBuilderFactory->createAppBuilderFromPersisted($persister, 'x', 'y');
+
+			$this->assertNotNull($appBuilder);
+		}
 	}

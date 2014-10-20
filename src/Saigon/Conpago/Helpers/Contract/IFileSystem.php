@@ -15,6 +15,7 @@
 		function glob($pattern);
 		function realPath($path);
 		function requireOnce($filePath);
+		function loadClass($filePath);
 		function requireFile($filePath);
 
 		/**
