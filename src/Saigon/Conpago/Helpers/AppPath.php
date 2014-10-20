@@ -26,14 +26,9 @@
 			$this->fileSystem = $fileSystem;
 		}
 
-		private function getPath($real, array $elements)
+		private function getPath(array $elements)
 		{
-			$result = implode(DIRECTORY_SEPARATOR, $elements);
-
-			if ($real)
-				$result = $this->fileSystem->realPath($result);
-
-			return $result;
+			return implode(DIRECTORY_SEPARATOR, $elements);
 		}
 
 		private function getRealPath(array $elements)
@@ -41,42 +36,50 @@
 			return $this->fileSystem->realPath($$this->getPath($elements));
 		}
 
-		public function cache($real = false)
+		public function cache()
 		{
-			return $this->getPath($real, array(
-				$this->path,
-				"tmp",
-				"cache"
-			));
+			return $this->getPath(
+					array(
+					$this->path,
+					"tmp",
+					"cache"
+				)
+			);
 		}
 
-		public function config($real = false)
+		public function config()
 		{
-			return $this->getPath($real, array(
-				$this->path,
-				"config"
-			));
+			return $this->getPath(
+				array(
+					$this->path,
+					"config"
+				)
+			);
 		}
 
-		public function root($real = false)
+		public function root()
 		{
-			return $this->getPath($real, array($this->path));
+			return $this->getPath(array($this->path));
 		}
 
-		public function templates($real = false)
+		public function templates()
 		{
-			return $this->getPath($real, array(
-				$this->path,
-				"templates"
-			));
+			return $this->getPath(
+				array(
+					$this->path,
+					"templates"
+				)
+			);
 		}
 
-		public function source($real = false)
+		public function source()
 		{
-			return $this->getPath($real, array(
-				$this->path,
-				"src"
-			));
+			return $this->getPath(
+				array(
+					$this->path,
+					"src"
+				)
+			);
 		}
 
 		public function realCache($real = false)
