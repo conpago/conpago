@@ -14,7 +14,12 @@
 	class AppPath implements IAppPath
 	{
 
-		protected $path;
+		protected $realPathElements;
+		protected $configPathElements;
+		protected $rootPathElements;
+		protected $templatesPathElements;
+		protected $sourcePathElements;
+
 		/**
 		 * @var IFileSystem
 		 */
@@ -22,8 +27,13 @@
 
 		public function __construct(IFileSystem $fileSystem, $path)
 		{
-			$this->path = $path;
 			$this->fileSystem = $fileSystem;
+
+			$this->sourcePathElements = array($path, "src");
+			$this->templatesPathElements = array($path, "templates");
+			$this->rootPathElements = array($path);
+			$this->configPathElements = array($path, "config" );
+			$this->realPathElements = array($path, "tmp", "cache");
 		}
 
 		private function getPath(array $elements)
@@ -33,90 +43,56 @@
 
 		private function getRealPath(array $elements)
 		{
-			return $this->fileSystem->realPath($$this->getPath($elements));
+			return $this->fileSystem->realPath($this->getPath($elements));
 		}
 
 		public function cache()
 		{
-			return $this->getPath(
-					array(
-					$this->path,
-					"tmp",
-					"cache"
-				)
-			);
+			return $this->getPath($this->realPathElements);
 		}
 
 		public function config()
 		{
-			return $this->getPath(
-				array(
-					$this->path,
-					"config"
-				)
-			);
+			return $this->getPath($this->configPathElements);
 		}
 
 		public function root()
 		{
-			return $this->getPath(array($this->path));
+			return $this->getPath($this->rootPathElements);
 		}
 
 		public function templates()
 		{
-			return $this->getPath(
-				array(
-					$this->path,
-					"templates"
-				)
-			);
+			return $this->getPath($this->templatesPathElements);
 		}
 
 		public function source()
 		{
-			return $this->getPath(
-				array(
-					$this->path,
-					"src"
-				)
-			);
+			return $this->getPath($this->sourcePathElements);
 		}
 
-		public function realCache($real = false)
+		public function realCache()
 		{
-			return $this->getRealPath($real, array(
-				$this->path,
-				"tmp",
-				"cache"
-			));
+			return $this->getRealPath($this->realPathElements);
 		}
 
-		public function realConfig($real = false)
+		public function realConfig()
 		{
-			return $this->getRealPath($real, array(
-				$this->path,
-				"config"
-			));
+			return $this->getRealPath($this->configPathElements);
 		}
 
-		public function realRoot($real = false)
+		public function realRoot()
 		{
-			return $this->getRealPath($real, array($this->path));
+			return $this->getRealPath($this->rootPathElements);
 		}
 
-		public function realTemplates($real = false)
+		public function realTemplates()
 		{
-			return $this->getRealPath($real, array(
-				$this->path,
-				"templates"
-			));
+			return $this->getRealPath($this->templatesPathElements);
 		}
 
-		public function realSource($real = false)
+		public function realSource()
 		{
-			return $this->getRealPath($real, array(
-				$this->path,
-				"src"
-			));
+			return $this->getRealPath($this->sourcePathElements);
 		}
 	}
