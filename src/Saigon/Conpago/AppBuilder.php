@@ -120,7 +120,7 @@
 			$this
 				->containerBuilder
 				->registerInstance($this->fileSystem)
-				->asA('Saigon\Conpago\Helpers\IFileSystem');
+				->asA('Saigon\Conpago\Helpers\Contract\IFileSystem');
 		}
 
 		private function registerAppPath()
@@ -128,6 +128,6 @@
 			$this
 				->containerBuilder
 				->registerInstance($this->appPath)
-				->asA('Saigon\Conpago\IAppPath');
+				->asA('Saigon\Conpago\Helpers\Contract\IAppPath');
 		}
 	}
