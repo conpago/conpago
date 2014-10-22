@@ -51,12 +51,30 @@
 
 		private function getClassName($filePath)
 		{
-			return basename($filePath, '.php');
+			$className = basename($filePath, '.php');
+			$namespace = $this->getNameSpace($filePath);
+
+			$classFullName = strlen($namespace) > 0
+				? '\\'.$namespace.'\\'.$className
+				: '\\'.$className;
+
+			return $classFullName;
+		}
+
+		private function getNameSpace($filePath)
+		{
+			$matches = array();
+			if (preg_match('/namespace (.+) *[\{;]{1}/', file_get_contents($filePath), $matches))
+				return $matches[1];
+
+			return '';
 		}
 
 		function loadClass($filePath)
 		{
 			$className = $this->getClassName($filePath);
+			$this->requireOnce($filePath);
+
 			return new $className();
 		}
 	}
