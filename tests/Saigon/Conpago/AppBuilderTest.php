@@ -19,6 +19,8 @@
 
 		private $containerBuilder;
 		private $xModulePath;
+		const APP_PATH_FULL_NAME = 'Saigon\Conpago\Helpers\Contract\IAppPath';
+		const FILE_SYSTEM_FULL_NAME = 'Saigon\Conpago\Helpers\Contract\IFileSystem';
 
 		/**
 		 * @var AppBuilder
@@ -77,8 +79,8 @@
 		protected function setUp()
 		{
 			$this->xModulePath = DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'xModule.php';
-			$this->fileSystem = $this->getMock('Saigon\Conpago\Helpers\Contract\IFileSystem');
-			$this->appPath = $this->getMock('Saigon\Conpago\Helpers\Contract\IAppPath');
+			$this->fileSystem = $this->getMock(self::FILE_SYSTEM_FULL_NAME);
+			$this->appPath = $this->getMock(self::APP_PATH_FULL_NAME);
 			$this->containerBuilder = $this->getMock('Saigon\Conpago\DI\IContainerBuilder');
 			$this->appBuilder = new AppBuilder($this->fileSystem, $this->appPath, $this->containerBuilder, 'x');
 		}
@@ -89,8 +91,8 @@
 			$instanceRegisterer->expects($this->exactly(2))
 				->method('asA')
 				->withConsecutive(
-					array($this->equalTo('Saigon\Conpago\Helpers\IFileSystem')),
-					array($this->equalTo('Saigon\Conpago\IAppPath'))
+					array($this->equalTo(self::FILE_SYSTEM_FULL_NAME)),
+					array($this->equalTo(self::APP_PATH_FULL_NAME))
 				);
 
 			$this->containerBuilder
