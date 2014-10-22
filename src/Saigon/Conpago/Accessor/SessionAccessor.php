@@ -36,4 +36,9 @@
 		{
 			return $_SESSION[$name];
 		}
+
+		public function setValue($name, $value)
+		{
+			$_SESSION[$name] = $value;
+		}
 	}

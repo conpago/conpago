@@ -33,4 +33,13 @@
 			$sessionAccessor = new SessionAccessor();
 			$this->assertEquals(self::KEY_VALUE, $sessionAccessor->getValue(self::KEY_NAME));
 		}
+
+		public function testSetValue()
+		{
+			$_SESSION = array();
+			$sessionAccessor = new SessionAccessor();
+			$sessionAccessor->setValue(self::KEY_NAME, self::KEY_VALUE);
+
+			$this->assertEquals(array(self::KEY_NAME => self::KEY_VALUE), $_SESSION);
+		}
 	}
