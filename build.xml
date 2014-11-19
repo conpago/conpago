@@ -172,5 +172,5 @@
 		</exec>
 	</target>
 
-	<target name="ci" depends="dev-update,test-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci" />
+	<target name="ci" depends="init,dev-update,test-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci" />
 </project>
