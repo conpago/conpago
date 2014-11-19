@@ -58,7 +58,7 @@
 			$this->setContainerBuilderMocks();
 			$this->setModuleMocks();
 
-			$additionalModule = $this->getMock('Saigon\Conpago\IModule');
+			$additionalModule = $this->getMock('Saigon\Conpago\DI\IModule');
 			$additionalModule->expects($this->once())->method('build')->with($this->containerBuilder);
 
 			$this->appBuilder->registerAdditionalModule($additionalModule);
@@ -110,7 +110,7 @@
 			$this->fileSystem->expects($this->any())
 				->method('glob')->with($this->xModulePath)->willReturn(array($this->xModulePath));
 
-			$module = $this->getMock('Saigon\Conpago\IModule');
+			$module = $this->getMock('Saigon\Conpago\DI\IModule');
 			$module->expects($this->once())->method('build')->with($this->containerBuilder);
 
 			$this->fileSystem->expects($this->once())

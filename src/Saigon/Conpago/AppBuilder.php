@@ -9,6 +9,7 @@
 	namespace Saigon\Conpago;
 
 	use Saigon\Conpago\DI\IContainer;
+	use Saigon\Conpago\DI\IModule;
 	use Saigon\Conpago\DI\IContainerBuilder;
 	use Saigon\Conpago\Helpers\Contract\IAppPath;
 	use Saigon\Conpago\Helpers\Contract\IFileSystem;
@@ -79,7 +80,7 @@
 
 			foreach ($this->fileSystem->glob($moduleMask) as $filePath)
 			{
-				/** @var \Saigon\Conpago\IModule $class */
+				/** @var IModule $class */
 				$class = $this->fileSystem->loadClass($filePath);
 				$class->build($this->containerBuilder);
 			}
