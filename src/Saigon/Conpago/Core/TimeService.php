@@ -9,7 +9,7 @@
 	namespace Saigon\Conpago\Core;
 
 	use DateTime;
-	use Saigon\Conpago\ITimeService;
+	use Saigon\Conpago\Contract\ITimeService;
 
 	class TimeService implements ITimeService
 	{

@@ -8,9 +8,9 @@
 
 	namespace Saigon\Conpago\Core;
 
+	use Saigon\Conpago\Contract\IApp;
 	use Saigon\Conpago\Helpers\Contract\IRequestDataReader;
 	use Saigon\Conpago\Helpers\Contract\IResponse;
-	use Saigon\Conpago\IApp;
 	use Saigon\Conpago\Presentation\Contract\IController;
 
 	class WebApp implements IApp

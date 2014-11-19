@@ -109,11 +109,11 @@
 		}
 
 		/**
-		 * @return \Saigon\Conpago\IApp;
+		 * @return \Saigon\Conpago\Contract\IApp;
 		 */
 		public function getApp()
 		{
-			return $this->getContainer()->resolve('Saigon\Conpago\IApp');
+			return $this->getContainer()->resolve('Saigon\Conpago\Contract\IApp');
 		}
 
 		private function registerFileSystem()

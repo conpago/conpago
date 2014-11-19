@@ -67,11 +67,11 @@
 
 		function testAppBuilderBuildGetApp()
 		{
-			$app = $this->getMock('Saigon\Conpago\IApp');
+			$app = $this->getMock('Saigon\Conpago\Contract\IApp');
 			$container = $this->getMock('Saigon\Conpago\DI\IContainer');
 			$this->containerBuilder->expects($this->once())->method('build')->willReturn($container);
 
-			$container->expects($this->once())->method('resolve')->with('Saigon\Conpago\IApp')->willReturn($app);
+			$container->expects($this->once())->method('resolve')->with('Saigon\Conpago\Contract\IApp')->willReturn($app);
 
 			$this->assertSame($app, $this->appBuilder->getApp());
 		}
@@ -119,4 +119,3 @@
 				->willReturn($module);
 		}
 	}
- 

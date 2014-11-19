@@ -14,17 +14,27 @@
 		{
 			"type": "hg",
 			"url": "http://scm.golek.biz/scm/hg/Conpago.DI"
+		},
+		{
+			"type": "hg",
+			"url": "http://scm.golek.biz/scm/hg/Conpago.Contract"
+		},
+		{
+			"type": "hg",
+			"url": "http://scm.golek.biz/scm/hg/Conpago.Utils"
 		}
 	],
 	"require": {
-		"saigon/conpago-di": "dev-master"
+		"saigon/conpago-di": "dev-master",
+		"saigon/conpago-utils": "dev-master",
+		"saigon/conpago-contract": "dev-master"
 	},
 	"require-dev": {
-		"pdepend/pdepend": "2.0.0",
-		"phpmd/phpmd": "2.0.0",
-		"squizlabs/php_codesniffer": "1.5.3",
-		"sebastian/phpcpd": "2.0.1",
-		"phpunit/phpunit": "4.1.1"
+		"pdepend/pdepend": "*",
+		"phpmd/phpmd": "*",
+		"squizlabs/php_codesniffer": "*",
+		"sebastian/phpcpd": "*",
+		"phpunit/phpunit": "4.*"
 	},
 	"autoload": {
 		"psr-0": {

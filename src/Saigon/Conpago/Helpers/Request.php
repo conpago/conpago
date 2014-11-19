@@ -10,7 +10,7 @@
 
 	use Saigon\Conpago\Helpers\Contract\IFileSystem;
 	use Saigon\Conpago\Helpers\Contract\IRequest;
-	use Saigon\Conpago\Accessor\ServerAccessor;
+	use Saigon\Conpago\Utils\ServerAccessor;
 
 	class Request implements IRequest
 	{

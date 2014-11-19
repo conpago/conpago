@@ -8,7 +8,6 @@
 
 	namespace Saigon\Conpago;
 
-	use Saigon\Conpago\Core\BuilderStorage;
 	use Saigon\Conpago\DI\ContainerBuilder;
 	use Saigon\Conpago\DI\IContainerBuilderPersister;
 	use Saigon\Conpago\Helpers\AppPath;

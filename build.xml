@@ -36,11 +36,11 @@
 	<target name="test">
 		<exec executable=".\vendor\bin\phpunit.bat" osfamily="windows" failonerror="true">
 			<arg value="-c"/>
-			<arg value="tests\phpunit.xml"/>
+			<arg value="phpunit.xml"/>
 		</exec>
 		<exec executable="./vendor/bin/phpunit" osfamily="unix" failonerror="true">
 			<arg value="-c"/>
-			<arg value="tests/phpunit.xml"/>
+			<arg value="phpunit.xml"/>
 		</exec>
 	</target>
 	<target name="test-ci">
@@ -52,7 +52,7 @@
 			<arg value="--coverage-clover"/>
 			<arg value="${build}\CodeCoverage\clover.xml"/>
 			<arg value="-c"/>
-			<arg value="tests\phpunit.xml"/>
+			<arg value="phpunit.xml"/>
 		</exec>
 		<exec executable="./vendor/bin/phpunit" osfamily="unix">
 			<arg value="--log-junit"/>
@@ -62,7 +62,7 @@
 			<arg value="--coverage-clover"/>
 			<arg value="${build}/CodeCoverage/clover.xml"/>
 			<arg value="-c"/>
-			<arg value="./tests/phpunit.xml"/>
+			<arg value="./phpunit.xml"/>
 		</exec>
 	</target>
 

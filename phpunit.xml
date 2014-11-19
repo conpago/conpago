@@ -22,17 +22,17 @@
 
     <testsuites>
         <testsuite name="AllTests">
-            <directory>.</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-        <directory suffix=".php">../src</directory>
+        <directory suffix=".php">src</directory>
         <exclude>
-            <file>../src/Saigon/Conpago/Helpers/FileSystem.php</file>
-            <file>../src/Saigon/Conpago/Core/TimeService.php</file>
-            <file>../src/Saigon/Conpago/Helpers/Response.php</file>
+            <file>src/Saigon/Conpago/Helpers/FileSystem.php</file>
+            <file>src/Saigon/Conpago/Core/TimeService.php</file>
+            <file>src/Saigon/Conpago/Helpers/Response.php</file>
         </exclude>
     </whitelist>
     </filter>

@@ -12,7 +12,7 @@
 	use Saigon\Conpago\DI\IFactory;
 	use Saigon\Conpago\Exceptions\CommandNotFoundException;
 	use Saigon\Conpago\Helpers\Contract\IArgs;
-	use Saigon\Conpago\IApp;
+	use Saigon\Conpago\Contract\IApp;
 
 	class ConsoleApp implements IApp
 	{

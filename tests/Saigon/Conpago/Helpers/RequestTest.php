@@ -13,7 +13,7 @@
 	{
 
 		function testGetQueryString(){
-			$this->serverAccessor = $this->getMock('Saigon\Conpago\Accessor\ServerAccessor');
+			$this->serverAccessor = $this->getMock('Saigon\Conpago\Utils\ServerAccessor');
 			$this->serverAccessor->expects($this->any())->method('contains')->with('QUERY_STRING')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('QUERY_STRING')->willReturn('QueryString');
 
@@ -25,7 +25,7 @@
 		}
 
 		function testGetPathInfo(){
-			$this->serverAccessor = $this->getMock('Saigon\Conpago\Accessor\ServerAccessor');
+			$this->serverAccessor = $this->getMock('Saigon\Conpago\Utils\ServerAccessor');
 			$this->serverAccessor->expects($this->any())->method('contains')->with('PATH_INFO')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('PATH_INFO')->willReturn('PathInfo');
 
@@ -37,7 +37,7 @@
 		}
 
 		function testGetRequestMethod(){
-			$this->serverAccessor = $this->getMock('Saigon\Conpago\Accessor\ServerAccessor');
+			$this->serverAccessor = $this->getMock('Saigon\Conpago\Utils\ServerAccessor');
 			$this->serverAccessor->expects($this->any())->method('contains')->with('REQUEST_METHOD')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('REQUEST_METHOD')->willReturn('RequestMethod');
 
@@ -49,7 +49,7 @@
 		}
 
 		function testGetContentType(){
-			$this->serverAccessor = $this->getMock('Saigon\Conpago\Accessor\ServerAccessor');
+			$this->serverAccessor = $this->getMock('Saigon\Conpago\Utils\ServerAccessor');
 			$this->serverAccessor->expects($this->any())->method('contains')->with('CONTENT_TYPE')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('CONTENT_TYPE')->willReturn('ContentType');
 
@@ -61,7 +61,7 @@
 		}
 
 		function testGetBody(){
-			$this->serverAccessor = $this->getMock('Saigon\Conpago\Accessor\ServerAccessor');
+			$this->serverAccessor = $this->getMock('Saigon\Conpago\Utils\ServerAccessor');
 
 			$this->fileSystem = $this->getMock('Saigon\Conpago\Helpers\Contract\IFileSystem');
 			$this->fileSystem->expects($this->any())->method('getFileContent')->willReturn('body');
@@ -71,4 +71,3 @@
 			$this->assertEquals('body', $this->request->getBody());
 		}
 	}
- 

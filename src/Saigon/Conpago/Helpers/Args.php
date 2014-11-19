@@ -8,8 +8,8 @@
 
 	namespace Saigon\Conpago\Helpers;
 
-	use Saigon\Conpago\Accessor\ServerAccessor;
 	use Saigon\Conpago\Helpers\Contract\IArgs;
+	use Saigon\Conpago\Utils\ServerAccessor;
 
 	class Args implements IArgs
 	{

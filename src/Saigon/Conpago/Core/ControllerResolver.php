@@ -55,7 +55,7 @@
 		}
 
 		/**
-		 * @var Factory[]
+		 * @var IFactory[]
 		 */
 		protected $controllerFactories;
 
