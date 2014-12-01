@@ -12,10 +12,12 @@
 
 	class ColumnUniqueConstraintException extends Exception
 	{
-
-		function __construct($columnName = null, \Exception $innerException)
+		/**
+		 * @param null $columnName
+		 * @param \Exception $innerException
+		 */
+		function __construct($columnName = null, \Exception $innerException = null)
 		{
-
 			$this->columnName = $columnName;
 			$this->innerException = $innerException;
 		}
