@@ -43,7 +43,7 @@
 		{
 			try
 			{
-				$this->executeController($this->getRequestData());
+				$this->executeController();
 			}
 			catch (\Exception $e)
 			{
