@@ -16,7 +16,6 @@
         stopOnIncomplete="false"
         stopOnSkipped="false"
 
-        strict="false"
         verbose="false"
      >
 

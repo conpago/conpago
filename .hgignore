@@ -4,3 +4,4 @@ tmp
 vendor
 .idea
 build
+composer.lock
