@@ -1,8 +1,9 @@
 {
 	"name": "saigon/conpago",
-	"description": "Conpago",
+	"description": "Conpago: Clean application framework.",
 	"version": "0.0.1-alpha",
 	"type": "library",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Bartosz Gołek",
@@ -10,24 +11,10 @@
 			"homepage": "http://bartosz.golek.biz"
 		}
 	],
-	"repositories": [
-		{
-			"type": "hg",
-			"url": "http://scm.golek.biz/scm/hg/Conpago.DI"
-		},
-		{
-			"type": "hg",
-			"url": "http://scm.golek.biz/scm/hg/Conpago.Contract"
-		},
-		{
-			"type": "hg",
-			"url": "http://scm.golek.biz/scm/hg/Conpago.Utils"
-		}
-	],
 	"require": {
-		"saigon/conpago-di": "dev-master",
-		"saigon/conpago-utils": "dev-master",
-		"saigon/conpago-contract": "dev-master"
+		"saigon/conpago-di": "dev-default",
+		"saigon/conpago-utils": "dev-default",
+		"saigon/conpago-contract": "dev-default"
 	},
 	"require-dev": {
 		"pdepend/pdepend": "*",

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="Conpago" default="build" basedir=".">
-	<description>Conpago</description>
+	<description>Conpago: Clean application framework.</description>
 
 	<property name="src" location="src"/>
 	<property name="lib" location="lib"/>
