@@ -15,20 +15,20 @@
 
 	<target name="update" description="update composer packages">
 		<exec executable="composer.bat" osfamily="windows" failonerror="true">
+			<arg value="--no-dev"/>
 			<arg value="update"/>
 		</exec>
 		<exec executable="composer" osfamily="unix" failonerror="true">
+			<arg value="--no-dev"/>
 			<arg value="update"/>
 		</exec>
 	</target>
 
 	<target name="dev-update" description="update composer packages">
 		<exec executable="composer.bat" osfamily="windows" failonerror="true">
-			<arg value="--dev"/>
 			<arg value="update"/>
 		</exec>
 		<exec executable="composer" osfamily="unix" failonerror="true">
-			<arg value="--dev"/>
 			<arg value="update"/>
 		</exec>
 	</target>
