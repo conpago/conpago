@@ -6,7 +6,7 @@
  * Time: 23:27
  */
 
-namespace Saigon\Conpago\Exceptions;
+namespace Conpago\Exceptions;
 
 
 class ControllerNotFoundException extends Exception {

@@ -6,7 +6,7 @@
 	 * Time: 22:04
 	 */
 
-	namespace Saigon\Conpago\Exceptions;
+	namespace Conpago\Exceptions;
 
 	class HttpException extends Exception
 	{

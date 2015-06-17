@@ -6,7 +6,7 @@
 	 * Time: 22:58
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
 
 	class AppMaskTest extends \PHPUnit_Framework_TestCase
@@ -21,7 +21,7 @@
 
 		protected function setUp()
 		{
-			$this->appPath = $this->getMock('Saigon\Conpago\Helpers\Contract\IAppPath');
+			$this->appPath = $this->getMock('Conpago\Helpers\Contract\IAppPath');
 			$this->appPath->expects($this->any())->method('source')->willReturn(self::SRC);
 			$this->appPath->expects($this->any())->method('config')->willReturn(self::CONFIG);
 

@@ -6,15 +6,15 @@
 	 * Time: 08:10
 	 */
 
-	namespace Saigon\Conpago\Core;
+	namespace Conpago\Core;
 
 
 	class BuilderStorageTest extends \PHPUnit_Framework_TestCase
 	{
 		function testGetConfiguration()
 		{
-			$fileSystem = $this->getMock('Saigon\Conpago\Helpers\Contract\IFileSystem');
-			$appPath = $this->getMock('Saigon\Conpago\Helpers\Contract\IAppPath');
+			$fileSystem = $this->getMock('Conpago\Helpers\Contract\IFileSystem');
+			$appPath = $this->getMock('Conpago\Helpers\Contract\IAppPath');
 			$appPath->expects($this->any())->method('root')->willReturn('root');
 
 			$builderStorage = new BuilderStorage($fileSystem, $appPath, 'context');
@@ -29,8 +29,8 @@
 
 		function testSetConfiguration()
 		{
-			$fileSystem = $this->getMock('Saigon\Conpago\Helpers\Contract\IFileSystem');
-			$appPath = $this->getMock('Saigon\Conpago\Helpers\Contract\IAppPath');
+			$fileSystem = $this->getMock('Conpago\Helpers\Contract\IFileSystem');
+			$appPath = $this->getMock('Conpago\Helpers\Contract\IAppPath');
 			$appPath->expects($this->any())->method('root')->willReturn('root');
 
 			$builderStorage = new BuilderStorage($fileSystem, $appPath, 'context');

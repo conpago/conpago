@@ -6,10 +6,10 @@
 	 * Time: 20:20
 	 */
 
-	namespace Saigon\Conpago\Core;
+	namespace Conpago\Core;
 
 	use DateTime;
-	use Saigon\Conpago\Contract\ITimeService;
+	use Conpago\Contract\ITimeService;
 
 	class TimeService implements ITimeService
 	{

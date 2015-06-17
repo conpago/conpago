@@ -6,10 +6,10 @@
 	 * Time: 13:55
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
 
-	use Saigon\Conpago\Helpers\Contract\IFileSystem;
+	use Conpago\Helpers\Contract\IFileSystem;
 
 	class AppPathTest extends \PHPUnit_Framework_TestCase
 	{

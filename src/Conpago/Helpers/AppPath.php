@@ -6,10 +6,10 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
-	use Saigon\Conpago\Helpers\Contract\IAppPath;
-	use Saigon\Conpago\Helpers\Contract\IFileSystem;
+	use Conpago\Helpers\Contract\IAppPath;
+	use Conpago\Helpers\Contract\IFileSystem;
 
 	class AppPath implements IAppPath
 	{

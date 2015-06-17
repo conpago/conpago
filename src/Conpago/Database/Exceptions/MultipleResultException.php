@@ -6,9 +6,9 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Database\Exceptions;
+	namespace Conpago\Database\Exceptions;
 
-	use Saigon\Conpago\Exceptions\Exception;
+	use Conpago\Exceptions\Exception;
 
 	class MultipleResultException extends Exception
 	{

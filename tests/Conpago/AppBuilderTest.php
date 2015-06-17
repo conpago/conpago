@@ -6,10 +6,10 @@
 	 * Time: 08:11
 	 */
 
-	namespace Saigon\Conpago;
+	namespace Conpago;
 
 
-	use Saigon\Conpago\DI\IContainerBuilder;
+	use Conpago\DI\IContainerBuilder;
 
 	class AppBuilderTest extends \PHPUnit_Framework_TestCase
 	{
@@ -19,8 +19,8 @@
 
 		private $containerBuilder;
 		private $xModulePath;
-		const APP_PATH_FULL_NAME = 'Saigon\Conpago\Helpers\Contract\IAppPath';
-		const FILE_SYSTEM_FULL_NAME = 'Saigon\Conpago\Helpers\Contract\IFileSystem';
+		const APP_PATH_FULL_NAME = 'Conpago\Helpers\Contract\IAppPath';
+		const FILE_SYSTEM_FULL_NAME = 'Conpago\Helpers\Contract\IFileSystem';
 
 		/**
 		 * @var AppBuilder
@@ -29,7 +29,7 @@
 
 		function testAppBuilderGetContainer()
 		{
-			$container = $this->getMock('Saigon\Conpago\DI\IContainer');
+			$container = $this->getMock('Conpago\DI\IContainer');
 			$this->containerBuilder->expects($this->once())->method('build')->willReturn($container);
 
 			$this->assertSame($this->appBuilder->getContainer(), $this->appBuilder->getContainer());
@@ -58,7 +58,7 @@
 			$this->setContainerBuilderMocks();
 			$this->setModuleMocks();
 
-			$additionalModule = $this->getMock('Saigon\Conpago\DI\IModule');
+			$additionalModule = $this->getMock('Conpago\DI\IModule');
 			$additionalModule->expects($this->once())->method('build')->with($this->containerBuilder);
 
 			$this->appBuilder->registerAdditionalModule($additionalModule);
@@ -67,11 +67,11 @@
 
 		function testAppBuilderBuildGetApp()
 		{
-			$app = $this->getMock('Saigon\Conpago\Contract\IApp');
-			$container = $this->getMock('Saigon\Conpago\DI\IContainer');
+			$app = $this->getMock('Conpago\Contract\IApp');
+			$container = $this->getMock('Conpago\DI\IContainer');
 			$this->containerBuilder->expects($this->once())->method('build')->willReturn($container);
 
-			$container->expects($this->once())->method('resolve')->with('Saigon\Conpago\Contract\IApp')->willReturn($app);
+			$container->expects($this->once())->method('resolve')->with('Conpago\Contract\IApp')->willReturn($app);
 
 			$this->assertSame($app, $this->appBuilder->getApp());
 		}
@@ -81,13 +81,13 @@
 			$this->xModulePath = DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'xModule.php';
 			$this->fileSystem = $this->getMock(self::FILE_SYSTEM_FULL_NAME);
 			$this->appPath = $this->getMock(self::APP_PATH_FULL_NAME);
-			$this->containerBuilder = $this->getMock('Saigon\Conpago\DI\IContainerBuilder');
+			$this->containerBuilder = $this->getMock('Conpago\DI\IContainerBuilder');
 			$this->appBuilder = new AppBuilder($this->fileSystem, $this->appPath, $this->containerBuilder, 'x');
 		}
 
 		protected function setContainerBuilderMocks()
 		{
-			$instanceRegisterer = $this->getMock('Saigon\Conpago\DI\IInstanceRegisterer');
+			$instanceRegisterer = $this->getMock('Conpago\DI\IInstanceRegisterer');
 			$instanceRegisterer->expects($this->exactly(2))
 				->method('asA')
 				->withConsecutive(
@@ -110,7 +110,7 @@
 			$this->fileSystem->expects($this->any())
 				->method('glob')->with($this->xModulePath)->willReturn(array($this->xModulePath));
 
-			$module = $this->getMock('Saigon\Conpago\DI\IModule');
+			$module = $this->getMock('Conpago\DI\IModule');
 			$module->expects($this->once())->method('build')->with($this->containerBuilder);
 
 			$this->fileSystem->expects($this->once())

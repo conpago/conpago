@@ -6,9 +6,9 @@
 	 * Time: 21:57
 	 */
 
-	namespace Saigon\Conpago\Presentation;
+	namespace Conpago\Presentation;
 
-	use Saigon\Conpago\Presentation\Contract\IJsonPresenter;
+	use Conpago\Presentation\Contract\IJsonPresenter;
 
 	class JsonPresenter implements IJsonPresenter
 	{

@@ -6,12 +6,12 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Core;
+	namespace Conpago\Core;
 
-	use Saigon\Conpago\Contract\IApp;
-	use Saigon\Conpago\Helpers\Contract\IRequestDataReader;
-	use Saigon\Conpago\Helpers\Contract\IResponse;
-	use Saigon\Conpago\Presentation\Contract\IController;
+	use Conpago\Contract\IApp;
+	use Conpago\Helpers\Contract\IRequestDataReader;
+	use Conpago\Helpers\Contract\IResponse;
+	use Conpago\Presentation\Contract\IController;
 
 	class WebApp implements IApp
 	{

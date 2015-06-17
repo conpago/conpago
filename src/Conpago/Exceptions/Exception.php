@@ -6,7 +6,7 @@
  * Time: 09:58
  */
 
-namespace Saigon\Conpago\Exceptions;
+namespace Conpago\Exceptions;
 
 
 class Exception extends \Exception {

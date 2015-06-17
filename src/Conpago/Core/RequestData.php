@@ -6,9 +6,9 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Core;
+	namespace Conpago\Core;
 
-	use Saigon\Conpago\Helpers\Contract\IRequestData;
+	use Conpago\Helpers\Contract\IRequestData;
 
 	class RequestData implements IRequestData
 	{

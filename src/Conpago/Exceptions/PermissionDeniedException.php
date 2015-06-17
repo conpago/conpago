@@ -6,7 +6,7 @@
  * Time: 22:03
  */
 
-namespace Saigon\Conpago\Exceptions;
+namespace Conpago\Exceptions;
 
 
 class PermissionDeniedException extends Exception {

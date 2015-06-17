@@ -6,11 +6,11 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Config;
+	namespace Conpago\Config;
 
-	use Saigon\Conpago\Config\Contract\IConfig;
-	use Saigon\Conpago\Helpers\Contract\IAppMask;
-	use Saigon\Conpago\Helpers\Contract\IFileSystem;
+	use Conpago\Config\Contract\IConfig;
+	use Conpago\Helpers\Contract\IAppMask;
+	use Conpago\Helpers\Contract\IFileSystem;
 
 	class Config implements IConfig
 	{
@@ -23,7 +23,7 @@
 		/**
 		 * @param IAppMask $appMask
 		 *
-		 * @inject \Saigon\Conpago\IAppMask $appMask
+		 * @inject \Conpago\IAppMask $appMask
 		 */
 		function __construct(IAppMask $appMask, IFileSystem $fileSystem)
 		{

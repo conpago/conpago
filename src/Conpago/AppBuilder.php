@@ -6,13 +6,13 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago;
+	namespace Conpago;
 
-	use Saigon\Conpago\DI\IContainer;
-	use Saigon\Conpago\DI\IModule;
-	use Saigon\Conpago\DI\IContainerBuilder;
-	use Saigon\Conpago\Helpers\Contract\IAppPath;
-	use Saigon\Conpago\Helpers\Contract\IFileSystem;
+	use Conpago\DI\IContainer;
+	use Conpago\DI\IModule;
+	use Conpago\DI\IContainerBuilder;
+	use Conpago\Helpers\Contract\IAppPath;
+	use Conpago\Helpers\Contract\IFileSystem;
 
 	class AppBuilder
 	{
@@ -109,11 +109,11 @@
 		}
 
 		/**
-		 * @return \Saigon\Conpago\Contract\IApp;
+		 * @return \Conpago\Contract\IApp;
 		 */
 		public function getApp()
 		{
-			return $this->getContainer()->resolve('Saigon\Conpago\Contract\IApp');
+			return $this->getContainer()->resolve('Conpago\Contract\IApp');
 		}
 
 		private function registerFileSystem()
@@ -121,7 +121,7 @@
 			$this
 				->containerBuilder
 				->registerInstance($this->fileSystem)
-				->asA('Saigon\Conpago\Helpers\Contract\IFileSystem');
+				->asA('Conpago\Helpers\Contract\IFileSystem');
 		}
 
 		private function registerAppPath()
@@ -129,6 +129,6 @@
 			$this
 				->containerBuilder
 				->registerInstance($this->appPath)
-				->asA('Saigon\Conpago\Helpers\Contract\IAppPath');
+				->asA('Conpago\Helpers\Contract\IAppPath');
 		}
 	}

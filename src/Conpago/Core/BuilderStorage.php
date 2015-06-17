@@ -6,11 +6,11 @@
 	 * Time: 20:38
 	 */
 
-	namespace Saigon\Conpago\Core;
+	namespace Conpago\Core;
 
-	use Saigon\Conpago\DI\IContainerBuilderStorage;
-	use Saigon\Conpago\Helpers\Contract\IAppPath;
-	use Saigon\Conpago\Helpers\Contract\IFileSystem;
+	use Conpago\DI\IContainerBuilderStorage;
+	use Conpago\Helpers\Contract\IAppPath;
+	use Conpago\Helpers\Contract\IFileSystem;
 
 	class BuilderStorage implements IContainerBuilderStorage
 	{

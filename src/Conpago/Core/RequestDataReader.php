@@ -6,11 +6,11 @@
 	 * Time: 07:51
 	 */
 
-	namespace Saigon\Conpago\Core;
+	namespace Conpago\Core;
 
-	use Saigon\Conpago\Helpers\Contract\IRequestData;
-	use Saigon\Conpago\Helpers\Contract\IRequestDataReader;
-	use Saigon\Conpago\Helpers\Contract\IRequestParser;
+	use Conpago\Helpers\Contract\IRequestData;
+	use Conpago\Helpers\Contract\IRequestDataReader;
+	use Conpago\Helpers\Contract\IRequestParser;
 
 	class RequestDataReader implements IRequestDataReader
 	{

@@ -6,7 +6,7 @@
 	 * Time: 22:57
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
 	class SHA2PasswordHasherTest extends \PHPUnit_Framework_TestCase
 	{

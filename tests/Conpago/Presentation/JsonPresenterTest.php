@@ -6,7 +6,7 @@
 	 * Time: 10:38
 	 */
 
-	namespace Saigon\Conpago\Presentation;
+	namespace Conpago\Presentation;
 
 	class JsonPresenterTest extends \PHPUnit_Framework_TestCase
 	{

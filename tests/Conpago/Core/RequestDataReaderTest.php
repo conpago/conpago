@@ -6,14 +6,14 @@
 	 * Time: 23:39
 	 */
 
-	namespace Saigon\Conpago\Core;
+	namespace Conpago\Core;
 
 	class RequestDataReaderTest extends \PHPUnit_Framework_TestCase
 	{
 		public function testGetRequestData()
 		{
-			$requestData = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequestData');
-			$requestParser = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequestParser');
+			$requestData = $this->getMock('Conpago\Helpers\Contract\IRequestData');
+			$requestParser = $this->getMock('Conpago\Helpers\Contract\IRequestParser');
 			$requestParser->expects($this->once())->method('parseRequestData')->willReturn($requestData);
 
 			$requestDataReader = new RequestDataReader($requestParser);

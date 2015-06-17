@@ -6,7 +6,7 @@
 	 * Time: 07:59
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
 
 	class ArgsTest extends \PHPUnit_Framework_TestCase
@@ -17,7 +17,7 @@
 
 		function testOnlyScript()
 		{
-			$this->serverAccessor = $this->getMock('Saigon\Conpago\Utils\ServerAccessor');
+			$this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
 			$this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script'));
 
@@ -28,7 +28,7 @@
 
 		function testNoArgv()
 		{
-			$this->serverAccessor = $this->getMock('Saigon\Conpago\Utils\ServerAccessor');
+			$this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
 			$this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(false);
 			$this->serverAccessor->expects($this->never())->method('getValue')->with('argv');
 
@@ -37,7 +37,7 @@
 
 		function testScriptWithArgs()
 		{
-			$this->serverAccessor = $this->getMock('Saigon\Conpago\Utils\ServerAccessor');
+			$this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
 			$this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script', 'arg1', 'arg2'));
 
@@ -48,7 +48,7 @@
 
 		function testScriptWithOption()
 		{
-			$this->serverAccessor = $this->getMock('Saigon\Conpago\Utils\ServerAccessor');
+			$this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
 			$this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script', '-o1', 'option1'));
 

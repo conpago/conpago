@@ -6,7 +6,7 @@
 	 * Time: 23:17
 	 */
 
-	namespace Saigon\Conpago\Core;
+	namespace Conpago\Core;
 
 	class ControllerResolverTest extends \PHPUnit_Framework_TestCase
 	{
@@ -19,9 +19,9 @@
 
 		public function setUp()
 		{
-			$this->requestDataReader = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequestDataReader');
-			$this->appConfig = $this->getMock('Saigon\Conpago\Config\Contract\IAppConfig');
-			$this->requestData = $this->getMock('Saigon\Conpago\Core\RequestData');
+			$this->requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
+			$this->appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
+			$this->requestData = $this->getMock('Conpago\Core\RequestData');
 
 			$this->requestDataReader->expects($this->any())
 				->method('getRequestData')->willReturn($this->requestData);
@@ -29,7 +29,7 @@
 
 		public function testNotExistingController()
 		{
-			$this->setExpectedException('Saigon\Conpago\Exceptions\ControllerNotFoundException', 'Controller \'\' not found.');
+			$this->setExpectedException('Conpago\Exceptions\ControllerNotFoundException', 'Controller \'\' not found.');
 			$controllerResolver = new ControllerResolver(
 				$this->requestDataReader,
 				$this->appConfig,
@@ -46,9 +46,9 @@
 
 			$this->requestData->expects($this->once())->method('getParameters')->willReturn(array('interactor' => 'nonDefault'));
 
-			$controller = $this->getMock('Saigon\Conpago\IController');
+			$controller = $this->getMock('Conpago\IController');
 
-			$commandFactory = $this->getMock('Saigon\Conpago\DI\IFactory');
+			$commandFactory = $this->getMock('Conpago\DI\IFactory');
 			$commandFactory->expects($this->once())->method('createInstance')->willReturn($controller);
 
 			$this->controllerFactories['nonDefaultController'] = $commandFactory;
@@ -67,9 +67,9 @@
 				->method('getDefaultInteractor')
 				->willReturn('default');
 
-			$controller = $this->getMock('Saigon\Conpago\IController');
+			$controller = $this->getMock('Conpago\IController');
 
-			$commandFactory = $this->getMock('Saigon\Conpago\DI\IFactory');
+			$commandFactory = $this->getMock('Conpago\DI\IFactory');
 			$commandFactory->expects($this->once())->method('createInstance')->willReturn($controller);
 
 			$this->controllerFactories['defaultController'] = $commandFactory;

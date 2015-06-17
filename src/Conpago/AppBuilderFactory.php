@@ -6,12 +6,12 @@
 	 * Time: 00:10
 	 */
 
-	namespace Saigon\Conpago;
+	namespace Conpago;
 
-	use Saigon\Conpago\DI\ContainerBuilder;
-	use Saigon\Conpago\DI\IContainerBuilderPersister;
-	use Saigon\Conpago\Helpers\AppPath;
-	use Saigon\Conpago\Helpers\FileSystem;
+	use Conpago\DI\ContainerBuilder;
+	use Conpago\DI\IContainerBuilderPersister;
+	use Conpago\Helpers\AppPath;
+	use Conpago\Helpers\FileSystem;
 
 	class AppBuilderFactory
 	{

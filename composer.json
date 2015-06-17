@@ -1,5 +1,5 @@
 {
-	"name": "saigon/conpago",
+	"name": "conpago/conpago",
 	"description": "Conpago: Clean application framework.",
 	"version": "0.0.1-alpha",
 	"type": "library",
@@ -12,9 +12,9 @@
 		}
 	],
 	"require": {
-		"saigon/conpago-di": "dev-default",
-		"saigon/conpago-utils": "dev-default",
-		"saigon/conpago-contract": "dev-default"
+		"conpago/conpago-di": "dev-default",
+		"conpago/conpago-utils": "dev-default",
+		"conpago/conpago-contract": "dev-default"
 	},
 	"require-dev": {
 		"pdepend/pdepend": "*",
@@ -25,7 +25,7 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"Saigon\\Conpago\\": "src/"
+			"Conpago\\": "src/"
 		}
 	}
 }

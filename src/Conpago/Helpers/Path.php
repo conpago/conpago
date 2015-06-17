@@ -6,9 +6,9 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
-	use Saigon\Conpago\Helpers\Contract\IPath;
+	use Conpago\Helpers\Contract\IPath;
 
 	class Path implements IPath
 	{

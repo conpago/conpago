@@ -6,7 +6,7 @@
 	 * Time: 23:02
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
 	class RequestParserTest extends \PHPUnit_Framework_TestCase
 	{
@@ -16,7 +16,7 @@
 
 		protected function setUp()
 		{
-			$this->request = $this->getMock('Saigon\Conpago\Helpers\Contract\IRequest');
+			$this->request = $this->getMock('Conpago\Helpers\Contract\IRequest');
 			$this->requestParser = new RequestParser($this->request);
 		}
 

@@ -6,11 +6,11 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
-	use Saigon\Conpago\Helpers\Contract\IFileSystem;
-	use Saigon\Conpago\Helpers\Contract\IRequest;
-	use Saigon\Conpago\Utils\ServerAccessor;
+	use Conpago\Helpers\Contract\IFileSystem;
+	use Conpago\Helpers\Contract\IRequest;
+	use Conpago\Utils\ServerAccessor;
 
 	class Request implements IRequest
 	{

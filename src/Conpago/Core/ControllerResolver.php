@@ -6,19 +6,19 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Core;
+	namespace Conpago\Core;
 
-	use Saigon\Conpago\Config\Contract\IAppConfig;
-	use Saigon\Conpago\DI\IFactory;
-	use Saigon\Conpago\Exceptions\ControllerNotFoundException;
-	use Saigon\Conpago\Helpers\Contract\IRequestDataReader;
-	use Saigon\Conpago\Presentation\Contract\IController;
-	use Saigon\Conpago\Presentation\Contract\IControllerResolver;
+	use Conpago\Config\Contract\IAppConfig;
+	use Conpago\DI\IFactory;
+	use Conpago\Exceptions\ControllerNotFoundException;
+	use Conpago\Helpers\Contract\IRequestDataReader;
+	use Conpago\Presentation\Contract\IController;
+	use Conpago\Presentation\Contract\IControllerResolver;
 
 	class ControllerResolver implements IControllerResolver
 	{
 		/**
-		 * @var \Saigon\Conpago\Config\Contract\IAppConfig
+		 * @var \Conpago\Config\Contract\IAppConfig
 		 */
 		private $appConfig;
 
@@ -27,7 +27,7 @@
 		 * @param IAppConfig $appConfig
 		 * @param IFactory[] $controllerFactories
 		 *
-		 * @inject Factory <\Saigon\Conpago\IController> $controllerFactories
+		 * @inject Factory <\Conpago\IController> $controllerFactories
 		 */
 		public function __construct(IRequestDataReader $requestDataReader, IAppConfig $appConfig, array $controllerFactories)
 		{

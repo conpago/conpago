@@ -6,9 +6,9 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Config;
+	namespace Conpago\Config;
 
-	use Saigon\Conpago\Config\Contract\IConfig;
+	use Conpago\Config\Contract\IConfig;
 
 	abstract class ConfigBase
 	{

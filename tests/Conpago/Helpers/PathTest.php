@@ -6,7 +6,7 @@
 	 * Time: 07:53
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
 
 	class PathTest extends \PHPUnit_Framework_TestCase

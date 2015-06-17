@@ -6,10 +6,10 @@
 	 * Time: 08:10
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
 
-	use Saigon\Conpago\Helpers\Contract\IFileSystem;
+	use Conpago\Helpers\Contract\IFileSystem;
 
 	class FileSystem implements IFileSystem
 	{

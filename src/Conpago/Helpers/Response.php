@@ -6,9 +6,9 @@
 	 * Time: 23:54
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
-	use Saigon\Conpago\Helpers\Contract\IResponse;
+	use Conpago\Helpers\Contract\IResponse;
 
 	class Response implements IResponse
 	{

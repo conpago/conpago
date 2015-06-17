@@ -6,11 +6,11 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
-	use Saigon\Conpago\Core\RequestData;
-	use Saigon\Conpago\Helpers\Contract\IRequest;
-	use Saigon\Conpago\Helpers\Contract\IRequestParser;
+	use Conpago\Core\RequestData;
+	use Conpago\Helpers\Contract\IRequest;
+	use Conpago\Helpers\Contract\IRequestParser;
 
 	class RequestParser implements IRequestParser
 	{

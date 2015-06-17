@@ -6,7 +6,7 @@
 	 * Time: 22:47
 	 */
 
-	namespace Saigon\Conpago\Database\Exceptions;
+	namespace Conpago\Database\Exceptions;
 
 
 	class ColumnUniqueConstraintExceptionTest extends \PHPUnit_Framework_TestCase

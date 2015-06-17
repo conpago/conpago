@@ -6,7 +6,7 @@
 	 * Time: 23:53
 	 */
 
-	namespace Saigon\Conpago\Exceptions;
+	namespace Conpago\Exceptions;
 
 	class Http400BadRequestException extends HttpException
 	{

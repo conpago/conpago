@@ -6,9 +6,9 @@
 	 * Time: 15:30
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
-	use Saigon\Conpago\Helpers\Contract\IPasswordHasher;
+	use Conpago\Helpers\Contract\IPasswordHasher;
 
 	class SHA2PasswordHasher implements IPasswordHasher
 	{

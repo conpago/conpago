@@ -6,7 +6,7 @@
 	 * Time: 08:03
 	 */
 
-	namespace Saigon\Conpago\Core;
+	namespace Conpago\Core;
 
 
 	class RequestDataTest extends \PHPUnit_Framework_TestCase

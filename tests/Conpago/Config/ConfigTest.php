@@ -6,10 +6,10 @@
 	 * Time: 08:23
 	 */
 
-	namespace Saigon\Conpago\Config;
+	namespace Conpago\Config;
 
 
-	use Saigon\Conpago\Config\Contract\IConfig;
+	use Conpago\Config\Contract\IConfig;
 
 	class ConfigTest extends \PHPUnit_Framework_TestCase
 	{
@@ -25,7 +25,7 @@
 
 		protected function setUp()
 		{
-			$appMask = $this->getMock('Saigon\Conpago\Helpers\Contract\IAppMask');
+			$appMask = $this->getMock('Conpago\Helpers\Contract\IAppMask');
 			$fileSystem = $this->getFileSystemMock();
 
 			$this->config = new Config($appMask, $fileSystem);
@@ -56,7 +56,7 @@
 		 */
 		protected function getFileSystemMock()
 		{
-			$fileSystem = $this->getMock('Saigon\Conpago\Helpers\Contract\IFileSystem');
+			$fileSystem = $this->getMock('Conpago\Helpers\Contract\IFileSystem');
 
 			$fileSystem->expects($this->any())->method('glob')->willReturn(array('fakePath1'));
 

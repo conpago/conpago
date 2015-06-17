@@ -6,10 +6,10 @@
 	 * Time: 19:27
 	 */
 
-	namespace Saigon\Conpago\Helpers;
+	namespace Conpago\Helpers;
 
-	use Saigon\Conpago\Helpers\Contract\IArgs;
-	use Saigon\Conpago\Utils\ServerAccessor;
+	use Conpago\Helpers\Contract\IArgs;
+	use Conpago\Utils\ServerAccessor;
 
 	class Args implements IArgs
 	{
