@@ -15,6 +15,11 @@
 	class RequestDataReader implements IRequestDataReader
 	{
 		/**
+		 * @var Conpago\Helpers\Contract\IRequestData
+		 */
+		protected $requestData;
+
+		/**
 		 * @param IRequestParser $requestParser
 		 */
 		public function __construct(
@@ -28,7 +33,10 @@
 		 */
 		public function getRequestData()
 		{
-			return $this->requestParser->parseRequestData();
+			if ($this->requestData == null)
+				$this->requestData = $this->requestParser->parseRequestData();
+
+			return $this->requestData;
 		}
 
 		/**
