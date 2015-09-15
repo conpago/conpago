@@ -14,11 +14,12 @@
 	class AppPath implements IAppPath
 	{
 
-		protected $realPathElements;
+		protected $cachePathElements;
 		protected $configPathElements;
 		protected $rootPathElements;
 		protected $templatesPathElements;
 		protected $sourcePathElements;
+		protected $sessionsPathElements;
 
 		/**
 		 * @var IFileSystem
@@ -29,11 +30,12 @@
 		{
 			$this->fileSystem = $fileSystem;
 
-			$this->sourcePathElements = array($path, "src");
+			$this->sourcePathElements    = array($path, "src");
 			$this->templatesPathElements = array($path, "templates");
-			$this->rootPathElements = array($path);
-			$this->configPathElements = array($path, "config" );
-			$this->realPathElements = array($path, "tmp", "cache");
+			$this->rootPathElements      = array($path);
+			$this->configPathElements    = array($path, "config" );
+			$this->cachePathElements     = array($path, "tmp", "cache");
+			$this->sessionsPathElements     = array($path, "tmp", "sessions");
 		}
 
 		private function getPath(array $elements)
@@ -48,7 +50,11 @@
 
 		public function cache()
 		{
-			return $this->getPath($this->realPathElements);
+			return $this->getPath($this->cachePathElements);
+		}
+
+		public function sessions() {
+			return $this->getPath($this->sessionsPathElements);
 		}
 
 		public function config()
@@ -73,7 +79,11 @@
 
 		public function realCache()
 		{
-			return $this->getRealPath($this->realPathElements);
+			return $this->getRealPath($this->cachePathElements);
+		}
+
+		public function realSessions() {
+			return $this->getRealPath($this->sessionsPathElements);
 		}
 
 		public function realConfig()

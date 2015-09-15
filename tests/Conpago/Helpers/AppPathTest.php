@@ -48,6 +48,16 @@
 			$this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'cache', $this->appPath->realCache());
 		}
 
+		public function testAppPathReturnsSessionsPath()
+		{
+			$this->assertEquals('base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'sessions', $this->appPath->sessions());
+		}
+
+		public function testAppPathReturnsRealSessionsPath()
+		{
+			$this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'sessions', $this->appPath->realSessions());
+		}
+
 		public function testAppPathReturnsRootPath()
 		{
 			$this->assertEquals('base_path', $this->appPath->root());
