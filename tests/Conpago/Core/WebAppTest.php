@@ -13,18 +13,21 @@
 		public function testHttp500ErrorOnExceptionFromRequestDataReader()
 		{
 			$controller = $this->getMock('Conpago\Presentation\Contract\IController');
+			$logger = $this->getMock('Conpago\Logging\Contract\ILogger');
 			$response = $this->getMock('Conpago\Helpers\Contract\IResponse');
 			$response->expects($this->once())->method('setHttpResponseCode')->with(500);
 
 			$requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
 			$requestDataReader->expects($this->any())->method('getRequestData')->willThrowException(new \Exception());
 
-			$webApp = new WebApp($requestDataReader, $controller, $response);
+			$webApp = new WebApp($requestDataReader, $controller, $response, $logger);
 			$webApp->run();
 		}
 
 		public function testHttp500ErrorOnExceptionFromController()
 		{
+			$logger = $this->getMock('Conpago\Logging\Contract\ILogger');
+
 			$response = $this->getMock('Conpago\Helpers\Contract\IResponse');
 			$response->expects($this->once())->method('setHttpResponseCode')->with(500);
 
@@ -35,12 +38,14 @@
 			$controller = $this->getMock('Conpago\Presentation\Contract\IController');
 			$controller->expects($this->once())->method('execute')->willThrowException(new \Exception());
 
-			$webApp = new WebApp($requestDataReader, $controller, $response);
+			$webApp = new WebApp($requestDataReader, $controller, $response, $logger);
 			$webApp->run();
 		}
 
 		public function testExecuteController()
 		{
+			$logger = $this->getMock('Conpago\Logging\Contract\ILogger');
+
 			$response = $this->getMock('Conpago\Helpers\Contract\IResponse');
 
 			$requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
@@ -50,7 +55,7 @@
 			$controller = $this->getMock('Conpago\Presentation\Contract\IController');
 			$controller->expects($this->once())->method('execute')->with($requestData);
 
-			$webApp = new WebApp($requestDataReader, $controller, $response);
+			$webApp = new WebApp($requestDataReader, $controller, $response, $logger);
 			$webApp->run();
 		}
 	}
