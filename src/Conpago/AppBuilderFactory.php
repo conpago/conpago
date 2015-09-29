@@ -23,10 +23,7 @@
 		 */
 		function createAppBuilder($contextName, $appRootPath)
 		{
-			$fileSystem = new FileSystem();
-			$containerBuilder = new ContainerBuilder();
-			$appPath = new AppPath($fileSystem, $appRootPath);
-
+			list( $fileSystem, $containerBuilder, $appPath ) = $this->getAppBuilderDependencies( $appRootPath );
 			return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
 		}
 
@@ -44,5 +41,18 @@
 			$containerBuilder = $persister->loadContainerBuilder();
 
 			return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
+		}
+
+		/**
+		 * @param $appRootPath
+		 *
+		 * @return array
+		 */
+		protected function getAppBuilderDependencies( $appRootPath ) {
+			$fileSystem       = new FileSystem();
+			$containerBuilder = new ContainerBuilder();
+			$appPath          = new AppPath( $fileSystem, $appRootPath );
+
+			return array( $fileSystem, $containerBuilder, $appPath );
 		}
 	}
