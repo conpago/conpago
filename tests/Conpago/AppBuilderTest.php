@@ -27,14 +27,6 @@
 		 */
 		private $appBuilder;
 
-		function testAppBuilderGetContainer()
-		{
-			$container = $this->getMock('Conpago\DI\IContainer');
-			$this->containerBuilder->expects($this->once())->method('build')->willReturn($container);
-
-			$this->assertSame($this->appBuilder->getContainer(), $this->appBuilder->getContainer());
-		}
-
 		function testAppBuilderBuildAppWithoutModules()
 		{
 			$this->fileSystem->expects($this->any())
@@ -74,6 +66,17 @@
 			$container->expects($this->once())->method('resolve')->with('Conpago\Contract\IApp')->willReturn($app);
 
 			$this->assertSame($app, $this->appBuilder->getApp());
+		}
+
+		function testAppBuilderBuildGetLogger()
+		{
+			$logger = $this->getMock('Conpago\Logging\Contract\ILogger');
+			$container = $this->getMock('Conpago\DI\IContainer');
+			$this->containerBuilder->expects($this->once())->method('build')->willReturn($container);
+
+			$container->expects($this->once())->method('resolve')->with('Conpago\Logging\Contract\ILogger')->willReturn($logger);
+
+			$this->assertSame($logger, $this->appBuilder->getLogger());
 		}
 
 		protected function setUp()

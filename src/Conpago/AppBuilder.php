@@ -13,6 +13,7 @@
 	use Conpago\DI\IContainerBuilder;
 	use Conpago\Helpers\Contract\IAppPath;
 	use Conpago\Helpers\Contract\IFileSystem;
+	use Conpago\Logging\Contract\ILogger;
 
 	class AppBuilder
 	{
@@ -89,6 +90,17 @@
 				$additionalModule->build($this->containerBuilder);
 		}
 
+		/**
+		 * @return IContainer
+		 */
+		protected function getContainer()
+		{
+			if (!$this->container)
+				$this->container = $this->containerBuilder->build();
+
+			return $this->container;
+		}
+
 		public function buildApp()
 		{
 			$this->registerFileSystem();
@@ -98,7 +110,7 @@
 		}
 
 		/**
-		 * @return \Conpago\Contract\IApp;
+		 * @return ILogger;
 		 */
 		public function getLogger()
 		{
