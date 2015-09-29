@@ -58,17 +58,6 @@
 			$this->containerBuilder = $containerBuilder;
 		}
 
-		/**
-		 * @return IContainer
-		 */
-		public function getContainer()
-		{
-			if (!$this->container)
-				$this->container = $this->containerBuilder->build();
-
-			return $this->container;
-		}
-
 		protected function loadModules()
 		{
 			$moduleMask = implode(DIRECTORY_SEPARATOR,
@@ -106,6 +95,14 @@
 			$this->registerAppPath();
 			$this->loadModules();
 			$this->loadAdditionalModules();
+		}
+
+		/**
+		 * @return \Conpago\Contract\IApp;
+		 */
+		public function getLogger()
+		{
+			return $this->getContainer()->resolve('Conpago\Logging\Contract\ILogger');
 		}
 
 		/**
