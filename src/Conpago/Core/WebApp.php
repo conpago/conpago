@@ -8,6 +8,7 @@
 
 	namespace Conpago\Core;
 
+	use Conpago\Config\Contract\IAppConfig;
 	use Conpago\Contract\IApp;
 	use Conpago\Helpers\Contract\IRequestDataReader;
 	use Conpago\Helpers\Contract\IResponse;
@@ -33,17 +34,23 @@
 		 * @var ILogger
 		 */
 		private $logger;
+		/**
+		 * @var IAppConfig
+		 */
+		private $appConfig;
 
 		public function __construct(
 				IRequestDataReader $requestDataReader,
 				IController $controller,
 				IResponse $response,
-				ILogger $logger)
+				ILogger $logger,
+				IAppConfig $appConfig)
 		{
 			$this->requestDataReader = $requestDataReader;
 			$this->controller = $controller;
 			$this->response = $response;
 			$this->logger = $logger;
+			$this->appConfig = $appConfig;
 		}
 
 		/**
@@ -53,6 +60,7 @@
 		{
 			try
 			{
+				$this->init();
 				$this->executeController();
 			}
 			catch (\Exception $e)
@@ -70,5 +78,11 @@
 		private function executeController()
 		{
 			$this->controller->execute($this->getRequestData());
+		}
+
+		private function init() {
+			$timeZone = $this->appConfig->getTimeZone();
+			if ($timeZone != null)
+				date_default_timezone_set($timeZone);
 		}
 	}

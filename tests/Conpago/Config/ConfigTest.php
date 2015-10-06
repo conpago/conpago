@@ -10,6 +10,7 @@
 
 
 	use Conpago\Config\Contract\IConfig;
+	use Conpago\Exceptions\MissingConfigurationException;
 
 	class ConfigTest extends \PHPUnit_Framework_TestCase
 	{
@@ -40,6 +41,45 @@
 		{
 			$result = $this->config->getValue($this->buildNestedPath(array(self::NESTING_KEY, self::NESTED_KEY)));
 			$this->assertEquals(self::NESTED_VALUE, $result);
+		}
+
+		/**
+		 * @expectedException \Conpago\Exceptions\MissingConfigurationException
+		 */
+		public function testGetNotExistingSimpleValue()
+		{
+			$this->config->getValue('blabla');
+		}
+
+		/**
+		 * @expectedException \Conpago\Exceptions\MissingConfigurationException
+		 */
+		public function testGetNotExistingNestedValue()
+		{
+			$this->config->getValue( $this->buildNestedPath( array( self::NESTING_KEY, 'blabla' ) ) );
+		}
+
+		public function testHasSimpleValue()
+		{
+			$this->assertTrue($this->config->hasValue(self::SIMPLE_KEY));
+		}
+
+		public function testHasNestedValue()
+		{
+			$result = $this->config->hasValue($this->buildNestedPath(array(self::NESTING_KEY, self::NESTED_KEY)));
+			$this->assertTrue($result);
+		}
+
+		public function testHetNotExistingNestedValue()
+		{
+			$result = $this->config->hasValue($this->buildNestedPath(array(self::NESTING_KEY, 'blabla')));
+			$this->assertFalse($result);
+		}
+
+		public function testHetNotExistingSimpleValue()
+		{
+			$result = $this->config->hasValue('blabla');
+			$this->assertFalse($result);
 		}
 
 		/**

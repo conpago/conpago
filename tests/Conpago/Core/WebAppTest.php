@@ -20,7 +20,9 @@
 			$requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
 			$requestDataReader->expects($this->any())->method('getRequestData')->willThrowException(new \Exception());
 
-			$webApp = new WebApp($requestDataReader, $controller, $response, $logger);
+			$appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
+
+			$webApp = new WebApp($requestDataReader, $controller, $response, $logger, $appConfig);
 			$webApp->run();
 		}
 
@@ -38,7 +40,9 @@
 			$controller = $this->getMock('Conpago\Presentation\Contract\IController');
 			$controller->expects($this->once())->method('execute')->willThrowException(new \Exception());
 
-			$webApp = new WebApp($requestDataReader, $controller, $response, $logger);
+			$appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
+
+			$webApp = new WebApp($requestDataReader, $controller, $response, $logger, $appConfig);
 			$webApp->run();
 		}
 
@@ -55,7 +59,9 @@
 			$controller = $this->getMock('Conpago\Presentation\Contract\IController');
 			$controller->expects($this->once())->method('execute')->with($requestData);
 
-			$webApp = new WebApp($requestDataReader, $controller, $response, $logger);
+			$appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
+
+			$webApp = new WebApp($requestDataReader, $controller, $response, $logger, $appConfig);
 			$webApp->run();
 		}
 	}
