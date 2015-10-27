@@ -9,7 +9,7 @@
 	namespace Conpago\Helpers;
 
 
-	use Conpago\Helpers\Contract\IFileSystem;
+	use Conpago\File\Contract\IFileSystem;
 
 	class AppPathTest extends \PHPUnit_Framework_TestCase
 	{

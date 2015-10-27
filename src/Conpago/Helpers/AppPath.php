@@ -8,8 +8,8 @@
 
 	namespace Conpago\Helpers;
 
+	use Conpago\File\Contract\IFileSystem;
 	use Conpago\Helpers\Contract\IAppPath;
-	use Conpago\Helpers\Contract\IFileSystem;
 
 	class AppPath implements IAppPath
 	{

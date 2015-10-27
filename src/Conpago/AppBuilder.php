@@ -11,8 +11,8 @@
 	use Conpago\DI\IContainer;
 	use Conpago\DI\IModule;
 	use Conpago\DI\IContainerBuilder;
+	use Conpago\File\Contract\IFileSystem;
 	use Conpago\Helpers\Contract\IAppPath;
-	use Conpago\Helpers\Contract\IFileSystem;
 	use Conpago\Logging\Contract\ILogger;
 
 	class AppBuilder
@@ -130,7 +130,7 @@
 			$this
 				->containerBuilder
 				->registerInstance($this->fileSystem)
-				->asA('Conpago\Helpers\Contract\IFileSystem');
+				->asA('Conpago\File\Contract\IFileSystem');
 		}
 
 		private function registerAppPath()

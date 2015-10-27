@@ -8,7 +8,7 @@
 
 	namespace Conpago\Helpers;
 
-	use Conpago\Helpers\Contract\IFileSystem;
+	use Conpago\File\Contract\IFileSystem;
 	use Conpago\Helpers\Contract\IRequest;
 	use Conpago\Utils\ServerAccessor;
 

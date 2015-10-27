@@ -17,7 +17,7 @@
 			$this->serverAccessor->expects($this->any())->method('contains')->with('QUERY_STRING')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('QUERY_STRING')->willReturn('QueryString');
 
-			$this->fileSystem = $this->getMock('Conpago\Helpers\Contract\IFileSystem');
+			$this->fileSystem = $this->getMock('Conpago\File\Contract\IFileSystem');
 
 			$this->request = new Request($this->serverAccessor, $this->fileSystem);
 
@@ -29,7 +29,7 @@
 			$this->serverAccessor->expects($this->any())->method('contains')->with('PATH_INFO')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('PATH_INFO')->willReturn('PathInfo');
 
-			$this->fileSystem = $this->getMock('Conpago\Helpers\Contract\IFileSystem');
+			$this->fileSystem = $this->getMock('Conpago\File\Contract\IFileSystem');
 
 			$this->request = new Request($this->serverAccessor, $this->fileSystem);
 
@@ -41,7 +41,7 @@
 			$this->serverAccessor->expects($this->any())->method('contains')->with('REQUEST_METHOD')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('REQUEST_METHOD')->willReturn('RequestMethod');
 
-			$this->fileSystem = $this->getMock('Conpago\Helpers\Contract\IFileSystem');
+			$this->fileSystem = $this->getMock('Conpago\File\Contract\IFileSystem');
 
 			$this->request = new Request($this->serverAccessor, $this->fileSystem);
 
@@ -53,7 +53,7 @@
 			$this->serverAccessor->expects($this->any())->method('contains')->with('CONTENT_TYPE')->willReturn(true);
 			$this->serverAccessor->expects($this->any())->method('getValue')->with('CONTENT_TYPE')->willReturn('ContentType');
 
-			$this->fileSystem = $this->getMock('Conpago\Helpers\Contract\IFileSystem');
+			$this->fileSystem = $this->getMock('Conpago\File\Contract\IFileSystem');
 
 			$this->request = new Request($this->serverAccessor, $this->fileSystem);
 
@@ -63,7 +63,7 @@
 		function testGetBody(){
 			$this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
 
-			$this->fileSystem = $this->getMock('Conpago\Helpers\Contract\IFileSystem');
+			$this->fileSystem = $this->getMock('Conpago\File\Contract\IFileSystem');
 			$this->fileSystem->expects($this->any())->method('getFileContent')->willReturn('body');
 
 			$this->request = new Request($this->serverAccessor, $this->fileSystem);

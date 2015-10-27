@@ -13,7 +13,7 @@
 	{
 		function testGetConfiguration()
 		{
-			$fileSystem = $this->getMock('Conpago\Helpers\Contract\IFileSystem');
+			$fileSystem = $this->getMock('Conpago\File\Contract\IFileSystem');
 			$appPath = $this->getMock('Conpago\Helpers\Contract\IAppPath');
 			$appPath->expects($this->any())->method('root')->willReturn('root');
 
@@ -29,7 +29,7 @@
 
 		function testSetConfiguration()
 		{
-			$fileSystem = $this->getMock('Conpago\Helpers\Contract\IFileSystem');
+			$fileSystem = $this->getMock('Conpago\File\Contract\IFileSystem');
 			$appPath = $this->getMock('Conpago\Helpers\Contract\IAppPath');
 			$appPath->expects($this->any())->method('root')->willReturn('root');
 

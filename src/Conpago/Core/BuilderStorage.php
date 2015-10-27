@@ -9,8 +9,8 @@
 	namespace Conpago\Core;
 
 	use Conpago\DI\IContainerBuilderStorage;
+	use Conpago\File\Contract\IFileSystem;
 	use Conpago\Helpers\Contract\IAppPath;
-	use Conpago\Helpers\Contract\IFileSystem;
 
 	class BuilderStorage implements IContainerBuilderStorage
 	{

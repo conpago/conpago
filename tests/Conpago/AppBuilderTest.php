@@ -20,7 +20,7 @@
 		private $containerBuilder;
 		private $xModulePath;
 		const APP_PATH_FULL_NAME = 'Conpago\Helpers\Contract\IAppPath';
-		const FILE_SYSTEM_FULL_NAME = 'Conpago\Helpers\Contract\IFileSystem';
+		const FILE_SYSTEM_FULL_NAME = 'Conpago\File\Contract\IFileSystem';
 
 		/**
 		 * @var AppBuilder
