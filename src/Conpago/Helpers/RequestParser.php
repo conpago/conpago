@@ -128,6 +128,7 @@
 			{
 				case "application/json": return new JsonParametersExtractor($body);
 				case "application/x-www-form-urlencoded": return new FormParametersExtractor($body);
+				case "": return new DummyParametersExtractor($body);
 				default: throw new \BadMethodCallException();
 			}
 		}
@@ -199,6 +200,17 @@
 				$parameters[$field] = $value;
 
 			return $parameters;
+		}
+	}
+
+	class DummyParametersExtractor extends ParametersExtractor
+	{
+		/**
+		 * @return array
+		 */
+		function getParameters()
+		{
+			return [];
 		}
 	}
 

@@ -29,6 +29,12 @@
 			$requestParser->parseRequestData();
 		}
 
+		function testEmptyRequest()
+		{
+			$this->setUp();
+			$this->_testRequestParser('html', array(), '', array());
+		}
+
 		function testEmptyJsonRequest()
 		{
 			$this->setUp();
