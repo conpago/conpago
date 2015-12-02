@@ -9,8 +9,9 @@
     namespace Conpago\Helpers;
 
 use Conpago\File\Contract\IFileSystem;
+use Conpago\File\Contract\IPath;
 
-    class AppPathTest extends \PHPUnit_Framework_TestCase
+class AppPathTest extends \PHPUnit_Framework_TestCase
     {
         const BASE_PATH = 'base_path';
         const REAL_PATH = 'real';
@@ -29,62 +30,53 @@ use Conpago\File\Contract\IFileSystem;
 
         public function testAppPathReturnsConfigPath()
         {
-            $this->assertEquals('base_path'.DIRECTORY_SEPARATOR.'config', $this->appPath->config());
-        }
-
-        public function testAppPathReturnsRealConfigPath()
-        {
-            $this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'config', $this->appPath->realConfig());
+            $expected = 'base_path'.DIRECTORY_SEPARATOR.'config';
+            $this->assertPath($expected, $this->appPath->config());
         }
 
         public function testAppPathReturnsCachePath()
         {
-            $this->assertEquals('base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'cache', $this->appPath->cache());
-        }
-
-        public function testAppPathReturnsRealCachePath()
-        {
-            $this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'cache', $this->appPath->realCache());
+            $expected = 'base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'cache';
+            $expectedReal = 'real'.DIRECTORY_SEPARATOR.$expected;
+            $this->assertPath($expected, $this->appPath->cache());
         }
 
         public function testAppPathReturnsSessionsPath()
         {
-            $this->assertEquals('base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'sessions', $this->appPath->sessions());
-        }
-
-        public function testAppPathReturnsRealSessionsPath()
-        {
-            $this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'sessions', $this->appPath->realSessions());
+            $expected = 'base_path'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'sessions';
+            $this->assertPath($expected, $this->appPath->sessions());
         }
 
         public function testAppPathReturnsRootPath()
         {
-            $this->assertEquals('base_path', $this->appPath->root());
-        }
-
-        public function testAppPathReturnsRealRootPath()
-        {
-            $this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path', $this->appPath->realRoot());
+            $expected = 'base_path';
+            $this->assertPath($expected, $this->appPath->root());
         }
 
         public function testAppPathReturnsSourcePath()
         {
-            $this->assertEquals('base_path'.DIRECTORY_SEPARATOR.'src', $this->appPath->source());
-        }
-
-        public function testAppPathReturnsRealSourcePath()
-        {
-            $this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'src', $this->appPath->realSource());
+            $expected = 'base_path'.DIRECTORY_SEPARATOR.'src';
+            $this->assertPath($expected, $this->appPath->source());
         }
 
         public function testAppPathReturnsTemplatesPath()
         {
-            $this->assertEquals('base_path'.DIRECTORY_SEPARATOR.'templates', $this->appPath->templates());
+            $expected = 'base_path'.DIRECTORY_SEPARATOR.'templates';
+            $this->assertPath($expected, $this->appPath->templates());
         }
 
-        public function testAppPathReturnsTemplatesSourcePath()
+        /**
+         * @param string $expected
+         * @param string $expectedReal
+         * @param IPath $path
+         */
+        protected function assertPath($expected, IPath $path)
         {
-            $this->assertEquals('real'.DIRECTORY_SEPARATOR.'base_path'.DIRECTORY_SEPARATOR.'templates', $this->appPath->realTemplates());
+            $expectedReal = 'real'.DIRECTORY_SEPARATOR.$expected;;
+            $this->assertEquals(
+                ['path' => $expected, 'realPath' => $expectedReal],
+                ['path' => $path->get(), 'realPath' => $path->getReal()]
+            );
         }
     }
 

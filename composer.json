@@ -4,6 +4,8 @@
 	"version": "0.0.1-alpha",
 	"type": "library",
 	"license": "MIT",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"authors": [
 		{
 			"name": "Bartosz Gołek",
@@ -15,8 +17,7 @@
 		"conpago/conpago-di": "dev-master",
 		"conpago/conpago-utils": "dev-master",
 		"conpago/conpago-contract": "dev-master",
-		"conpago/conpago-system": "dev-master",
-		"conpago/conpago-system-contract": "dev-master"
+		"conpago/conpago-system": "dev-master"
 	},
 	"require-dev": {
 		"pdepend/pdepend": "*",
