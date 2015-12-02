@@ -1,60 +1,59 @@
 <?php
-	/**
-	 * Created by PhpStorm.
-	 * User: bgolek
-	 * Date: 2014-10-13
-	 * Time: 07:59
-	 */
+    /**
+     * Created by PhpStorm.
+     * User: bgolek
+     * Date: 2014-10-13
+     * Time: 07:59
+     */
 
-	namespace Conpago\Helpers;
+    namespace Conpago\Helpers;
 
+class ArgsTest extends \PHPUnit_Framework_TestCase
+{
+    private $args;
 
-	class ArgsTest extends \PHPUnit_Framework_TestCase
-	{
-		private $args;
+    private $serverAccessor;
 
-		private $serverAccessor;
+    public function testOnlyScript()
+    {
+        $this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
+        $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
+        $this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script'));
 
-		function testOnlyScript()
-		{
-			$this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
-			$this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
-			$this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script'));
+        $this->args = new Args($this->serverAccessor);
 
-			$this->args = new Args($this->serverAccessor);
+        $this->assertEquals('script', $this->args->getScript());
+    }
 
-			$this->assertEquals('script', $this->args->getScript());
-		}
+    public function testNoArgv()
+    {
+        $this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
+        $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(false);
+        $this->serverAccessor->expects($this->never())->method('getValue')->with('argv');
 
-		function testNoArgv()
-		{
-			$this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
-			$this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(false);
-			$this->serverAccessor->expects($this->never())->method('getValue')->with('argv');
+        $this->args = new Args($this->serverAccessor);
+    }
 
-			$this->args = new Args($this->serverAccessor);
-		}
+    public function testScriptWithArgs()
+    {
+        $this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
+        $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
+        $this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script', 'arg1', 'arg2'));
 
-		function testScriptWithArgs()
-		{
-			$this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
-			$this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
-			$this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script', 'arg1', 'arg2'));
+        $this->args = new Args($this->serverAccessor);
 
-			$this->args = new Args($this->serverAccessor);
+        $this->assertEquals(array('arg1', 'arg2'), $this->args->getArguments());
+    }
 
-			$this->assertEquals(array('arg1', 'arg2'), $this->args->getArguments());
-		}
+    public function testScriptWithOption()
+    {
+        $this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
+        $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
+        $this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script', '-o1', 'option1'));
 
-		function testScriptWithOption()
-		{
-			$this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
-			$this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
-			$this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script', '-o1', 'option1'));
+        $this->args = new Args($this->serverAccessor);
 
-			$this->args = new Args($this->serverAccessor);
-
-			$this->assertEquals(true, $this->args->hasOption('o1'));
-			$this->assertEquals('option1', $this->args->getOption('o1'));
-		}
-	}
+        $this->assertEquals(true, $this->args->hasOption('o1'));
+        $this->assertEquals('option1', $this->args->getOption('o1'));
+    }
+}

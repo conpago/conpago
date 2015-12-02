@@ -118,29 +118,17 @@
 		<exec executable=".\vendor\bin\phpcs.bat" osfamily="windows" failonerror="true">
 			<arg value="--report=checkstyle"/>
 			<arg value="--report-file=${build}\phpcs.xml"/>
-			<arg value="--standard=.\build_scripts\ruleset.xml"/>
+			<arg value="--standard=PSR2"/>
 			<arg value="src"/>
 		</exec>
 		<exec executable="./vendor/bin/phpcs" osfamily="unix" failonerror="true">
 			<arg value="--report=checkstyle"/>
 			<arg value="--report-file=${build}/phpcs.xml"/>
-			<arg value="--standard=./build_scripts/ruleset.xml"/>
+			<arg value="--standard=PSR2"/>
 			<arg value="src"/>
 		</exec>
 	</target>
-	<target name="phpcs-ci">
-		<exec executable=".\vendor\bin\phpcs.bat" osfamily="windows">
-			<arg value="--report=checkstyle"/>
-			<arg value="--report-file=${build}\phpcs.xml"/>
-			<arg value="--standard=.\build_scripts\ruleset.xml"/>
-			<arg value="src"/>
-		</exec>
-		<exec executable="./vendor/bin/phpcs" osfamily="unix">
-			<arg value="--report=checkstyle"/>
-			<arg value="--report-file=${build}/phpcs.xml"/>
-			<arg value="--standard=./build_scripts/ruleset.xml"/>
-			<arg value="src"/>
-		</exec>
+	<target name="phpcs-ci" depends="phpcs">
 	</target>
 
 	<target name="phpcpd">

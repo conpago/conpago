@@ -1,20 +1,20 @@
 <?php
-	/**
-	 * Created by PhpStorm.
-	 * User: Bartosz Gołek
-	 * Date: 2014-10-19
-	 * Time: 23:54
-	 */
+    /**
+     * Created by PhpStorm.
+     * User: Bartosz Gołek
+     * Date: 2014-10-19
+     * Time: 23:54
+     */
 
-	namespace Conpago\Helpers;
+    namespace Conpago\Helpers;
 
-	use Conpago\Helpers\Contract\IResponse;
+use Conpago\Helpers\Contract\IResponse;
 
-	class Response implements IResponse
-	{
+    class Response implements IResponse
+    {
 
-		function setHttpResponseCode($code)
-		{
-			http_response_code($code);
-		}
-	}
+        public function setHttpResponseCode($code)
+        {
+            http_response_code($code);
+        }
+    }

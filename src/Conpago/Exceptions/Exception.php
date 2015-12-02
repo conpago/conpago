@@ -8,7 +8,6 @@
 
 namespace Conpago\Exceptions;
 
-
-class Exception extends \Exception {
-
+class Exception extends \Exception
+{
 }

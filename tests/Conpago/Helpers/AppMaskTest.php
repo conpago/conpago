@@ -1,51 +1,49 @@
 <?php
-	/**
-	 * Created by PhpStorm.
-	 * User: bg
-	 * Date: 10.10.14
-	 * Time: 22:58
-	 */
+    /**
+     * Created by PhpStorm.
+     * User: bg
+     * Date: 10.10.14
+     * Time: 22:58
+     */
 
-	namespace Conpago\Helpers;
+    namespace Conpago\Helpers;
 
+class AppMaskTest extends \PHPUnit_Framework_TestCase
+{
+    private $appPath;
 
-	class AppMaskTest extends \PHPUnit_Framework_TestCase
-	{
-		private $appPath;
+    private $appMask;
 
-		private $appMask;
+    const SRC = 'src';
 
-		const SRC = 'src';
+    const CONFIG = 'config';
 
-		const CONFIG = 'config';
+    protected function setUp()
+    {
+        $this->appPath = $this->getMock('Conpago\Helpers\Contract\IAppPath');
+        $this->appPath->expects($this->any())->method('source')->willReturn(self::SRC);
+        $this->appPath->expects($this->any())->method('config')->willReturn(self::CONFIG);
 
-		protected function setUp()
-		{
-			$this->appPath = $this->getMock('Conpago\Helpers\Contract\IAppPath');
-			$this->appPath->expects($this->any())->method('source')->willReturn(self::SRC);
-			$this->appPath->expects($this->any())->method('config')->willReturn(self::CONFIG);
+        $this->appMask = new AppMask($this->appPath);
+    }
 
-			$this->appMask = new AppMask($this->appPath);
-		}
+    public function testModuleMask()
+    {
+        $this->assertEquals(
+                $this->buildPath(array(self::SRC, '*Module.php')),
+                $this->appMask->moduleMask());
+    }
 
-		public function testModuleMask()
-		{
-			$this->assertEquals(
-				$this->buildPath(array(self::SRC,'*Module.php')),
-				$this->appMask->moduleMask());
-		}
+    public function testConfigMask()
+    {
+        $this->assertEquals(
+                $this->buildPath(array(self::CONFIG, '*.php')),
+                $this->appMask->configMask()
+            );
+    }
 
-		public function testConfigMask()
-		{
-			$this->assertEquals(
-				$this->buildPath(array(self::CONFIG,'*.php')),
-				$this->appMask->configMask()
-			);
-		}
-
-		private function buildPath(array $array)
-		{
-			return implode(DIRECTORY_SEPARATOR, $array);
-		}
-	}
- 
+    private function buildPath(array $array)
+    {
+        return implode(DIRECTORY_SEPARATOR, $array);
+    }
+}

@@ -1,16 +1,15 @@
 <?php
-	/**
-	 * Created by PhpStorm.
-	 * User: Bartosz Gołek
-	 * Date: 25.11.13
-	 * Time: 00:58
-	 */
+    /**
+     * Created by PhpStorm.
+     * User: Bartosz Gołek
+     * Date: 25.11.13
+     * Time: 00:58
+     */
 
-	namespace Conpago\Database\Exceptions;
+    namespace Conpago\Database\Exceptions;
 
-	use Conpago\Exceptions\Exception;
+use Conpago\Exceptions\Exception;
 
-	class EntityNotExistException extends Exception
-	{
-
-	}
+    class EntityNotExistException extends Exception
+    {
+    }
