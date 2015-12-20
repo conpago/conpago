@@ -4,6 +4,11 @@
  * User: bg
  * Date: 13.05.14
  * Time: 21:57
+ *
+ * @package    Conpago
+ * @subpackage Presentation
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago\Presentation;
@@ -13,6 +18,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 
 class PlainPresenter implements IPlainPresenter
 {
+
     public function show($data)
     {
         if (is_array($data)) {
@@ -24,5 +30,6 @@ class PlainPresenter implements IPlainPresenter
         }
 
         echo $data;
+
     }
 }

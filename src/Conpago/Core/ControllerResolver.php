@@ -4,6 +4,11 @@
  * User: Bartosz Gołek
  * Date: 09.11.13
  * Time: 15:30
+ *
+ * @package    Conpago
+ * @subpackage Core
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago\Core;
@@ -17,6 +22,7 @@ use Conpago\Presentation\Contract\IControllerResolver;
 
 class ControllerResolver implements IControllerResolver
 {
+
     /**
      * @var \Conpago\Config\Contract\IAppConfig
      */
@@ -24,8 +30,8 @@ class ControllerResolver implements IControllerResolver
 
     /**
      * @param IRequestDataReader $requestDataReader
-     * @param IAppConfig $appConfig
-     * @param IFactory[] $controllerFactories
+     * @param IAppConfig         $appConfig
+     * @param IFactory[]         $controllerFactories
      *
      * @inject Factory <\Conpago\IController> $controllerFactories
      */
@@ -35,8 +41,9 @@ class ControllerResolver implements IControllerResolver
         array $controllerFactories
     ) {
         $this->controllerFactories = $controllerFactories;
-        $this->requestDataReader = $requestDataReader;
-        $this->appConfig = $appConfig;
+        $this->requestDataReader   = $requestDataReader;
+        $this->appConfig           = $appConfig;
+
     }
 
     /**
@@ -45,18 +52,17 @@ class ControllerResolver implements IControllerResolver
      */
     public function getController()
     {
-        $params = $this->requestDataReader->getRequestData()->getParameters();
-        $controllerName = isset($params['interactor'])
-            ? $params['interactor']
-            : $this->appConfig->getDefaultInteractor();
+        $params         = $this->requestDataReader->getRequestData()->getParameters();
+        $controllerName = isset($params['interactor']) ? $params['interactor'] : $this->appConfig->getDefaultInteractor();
 
-        $controllerArrayKey = $controllerName . 'Controller';
+        $controllerArrayKey = $controllerName.'Controller';
 
         if (!array_key_exists($controllerArrayKey, $this->controllerFactories)) {
             throw new ControllerNotFoundException('Controller \''.$controllerName.'\' not found.');
         }
 
         return $this->controllerFactories[$controllerArrayKey]->createInstance();
+
     }
 
     /**

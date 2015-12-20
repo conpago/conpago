@@ -4,24 +4,33 @@
  * User: bgolek
  * Date: 2015-12-02
  * Time: 09:49
+ *
+ * @package    Conpago
+ * @subpackage Helpers
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago\Helpers;
 
 class NameValueCollectionBuilder
 {
+
     private $pairs;
+
     private $flatParameterList = array();
 
     public function __construct($pairs)
     {
         $this->pairs = $pairs;
+
     }
 
     public function build()
     {
         $this->convertPairsToList();
         return $this->flatParameterList;
+
     }
 
     private function convertPairsToList()
@@ -29,6 +38,7 @@ class NameValueCollectionBuilder
         foreach ($this->pairs as $pair) {
             $this->addNamedValue($this->createNamedValueFromNameValueString($pair));
         }
+
     }
 
     /**
@@ -43,12 +53,15 @@ class NameValueCollectionBuilder
             return null;
         }
 
-        return (object)array("name" => $exploded[0], "value" => $exploded[1]);
+        return (object) array(
+                         'name'  => $exploded[0],
+                         'value' => $exploded[1],
+                        );
+
     }
 
     /**
      * @param $namedValue
-     *
      */
     private function addNamedValue($namedValue)
     {
@@ -62,16 +75,18 @@ class NameValueCollectionBuilder
         }
 
         $this->addScalarValue($namedValue->name, $namedValue->value);
+
     }
 
     /**
      * @param $name
      *
-     * @return bool
+     * @return boolean
      */
     private function isNameAlreadyExists($name)
     {
         return isset($this->flatParameterList[$name]);
+
     }
 
     /**
@@ -85,16 +100,18 @@ class NameValueCollectionBuilder
         }
 
         $this->flatParameterList[$name][] = $value;
+
     }
 
     /**
      * @param $name
      *
-     * @return bool
+     * @return boolean
      */
     private function isScalarValueConversionNeeded($name)
     {
         return !is_array($this->flatParameterList[$name]);
+
     }
 
     /**
@@ -104,5 +121,6 @@ class NameValueCollectionBuilder
     private function addScalarValue($name, $value)
     {
         $this->flatParameterList[$name] = $value;
+
     }
 }

@@ -1,12 +1,12 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: bgolek
-     * Date: 2014-10-20
-     * Time: 08:11
-     */
+/**
+ * Created by PhpStorm.
+ * User: bgolek
+ * Date: 2014-10-20
+ * Time: 08:11
+ */
 
-    namespace Conpago;
+namespace Conpago;
 
 use Conpago\DI\IContainerBuilder;
 

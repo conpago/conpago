@@ -4,6 +4,11 @@
  * User: Bartosz Gołek
  * Date: 13.11.13
  * Time: 19:27
+ *
+ * @package    Conpago
+ * @subpackage Helpers
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago\Helpers;
@@ -13,7 +18,10 @@ use Conpago\Utils\ServerAccessor;
 
 class Args implements IArgs
 {
-    /** @var ServerAccessor */
+
+    /**
+     * @var ServerAccessor
+     */
     private $server;
 
     private $argv;
@@ -27,16 +35,19 @@ class Args implements IArgs
         }
 
         $this->argv = $this->parseArgv();
+
     }
 
     public function getArguments()
     {
         return $this->argv->arguments;
+
     }
 
     public function getScript()
     {
         return $this->argv->script;
+
     }
 
     /**
@@ -47,16 +58,18 @@ class Args implements IArgs
     public function getOption($option)
     {
         return $this->argv->options[$option];
+
     }
 
     /**
      * @param string $option
      *
-     * @return bool
+     * @return boolean
      */
     public function hasOption($option)
     {
         return array_key_exists($option, $this->argv->options);
+
     }
 
     protected function parseArgv()
@@ -65,5 +78,6 @@ class Args implements IArgs
 
         $argvParser = new ArgvParser($argv);
         return $argvParser->parse();
+
     }
 }

@@ -1,12 +1,12 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: Bartosz Gołek
-     * Date: 2014-10-15
-     * Time: 23:02
-     */
+/**
+ * Created by PhpStorm.
+ * User: Bartosz Gołek
+ * Date: 2014-10-15
+ * Time: 23:02
+ */
 
-    namespace Conpago\Helpers;
+namespace Conpago\Helpers;
 
 class RequestParserTest extends \PHPUnit_Framework_TestCase
 {

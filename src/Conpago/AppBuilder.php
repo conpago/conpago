@@ -4,6 +4,11 @@
  * User: Bartosz Gołek
  * Date: 09.11.13
  * Time: 15:30
+ *
+ * @package    Conpago
+ * @subpackage Core
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago;
@@ -17,6 +22,7 @@ use Conpago\Logging\Contract\ILogger;
 
 class AppBuilder
 {
+
     /**
      * @var IAppPath
      */
@@ -30,22 +36,23 @@ class AppBuilder
     /**
      * @var string
      */
-    private $contextName;
+    private $_contextName;
 
     /**
      * @var IFileSystem
      */
-    private $fileSystem;
+    private $_fileSystem;
+
     /**
      * @var IContainerBuilder
      */
-    private $containerBuilder;
+    private $_containerBuilder;
 
     /**
-     * @param IFileSystem $fileSystem
-     * @param IAppPath $appPath
+     * @param IFileSystem       $fileSystem
+     * @param IAppPath          $appPath
      * @param IContainerBuilder $containerBuilder
-     * @param string $contextName
+     * @param string            $contextName
      */
     public function __construct(
         IFileSystem $fileSystem,
@@ -53,10 +60,11 @@ class AppBuilder
         IContainerBuilder $containerBuilder,
         $contextName
     ) {
-        $this->appPath = $appPath;
-        $this->contextName = $contextName;
-        $this->fileSystem = $fileSystem;
-        $this->containerBuilder = $containerBuilder;
+        $this->appPath          = $appPath;
+        $this->_contextName      = $contextName;
+        $this->_fileSystem       = $fileSystem;
+        $this->_containerBuilder = $containerBuilder;
+
     }
 
     protected function loadModules()
@@ -64,32 +72,39 @@ class AppBuilder
         $moduleMask = implode(
             DIRECTORY_SEPARATOR,
             array(
-                $this->appPath->root(),
-                "src",
-                $this->contextName . "Module.php"
+             $this->appPath->root(),
+             'src',
+             $this->_contextName.'Module.php',
             )
         );
 
-        foreach ($this->fileSystem->glob($moduleMask) as $filePath) {
-            /** @var IModule $class */
-            $class = $this->fileSystem->loadClass($filePath);
-            $class->build($this->containerBuilder);
+        foreach ($this->_fileSystem->glob($moduleMask) as $filePath) {
+            /*
+                @var IModule $class
+*/
+            $class = $this->_fileSystem->loadClass($filePath);
+            $class->build($this->_containerBuilder);
         }
+
     }
 
-    /** @var IModule[] */
+    /**
+     * @var IModule[]
+     */
     protected $additionalModules = array();
 
     public function registerAdditionalModule(IModule $module)
     {
         $this->additionalModules[] = $module;
+
     }
 
     protected function loadAdditionalModules()
     {
         foreach ($this->additionalModules as $additionalModule) {
-            $additionalModule->build($this->containerBuilder);
+            $additionalModule->build($this->_containerBuilder);
         }
+
     }
 
     /**
@@ -98,18 +113,20 @@ class AppBuilder
     protected function getContainer()
     {
         if (!$this->container) {
-            $this->container = $this->containerBuilder->build();
+            $this->container = $this->_containerBuilder->build();
         }
 
         return $this->container;
+
     }
 
     public function buildApp()
     {
-        $this->registerFileSystem();
-        $this->registerAppPath();
+        $this->_registerFileSystem();
+        $this->_registerAppPath();
         $this->loadModules();
         $this->loadAdditionalModules();
+
     }
 
     /**
@@ -118,6 +135,7 @@ class AppBuilder
     public function getLogger()
     {
         return $this->getContainer()->resolve('Conpago\Logging\Contract\ILogger');
+
     }
 
     /**
@@ -126,21 +144,21 @@ class AppBuilder
     public function getApp()
     {
         return $this->getContainer()->resolve('Conpago\Contract\IApp');
+
     }
 
-    private function registerFileSystem()
+    private function _registerFileSystem()
     {
-        $this
-            ->containerBuilder
-            ->registerInstance($this->fileSystem)
-            ->asA('Conpago\File\Contract\IFileSystem');
+        $this->_containerBuilder->registerInstance($this->_fileSystem)->asA('Conpago\File\Contract\IFileSystem');
+
     }
 
-    private function registerAppPath()
+    /**
+     * Register IAppPath implementation in container.
+     */
+    private function _registerAppPath()
     {
-        $this
-            ->containerBuilder
-            ->registerInstance($this->appPath)
-            ->asA('Conpago\Helpers\Contract\IAppPath');
+        $this->_containerBuilder->registerInstance($this->appPath)->asA('Conpago\Helpers\Contract\IAppPath');
+
     }
 }

@@ -1,3 +1,6 @@
 .idea/
 vendor/
+tmp/
+build/
+docs/api/
 composer.lock

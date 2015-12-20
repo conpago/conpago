@@ -20,10 +20,15 @@
 		"conpago/conpago-system": "dev-master"
 	},
 	"require-dev": {
-		"pdepend/pdepend": "*",
-		"phpmd/phpmd": "*",
-		"squizlabs/php_codesniffer": "*",
-		"sebastian/phpcpd": "*",
+
+		"conpago/conpago-dev-tools": "dev-master",
+		"pdepend/pdepend": "2.*",
+		"phpmd/phpmd": "2.*",
+		"squizlabs/php_codesniffer": "2.*",
+		"sebastian/phpcpd": "2.*",
+		"phpdocumentor/phpdocumentor": "2.*",
+		"phing/phing": "2.*",
+		"phploc/phploc": "2.*",
 		"phpunit/phpunit": "5.*"
 	},
 	"autoload": {

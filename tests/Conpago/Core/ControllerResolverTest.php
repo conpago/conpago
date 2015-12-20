@@ -1,12 +1,12 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: Bartosz Gołek
-     * Date: 2014-10-19
-     * Time: 23:17
-     */
+/**
+ * Created by PhpStorm.
+ * User: Bartosz Gołek
+ * Date: 2014-10-19
+ * Time: 23:17
+ */
 
-    namespace Conpago\Core;
+namespace Conpago\Core;
 
 class ControllerResolverTest extends \PHPUnit_Framework_TestCase
 {

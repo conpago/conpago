@@ -4,6 +4,11 @@
  * User: Bartosz Gołek
  * Date: 2014-10-20
  * Time: 00:10
+ *
+ * @package    Conpago
+ * @subpackage Core
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago;
@@ -15,6 +20,7 @@ use Conpago\Helpers\AppPath;
 
 class AppBuilderFactory
 {
+
     /**
      * @param string $contextName
      * @param string $appRootPath
@@ -25,22 +31,24 @@ class AppBuilderFactory
     {
         list($fileSystem, $containerBuilder, $appPath) = $this->getAppBuilderDependencies($appRootPath);
         return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
+
     }
 
     /**
      * @param IContainerBuilderPersister $containerBuilderPersister
-     * @param string $contextName
-     * @param string $appRootPath
+     * @param string                     $contextName
+     * @param string                     $appRootPath
      *
      * @return AppBuilder
      */
     public function createAppBuilderFromPersisted(IContainerBuilderPersister $persister, $contextName, $appRootPath)
     {
-        $fileSystem = new FileSystem();
-        $appPath = new AppPath($fileSystem, $appRootPath);
+        $fileSystem       = new FileSystem();
+        $appPath          = new AppPath($fileSystem, $appRootPath);
         $containerBuilder = $persister->loadContainerBuilder();
 
         return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
+
     }
 
     /**
@@ -54,6 +62,11 @@ class AppBuilderFactory
         $containerBuilder = new ContainerBuilder();
         $appPath          = new AppPath($fileSystem, $appRootPath);
 
-        return array( $fileSystem, $containerBuilder, $appPath );
+        return array(
+                $fileSystem,
+                $containerBuilder,
+                $appPath,
+               );
+
     }
 }

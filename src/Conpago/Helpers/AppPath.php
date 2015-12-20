@@ -4,6 +4,11 @@
  * User: Bartosz Gołek
  * Date: 09.11.13
  * Time: 15:30
+ *
+ * @package    Conpago
+ * @subpackage Helpers
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago\Helpers;
@@ -17,10 +22,15 @@ class AppPath implements IAppPath
 {
 
     protected $cache;
+
     protected $config;
+
     protected $root;
+
     protected $templates;
+
     protected $source;
+
     protected $sessions;
 
     /**
@@ -32,12 +42,30 @@ class AppPath implements IAppPath
     {
         $this->fileSystem = $fileSystem;
 
-        $this->source    = array($basePath, "src");
-        $this->templates = array($basePath, "templates");
+        $this->source    = array(
+                            $basePath,
+                            'src',
+                           );
+        $this->templates = array(
+                            $basePath,
+                            'templates',
+                           );
         $this->root      = array($basePath);
-        $this->config    = array($basePath, "config" );
-        $this->cache     = array($basePath, "tmp", "cache");
-        $this->sessions  = array($basePath, "tmp", "sessions");
+        $this->config    = array(
+                            $basePath,
+                            'config',
+                           );
+        $this->cache     = array(
+                            $basePath,
+                            'tmp',
+                            'cache',
+                           );
+        $this->sessions  = array(
+                            $basePath,
+                            'tmp',
+                            'sessions',
+                           );
+
     }
 
     /**
@@ -45,9 +73,10 @@ class AppPath implements IAppPath
      */
     private function getPath(array $elements)
     {
-        $path = implode(DIRECTORY_SEPARATOR, $elements);
+        $path     = implode(DIRECTORY_SEPARATOR, $elements);
         $realPath = $this->fileSystem->realPath($path);
         return new Path($path, $realPath);
+
     }
 
     /**
@@ -56,6 +85,7 @@ class AppPath implements IAppPath
     public function cache()
     {
         return $this->getPath($this->cache);
+
     }
 
     /**
@@ -64,6 +94,7 @@ class AppPath implements IAppPath
     public function sessions()
     {
         return $this->getPath($this->sessions);
+
     }
 
     /**
@@ -72,6 +103,7 @@ class AppPath implements IAppPath
     public function config()
     {
         return $this->getPath($this->config);
+
     }
 
     /**
@@ -80,6 +112,7 @@ class AppPath implements IAppPath
     public function root()
     {
         return $this->getPath($this->root);
+
     }
 
     /**
@@ -88,6 +121,7 @@ class AppPath implements IAppPath
     public function templates()
     {
         return $this->getPath($this->templates);
+
     }
 
     /**
@@ -96,5 +130,6 @@ class AppPath implements IAppPath
     public function source()
     {
         return $this->getPath($this->source);
+
     }
 }

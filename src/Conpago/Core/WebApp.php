@@ -4,6 +4,11 @@
  * User: Bartosz Gołek
  * Date: 09.11.13
  * Time: 15:30
+ *
+ * @package    Conpago
+ * @subpackage Core
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago\Core;
@@ -17,6 +22,7 @@ use Conpago\Presentation\Contract\IController;
 
 class WebApp implements IApp
 {
+
     /**
      * @var IController
      */
@@ -26,14 +32,17 @@ class WebApp implements IApp
      * @var IRequestDataReader
      */
     private $requestDataReader;
+
     /**
      * @var IResponse
      */
     private $response;
+
     /**
      * @var ILogger
      */
     private $logger;
+
     /**
      * @var IAppConfig
      */
@@ -47,10 +56,11 @@ class WebApp implements IApp
         IAppConfig $appConfig
     ) {
         $this->requestDataReader = $requestDataReader;
-        $this->controller = $controller;
-        $this->response = $response;
-        $this->logger = $logger;
-        $this->appConfig = $appConfig;
+        $this->controller        = $controller;
+        $this->response          = $response;
+        $this->logger            = $logger;
+        $this->appConfig         = $appConfig;
+
     }
 
     /**
@@ -65,16 +75,19 @@ class WebApp implements IApp
             $this->logger->addCritical('Exception caught', array('exception' => $e));
             $this->response->setHttpResponseCode(500);
         }
+
     }
 
     private function getRequestData()
     {
         return $this->requestDataReader->getRequestData();
+
     }
 
     private function executeController()
     {
         $this->controller->execute($this->getRequestData());
+
     }
 
     private function init()
@@ -83,5 +96,6 @@ class WebApp implements IApp
         if ($timeZone != null) {
             date_default_timezone_set($timeZone);
         }
+
     }
 }

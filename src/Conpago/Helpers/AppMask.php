@@ -4,6 +4,11 @@
  * User: Bartosz Gołek
  * Date: 09.11.13
  * Time: 15:30
+ *
+ * @package    Conpago
+ * @subpackage Helpers
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago\Helpers;
@@ -19,6 +24,7 @@ class AppMask implements IAppMask
     public function __construct(IAppPath $appPath)
     {
         $this->appPath = $appPath;
+
     }
 
     public function moduleMask()
@@ -26,10 +32,11 @@ class AppMask implements IAppMask
         return implode(
             DIRECTORY_SEPARATOR,
             array(
-                $this->appPath->source(),
-                "*Module.php"
+             $this->appPath->source(),
+             '*Module.php',
             )
         );
+
     }
 
     public function configMask()
@@ -37,9 +44,10 @@ class AppMask implements IAppMask
         return implode(
             DIRECTORY_SEPARATOR,
             array(
-                $this->appPath->config(),
-                "*.php"
+             $this->appPath->config(),
+             '*.php',
             )
         );
+
     }
 }

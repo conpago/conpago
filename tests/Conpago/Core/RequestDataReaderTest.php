@@ -1,12 +1,12 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: Bartosz Gołek
-     * Date: 2014-10-19
-     * Time: 23:39
-     */
+/**
+ * Created by PhpStorm.
+ * User: Bartosz Gołek
+ * Date: 2014-10-19
+ * Time: 23:39
+ */
 
-    namespace Conpago\Core;
+namespace Conpago\Core;
 
 class RequestDataReaderTest extends \PHPUnit_Framework_TestCase
 {

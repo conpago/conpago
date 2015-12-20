@@ -1,12 +1,12 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: bg
-     * Date: 10.10.14
-     * Time: 22:47
-     */
+/**
+ * Created by PhpStorm.
+ * User: bg
+ * Date: 10.10.14
+ * Time: 22:47
+ */
 
-    namespace Conpago\Database\Exceptions;
+namespace Conpago\Database\Exceptions;
 
 class ColumnUniqueConstraintExceptionTest extends \PHPUnit_Framework_TestCase
 {

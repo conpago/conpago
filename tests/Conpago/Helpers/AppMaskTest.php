@@ -1,12 +1,12 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: bg
-     * Date: 10.10.14
-     * Time: 22:58
-     */
+/**
+ * Created by PhpStorm.
+ * User: bg
+ * Date: 10.10.14
+ * Time: 22:58
+ */
 
-    namespace Conpago\Helpers;
+namespace Conpago\Helpers;
 
 class AppMaskTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,12 +1,12 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: bg
-     * Date: 11.10.14
-     * Time: 13:55
-     */
+/**
+ * Created by PhpStorm.
+ * User: bg
+ * Date: 11.10.14
+ * Time: 13:55
+ */
 
-    namespace Conpago\Helpers;
+namespace Conpago\Helpers;
 
 use Conpago\File\Contract\IFileSystem;
 use Conpago\File\Contract\IPath;

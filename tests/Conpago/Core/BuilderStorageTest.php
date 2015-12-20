@@ -1,12 +1,12 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: bgolek
-     * Date: 2014-10-17
-     * Time: 08:10
-     */
+/**
+ * Created by PhpStorm.
+ * User: bgolek
+ * Date: 2014-10-17
+ * Time: 08:10
+ */
 
-    namespace Conpago\Core;
+namespace Conpago\Core;
 
 class BuilderStorageTest extends \PHPUnit_Framework_TestCase
 {

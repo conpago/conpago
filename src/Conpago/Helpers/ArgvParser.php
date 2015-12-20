@@ -4,34 +4,41 @@
  * User: bgolek
  * Date: 2015-12-02
  * Time: 09:50
+ *
+ * @package    Conpago
+ * @subpackage Helpers
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago\Helpers;
 
 class ArgvParser
 {
+
     private $argv;
 
     public function __construct(array $argv)
     {
         $this->argv = $argv;
+
     }
 
     public function parse()
     {
         $result = new Argv();
         $option = null;
-        $first = true;
+        $first  = true;
         foreach ($this->argv as $arg) {
             if ($first == true) {
                 $result->script = $arg;
-                $first = false;
+                $first          = false;
                 continue;
             }
 
             if ($option != null) {
                 $result->options[$option] = $arg;
-                $option = null;
+                $option                   = null;
                 continue;
             }
 
@@ -44,15 +51,18 @@ class ArgvParser
         }
 
         return $result;
+
     }
 
     private function isOption($arg)
     {
         return $arg[0] == '-';
+
     }
 
     private function option($arg)
     {
         return substr($arg, 1);
+
     }
 }

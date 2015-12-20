@@ -1,12 +1,12 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: Bartosz Gołek
-     * Date: 2014-10-20
-     * Time: 00:14
-     */
+/**
+ * Created by PhpStorm.
+ * User: Bartosz Gołek
+ * Date: 2014-10-20
+ * Time: 00:14
+ */
 
-    namespace Conpago;
+namespace Conpago;
 
 class AppBuilderFactoryTest extends \PHPUnit_Framework_TestCase
 {

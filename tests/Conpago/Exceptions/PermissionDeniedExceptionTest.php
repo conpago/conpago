@@ -1,12 +1,12 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: bg
-     * Date: 10.10.14
-     * Time: 22:53
-     */
+/**
+ * Created by PhpStorm.
+ * User: bg
+ * Date: 10.10.14
+ * Time: 22:53
+ */
 
-    namespace Conpago\Exceptions;
+namespace Conpago\Exceptions;
 
 class PermissionDeniedExceptionTest extends \PHPUnit_Framework_TestCase
 {

@@ -4,6 +4,11 @@
  * User: Bartosz Gołek
  * Date: 13.11.13
  * Time: 20:38
+ *
+ * @package    Conpago
+ * @subpackage Core
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago\Core;
@@ -19,6 +24,7 @@ class BuilderStorage implements IContainerBuilderStorage
      * @var string
      */
     private $fileName;
+
     /**
      * @var IFileSystem
      */
@@ -26,34 +32,37 @@ class BuilderStorage implements IContainerBuilderStorage
 
     /**
      * @param IFileSystem $filesystem
-     * @param IAppPath $appPath
-     * @param string $contextName
+     * @param IAppPath    $appPath
+     * @param string      $contextName
      */
     public function __construct(IFileSystem $filesystem, IAppPath $appPath, $contextName)
     {
         $this->filesystem = $filesystem;
-        $this->fileName = implode(
+        $this->fileName   = implode(
             DIRECTORY_SEPARATOR,
             array(
-                $appPath->root(),
-                'tmp',
-                'persistent',
-                $contextName . 'Container'
+             $appPath->root(),
+             'tmp',
+             'persistent',
+             $contextName.'Container',
             )
         );
+
     }
 
     public function putConfiguration(array $configuration)
     {
         $results = print_r($configuration, true);
 
-        $results = "<?php".PHP_EOL."return " . str_replace("    ", "\t", $results);
+        $results = '<?php'.PHP_EOL.'return '.str_replace('    ', "\t", $results);
 
         $this->filesystem->setFileContent($this->fileName, $results);
+
     }
 
     public function getConfiguration()
     {
         return $this->filesystem->includeFile($this->fileName);
+
     }
 }

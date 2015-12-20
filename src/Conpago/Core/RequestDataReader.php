@@ -4,6 +4,11 @@
  * User: Bartosz Gołek
  * Date: 25.02.14
  * Time: 07:51
+ *
+ * @package    Conpago
+ * @subpackage Core
+ * @author     Bartosz Gołek <bartosz.golek@gmail.com>
+ * @copyright  Copyright (c) 2015, Bartosz Gołek
  */
 
 namespace Conpago\Core;
@@ -14,6 +19,7 @@ use Conpago\Helpers\Contract\IRequestParser;
 
 class RequestDataReader implements IRequestDataReader
 {
+
     /**
      * @var Conpago\Helpers\Contract\IRequestData
      */
@@ -25,6 +31,7 @@ class RequestDataReader implements IRequestDataReader
     public function __construct(IRequestParser $requestParser)
     {
         $this->requestParser = $requestParser;
+
     }
 
     /**
@@ -37,6 +44,7 @@ class RequestDataReader implements IRequestDataReader
         }
 
         return $this->requestData;
+
     }
 
     /**
