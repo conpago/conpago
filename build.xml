@@ -24,7 +24,6 @@
 		<phpunit configuration="./phpunit.xml" />
 	</target>
 	<target name="phpunit-ci" hidden="true">
-		<autoloader autoloaderpath="./vendor/autoload.php"/>
 		<phpunit codecoverage="true" configuration="./phpunit.xml">
 			<formatter todir="${build}/CodeCoverage" type="clover" outfile="clover.xml" />
 			<formatter todir="${build}" type="xml" outfile="phpunit.xml" />
