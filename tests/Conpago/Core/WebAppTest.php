@@ -10,58 +10,64 @@ namespace Conpago\Core;
 
 class WebAppTest extends \PHPUnit_Framework_TestCase
 {
+    protected $controller;
+
+    protected $logger;
+
+    protected $response;
+
+    protected $appConfig;
+
+    protected $requestDataReader;
+
+    protected $webApp;
+
     public function testHttp500ErrorOnExceptionFromRequestDataReader()
     {
-        $controller = $this->getMock('Conpago\Presentation\Contract\IController');
-        $logger = $this->getMock('Conpago\Logging\Contract\ILogger');
-        $response = $this->getMock('Conpago\Helpers\Contract\IResponse');
-        $response->expects($this->once())->method('setHttpResponseCode')->with(500);
+        $this->response->expects($this->once())->method('setHttpResponseCode')->with(500);
+        $this->requestDataReader->expects($this->any())->method('getRequestData')->willThrowException(new \Exception());
 
-        $requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
-        $requestDataReader->expects($this->any())->method('getRequestData')->willThrowException(new \Exception());
+        $this->webApp->run();
+    }
 
-        $appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
-
-        $webApp = new WebApp($requestDataReader, $controller, $response, $logger, $appConfig);
-        $webApp->run();
+    public function testSettingTimeZoneWithoutError()
+    {
+        $this->assertNotEquals('Europe/Warsaw', date_default_timezone_get());
+        $this->appConfig->expects($this->any())->method('getTimeZone')->willReturn('Europe/Warsaw');
+        $this->webApp->run();
+        $this->assertEquals('Europe/Warsaw', date_default_timezone_get());
     }
 
     public function testHttp500ErrorOnExceptionFromController()
     {
-        $logger = $this->getMock('Conpago\Logging\Contract\ILogger');
-
-        $response = $this->getMock('Conpago\Helpers\Contract\IResponse');
-        $response->expects($this->once())->method('setHttpResponseCode')->with(500);
-
-        $requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
         $requestData = $this->getMock('Conpago\Helpers\Contract\IRequestData');
-        $requestDataReader->expects($this->any())->method('getRequestData')->willReturn($requestData);
+        $this->response->expects($this->once())->method('setHttpResponseCode')->with(500);
+        $this->requestDataReader->expects($this->any())->method('getRequestData')->willReturn($requestData);
+        $this->controller->expects($this->once())->method('execute')->willThrowException(new \Exception());
 
-        $controller = $this->getMock('Conpago\Presentation\Contract\IController');
-        $controller->expects($this->once())->method('execute')->willThrowException(new \Exception());
-
-        $appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
-
-        $webApp = new WebApp($requestDataReader, $controller, $response, $logger, $appConfig);
-        $webApp->run();
+        $this->webApp->run();
     }
 
     public function testExecuteController()
     {
-        $logger = $this->getMock('Conpago\Logging\Contract\ILogger');
-
-        $response = $this->getMock('Conpago\Helpers\Contract\IResponse');
-
-        $requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
         $requestData = $this->getMock('Conpago\Helpers\Contract\IRequestData');
-        $requestDataReader->expects($this->any())->method('getRequestData')->willReturn($requestData);
+        $this->requestDataReader->expects($this->any())->method('getRequestData')->willReturn($requestData);
+        $this->controller->expects($this->once())->method('execute')->with($requestData);
+        $this->webApp->run();
+    }
 
-        $controller = $this->getMock('Conpago\Presentation\Contract\IController');
-        $controller->expects($this->once())->method('execute')->with($requestData);
-
-        $appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
-
-        $webApp = new WebApp($requestDataReader, $controller, $response, $logger, $appConfig);
-        $webApp->run();
+    public function setUp()
+    {
+        $this->controller        = $this->getMock('Conpago\Presentation\Contract\IController');
+        $this->logger            = $this->getMock('Conpago\Logging\Contract\ILogger');
+        $this->response          = $this->getMock('Conpago\Helpers\Contract\IResponse');
+        $this->appConfig         = $this->getMock('Conpago\Config\Contract\IAppConfig');
+        $this->requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
+        $this->webApp            = new WebApp(
+            $this->requestDataReader,
+            $this->controller,
+            $this->response,
+            $this->logger,
+            $this->appConfig);
     }
 }
