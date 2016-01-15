@@ -28,7 +28,7 @@
             <!--<formatter todir="${build}/CodeCoverage" type="clover" outfile="clover.xml" />-->
             <!--<formatter todir="${build}" type="xml" outfile="phpunit.xml" />-->
         <!--</phpunit>-->
-        <exec executable="./vendor/bin/phpunit">
+        <exec executable="./vendor/bin/phpunit" passthru="true" >
             <arg value="--log-junit"/>
             <arg value="${build}/phpunit.xml"/>
             <arg value="--coverage-html"/>
@@ -36,7 +36,7 @@
             <arg value="--coverage-clover"/>
             <arg value="${build}/CodeCoverage/clover.xml"/>
             <arg value="-c"/>
-            <arg value="./tests/phpunit.xml"/>
+            <arg value="./phpunit.xml"/>
         </exec>
     </target>
 
