@@ -1,89 +1,99 @@
 <?xml version="1.0"?>
 <project name="Conpago" default="default" basedir=".">
-	<property name="src" value="./src" override="true"/>
-	<property name="build" value="./build" override="true"/>
+    <property name="src" value="./src" override="true"/>
+    <property name="build" value="./build" override="true"/>
 
-	<target name="default" hidden="true">
-		<exec command="phing -f ${phing.file} -l" outputProperty="phing_targets" />
-		<echo>Please select a target.</echo>
-		<echo>${phing_targets}</echo>
-	</target>
+    <target name="default" hidden="true">
+        <exec command="phing -f ${phing.file} -l" outputProperty="phing_targets" />
+        <echo>Please select a target.</echo>
+        <echo>${phing_targets}</echo>
+    </target>
 
-	<target name="init" hidden="true">
-		<!-- Create the time stamp -->
-		<tstamp/>
-		<!-- Create the build directory structure used by compile -->
-		<mkdir dir="${build}"/>
-	</target>
+    <target name="init" hidden="true">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
 
-	<target name="update" description="update composer packages">
-		<exec command="composer update" passthru="true" />
-	</target>
+    <target name="update" description="update composer packages">
+        <exec command="composer update" passthru="true" />
+    </target>
 
-	<target name="phpunit">
-		<phpunit configuration="./phpunit.xml" />
-	</target>
-	<target name="phpunit-ci" hidden="true">
-		<phpunit codecoverage="true" configuration="./phpunit.xml">
-			<formatter todir="${build}/CodeCoverage" type="clover" outfile="clover.xml" />
-			<formatter todir="${build}" type="xml" outfile="phpunit.xml" />
-		</phpunit>
-	</target>
+    <target name="phpunit">
+        <phpunit configuration="./phpunit.xml" />
+    </target>
+    <target name="phpunit-ci" hidden="true">
+        <!--<phpunit codecoverage="true" configuration="./phpunit.xml">-->
+            <!--<formatter todir="${build}/CodeCoverage" type="clover" outfile="clover.xml" />-->
+            <!--<formatter todir="${build}" type="xml" outfile="phpunit.xml" />-->
+        <!--</phpunit>-->
+        <exec executable="./vendor/bin/phpunit">
+            <arg value="--log-junit"/>
+            <arg value="${build}/phpunit.xml"/>
+            <arg value="--coverage-html"/>
+            <arg value="${build}/CodeCoverage"/>
+            <arg value="--coverage-clover"/>
+            <arg value="${build}/CodeCoverage/clover.xml"/>
+            <arg value="-c"/>
+            <arg value="./tests/phpunit.xml"/>
+        </exec>
+    </target>
 
-	<target name="phpmd">
-		<phpmd file="./src" rulesets="codesize,design,naming,unusedcode,controversial,cleancode">
-			<formatter type="text" useFile="false" outfile="." />
-		</phpmd>
-	</target>
-	<target name="phpmd-ci" hidden="true">
-		<phpmd file="./src" rulesets="codesize,design,naming,unusedcode,controversial,cleancode">
-			<formatter type="xml" outfile="${build}/pmd.xml" />
-		</phpmd>
-	</target>
+    <target name="phpmd">
+        <phpmd file="./src" rulesets="codesize,design,naming,unusedcode,controversial,cleancode">
+            <formatter type="text" useFile="false" outfile="." />
+        </phpmd>
+    </target>
+    <target name="phpmd-ci" hidden="true">
+        <phpmd file="./src" rulesets="codesize,design,naming,unusedcode,controversial,cleancode">
+            <formatter type="xml" outfile="${build}/pmd.xml" />
+        </phpmd>
+    </target>
 
-	<target name="pdepend">
-		<phpdepend file="./src">
-			<logger type="summary-xml" outfile="${build}/summary.xml"/>
-			<logger type="jdepend-xml" outfile="${build}/jdepend.xml"/>
-			<logger type="jdepend-chart" outfile="${build}/jdepend.svg"/>
-			<logger type="overview-pyramid" outfile="${build}/pyramid.svg"/>
-		</phpdepend>
-	</target>
-	<target name="pdepend-ci" depends="pdepend" hidden="true">
-	</target>
+    <target name="pdepend">
+        <phpdepend file="./src">
+            <logger type="summary-xml" outfile="${build}/summary.xml"/>
+            <logger type="jdepend-xml" outfile="${build}/jdepend.xml"/>
+            <logger type="jdepend-chart" outfile="${build}/jdepend.svg"/>
+            <logger type="overview-pyramid" outfile="${build}/pyramid.svg"/>
+        </phpdepend>
+    </target>
+    <target name="pdepend-ci" depends="pdepend" hidden="true">
+    </target>
 
-	<target name="phpcs">
-		<phpcodesniffer standard="./vendor/conpago/conpago-dev-tools/phpcs/Conpago/ruleset.xml" format="summary" file="./src" allowedFileExtensions="php php5 inc"/>
-	</target>
-	<target name="phpcs-ci" hidden="true">
-		<phpcodesniffer standard="./vendor/conpago/conpago-dev-tools/phpcs/Conpago/ruleset.xml" format="summary" file="./src" allowedFileExtensions="php php5 inc">
-			<formatter type="checkstyle" outfile="${build}/phpcs.xml"/>
-		</phpcodesniffer>
-	</target>
+    <target name="phpcs">
+        <phpcodesniffer standard="./vendor/conpago/conpago-dev-tools/phpcs/Conpago/ruleset.xml" format="summary" file="./src" allowedFileExtensions="php php5 inc"/>
+    </target>
+    <target name="phpcs-ci" hidden="true">
+        <phpcodesniffer standard="./vendor/conpago/conpago-dev-tools/phpcs/Conpago/ruleset.xml" format="summary" file="./src" allowedFileExtensions="php php5 inc">
+            <formatter type="checkstyle" outfile="${build}/phpcs.xml"/>
+        </phpcodesniffer>
+    </target>
 
-	<target name="phpcpd">
-		<phpcpd file="./src"/>
-	</target>
-	<target name="phpcpd-ci" hidden="true">
-		<phpcpd file="./src">
-			<formatter type="pmd" outfile="${build}/phpcpd.xml"/>
-		</phpcpd>
-	</target>
+    <target name="phpcpd">
+        <phpcpd file="./src"/>
+    </target>
+    <target name="phpcpd-ci" hidden="true">
+        <phpcpd file="./src">
+            <formatter type="pmd" outfile="${build}/phpcpd.xml"/>
+        </phpcpd>
+    </target>
 
-	<target name="phpdoc">
-		<mkdir dir="./docs/api"/>
-		<phpdoc2 title="Conpago API Documentation" destdir="./docs/api">
-			<fileset dir="./src">
-				<include name="**/*.php" />
-			</fileset>
-		</phpdoc2>
-	</target>
-	<target name="phpdoc-ci" depends="phpdoc" hidden="true"/>
+    <target name="phpdoc">
+        <mkdir dir="./docs/api"/>
+        <phpdoc2 title="Conpago API Documentation" destdir="./docs/api">
+            <fileset dir="./src">
+                <include name="**/*.php" />
+            </fileset>
+        </phpdoc2>
+    </target>
+    <target name="phpdoc-ci" depends="phpdoc" hidden="true"/>
 
-	<target name="phploc">
-		<exec command="phploc src" />
-	</target>
+    <target name="phploc">
+        <exec command="phploc src" />
+    </target>
 
-	<target name="validate" depends="phpunit,phpcpd,phpmd,pdepend,phpcs" />
-	<target name="ci" depends="init,update,phpunit-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci" hidden="true" />
+    <target name="validate" depends="phpunit,phpcpd,phpmd,pdepend,phpcs" />
+    <target name="ci" depends="init,update,phpunit-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci" hidden="true" />
 </project>
