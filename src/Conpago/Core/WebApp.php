@@ -15,39 +15,62 @@ namespace Conpago\Core;
 
 use Conpago\Config\Contract\IAppConfig;
 use Conpago\Contract\IApp;
+use Conpago\Helpers\Contract\IRequestData;
 use Conpago\Helpers\Contract\IRequestDataReader;
 use Conpago\Helpers\Contract\IResponse;
 use Conpago\Logging\Contract\ILogger;
 use Conpago\Presentation\Contract\IController;
 
+/**
+ * Represents web application which handle Http requests.
+ */
 class WebApp implements IApp
 {
 
     /**
+     * Controller which handle request.
+     *
      * @var IController
      */
     private $controller;
 
     /**
+     * Provides access to request data.
+     *
      * @var IRequestDataReader
      */
     private $requestDataReader;
 
     /**
+     * Provides ability to set response http specific data.
+     *
      * @var IResponse
      */
     private $response;
 
     /**
+     * Provides ability for logging.
+     *
      * @var ILogger
      */
     private $logger;
 
     /**
+     * Application configuration provider.
+     *
      * @var IAppConfig
      */
     private $appConfig;
 
+    /**
+     * Creates new instance of web application.
+     *
+     * @param IRequestDataReader $requestDataReader Provides access to request data.
+     * @param IController        $controller        Controller which handle request.
+     * @param IResponse          $response          Provides ability to set response http specific data.
+     * @param ILogger            $logger            Provides ability for logging.
+     * @param IAppConfig         $appConfig         Application configuration provider.
+     */
     public function __construct(
         IRequestDataReader $requestDataReader,
         IController $controller,
@@ -64,7 +87,9 @@ class WebApp implements IApp
     }
 
     /**
-     * Process the request, and generate output
+     * Process the request, and generate output.
+     *
+     * @return void
      */
     public function run()
     {
@@ -78,18 +103,33 @@ class WebApp implements IApp
 
     }
 
+    /**
+     * Gets request data from request data reader.
+     *
+     * @return IRequestData Current request data.
+     */
     private function getRequestData()
     {
         return $this->requestDataReader->getRequestData();
 
     }
 
+    /**
+     * Executes controller with request data as parameter.
+     *
+     * @return void
+     */
     private function executeController()
     {
         $this->controller->execute($this->getRequestData());
 
     }
 
+    /**
+     * Initialize application using config data.
+     *
+     * @return void
+     */
     private function init()
     {
         $timeZone = $this->appConfig->getTimeZone();

@@ -17,8 +17,10 @@ use Conpago\Helpers\Contract\IResponse;
 
 class Response implements IResponse
 {
+
     public function setHttpResponseCode($code)
     {
         http_response_code($code);
+
     }
 }

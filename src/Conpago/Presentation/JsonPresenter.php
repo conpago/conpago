@@ -15,9 +15,19 @@ namespace Conpago\Presentation;
 
 use Conpago\Presentation\Contract\IJsonPresenter;
 
+/**
+ * Default implementation for presenting data as JSON.
+ */
 class JsonPresenter implements IJsonPresenter
 {
 
+    /**
+     * Serialize and present data as JSON.
+     *
+     * @param mixed $data Data to serialize.
+     *
+     * @return void
+     */
     public function showJson($data)
     {
         echo json_encode($data, JSON_FORCE_OBJECT);

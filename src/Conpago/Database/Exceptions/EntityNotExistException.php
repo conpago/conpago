@@ -15,6 +15,9 @@ namespace Conpago\Database\Exceptions;
 
 use Conpago\Exceptions\Exception;
 
+/**
+ * General exception for entity not found error.
+ */
 class EntityNotExistException extends Exception
 {
 }

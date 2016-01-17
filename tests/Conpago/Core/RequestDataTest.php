@@ -10,37 +10,23 @@ namespace Conpago\Core;
 
 class RequestDataTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-         * @var RequestData
-         */
-        private $requestData;
-
-    public function setUp()
-    {
-        $this->requestData = new RequestData();
-    }
-
     public function testFormat()
     {
-        $this->requestData->setFormat('format');
-        $this->assertEquals('format', $this->requestData->getFormat());
+        $this->assertEquals('format', (new RequestData([], null, 'format', []))->getFormat());
     }
 
     public function testParameters()
     {
-        $this->requestData->setParameters('parameters');
-        $this->assertEquals('parameters', $this->requestData->getParameters());
+        $this->assertEquals(['parameters'], (new RequestData([], null, null, ['parameters']))->getParameters());
     }
 
     public function testRequestMethod()
     {
-        $this->requestData->setRequestMethod('requestMethod');
-        $this->assertEquals('requestMethod', $this->requestData->getRequestMethod());
+        $this->assertEquals('requestMethod', (new RequestData([], 'requestMethod', null, ['parameters']))->getRequestMethod());
     }
 
     public function testUrlElements()
     {
-        $this->requestData->setUrlElements('urlElements');
-        $this->assertEquals('urlElements', $this->requestData->getUrlElements());
+        $this->assertEquals(['urlElements'], (new RequestData(['urlElements'], null, null, []))->getUrlElements());
     }
 }

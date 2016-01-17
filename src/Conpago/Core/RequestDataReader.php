@@ -17,11 +17,16 @@ use Conpago\Helpers\Contract\IRequestData;
 use Conpago\Helpers\Contract\IRequestDataReader;
 use Conpago\Helpers\Contract\IRequestParser;
 
+/**
+ * Provides access for reading request data.
+ */
 class RequestDataReader implements IRequestDataReader
 {
 
     /**
-     * @var Conpago\Helpers\Contract\IRequestData
+     *
+     *
+     * @var IRequestData
      */
     protected $requestData;
 

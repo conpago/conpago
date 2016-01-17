@@ -20,7 +20,7 @@ class BuilderStorageTest extends \PHPUnit_Framework_TestCase
 
         $fileSystem
                 ->expects($this->once())
-                ->method('includeFile')
+                ->method('getFileContent')
                 ->with('root'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'persistent'.DIRECTORY_SEPARATOR.'contextContainer');
 
         $builderStorage->getConfiguration();
@@ -34,8 +34,7 @@ class BuilderStorageTest extends \PHPUnit_Framework_TestCase
 
         $builderStorage = new BuilderStorage($fileSystem, $appPath, 'context');
 
-        $results = print_r(array('a' => 'a'), true);
-        $results = "<?php".PHP_EOL."return " . str_replace("    ", "\t", $results);
+        $results = serialize(array('a' => 'a'));
         $fileSystem
                 ->expects($this->once())
                 ->method('setFileContent')

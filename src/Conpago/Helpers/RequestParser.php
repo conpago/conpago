@@ -19,8 +19,6 @@ use Conpago\Helpers\Contract\IRequestParser;
 
 class RequestParser implements IRequestParser
 {
-    private $contentType;
-
     /**
      * @var RequestData
      */
@@ -42,14 +40,12 @@ class RequestParser implements IRequestParser
     public function parseRequestData()
     {
         if ($this->requestData == null) {
-            $this->requestData = new RequestData();
-
-            $this->getRequestMethod();
-            $this->initializeContentType();
-            $this->getUrlElements();
-            $this->parseIncomingParams();
-
-            $this->determineFormat();
+            $this->requestData = new RequestData(
+                $this->getUrlElements(),
+                $this->getRequestMethod(),
+                $this->getFormat(),
+                $this->getIncomingParams()
+            );
         }
 
         return $this->requestData;
@@ -57,12 +53,12 @@ class RequestParser implements IRequestParser
 
     private function getRequestMethod()
     {
-        $this->requestData->setRequestMethod($this->request->getRequestMethod());
+        return $this->request->getRequestMethod();
     }
 
     private function getUrlElements()
     {
-        $this->requestData->setUrlElements($this->convertPathInfoToArray($this->request->getPathInfo()));
+        return $this->convertPathInfoToArray($this->request->getPathInfo());
     }
 
     /**
@@ -75,12 +71,15 @@ class RequestParser implements IRequestParser
         return $pathInfo != null ? explode('/', $pathInfo) : array();
     }
 
-    private function parseIncomingParams()
+    /**
+     * @return array
+     */
+    private function getIncomingParams()
     {
         $urlParameters = $this->parseQueryString();
         $bodyParameters = $this->parseBody();
 
-        $this->requestData->setParameters($this->mergeUrlAndBodyParameters($urlParameters, $bodyParameters));
+        return $this->mergeUrlAndBodyParameters($urlParameters, $bodyParameters);
     }
 
     /**
@@ -119,14 +118,20 @@ class RequestParser implements IRequestParser
     /**
      * @param $body
      *
-     * @return mixed
+     * @return array
      */
     private function extractParameters($body)
     {
-        $parametersExtractor = $this->getExtractor($this->contentType, $body);
+        $parametersExtractor = $this->getExtractor($this->request->getContentType(), $body);
         return $parametersExtractor->getParameters();
     }
 
+    /**
+     * @param $contentType
+     * @param $body
+     *
+     * @return ParametersExtractor
+     */
     public function getExtractor($contentType, $body)
     {
         switch ($contentType) {
@@ -142,20 +147,18 @@ class RequestParser implements IRequestParser
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    private function initializeContentType()
+    private function getFormat()
     {
-        $this->contentType = $this->request->getContentType();
+        return $this->getRequestDataFormat();
     }
 
-    private function determineFormat()
-    {
-        $this->requestData->setFormat($this->getRequestDataFormat());
-    }
-
+    /**
+     * @return string
+     */
     private function getRequestDataFormat()
     {
-        return $this->contentType == "application/json" ? "json" : "html";
+        return $this->request->getContentType() == "application/json" ? "json" : "html";
     }
 }

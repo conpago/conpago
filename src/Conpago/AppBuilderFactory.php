@@ -18,14 +18,19 @@ use Conpago\DI\IContainerBuilderPersister;
 use Conpago\File\FileSystem;
 use Conpago\Helpers\AppPath;
 
+/**
+ * Provides a factory for creating AppBuilder.
+ */
 class AppBuilderFactory
 {
 
     /**
-     * @param string $contextName
-     * @param string $appRootPath
+     * Creates AppBuilder using newly built container.
      *
-     * @return AppBuilder
+     * @param string $contextName Name of context. Passed to AppBuilder instance.
+     * @param string $appRootPath Base path of source files. Passed to AppPath class for instance.
+     *
+     * @return AppBuilder Builder of application.
      */
     public function createAppBuilder($contextName, $appRootPath)
     {
@@ -35,11 +40,13 @@ class AppBuilderFactory
     }
 
     /**
-     * @param IContainerBuilderPersister $containerBuilderPersister
-     * @param string                     $contextName
-     * @param string                     $appRootPath
+     * Creates AppBuilder from loaded persisted container.
      *
-     * @return AppBuilder
+     * @param IContainerBuilderPersister $persister   Container persister used to load persisted container.
+     * @param string                     $contextName Name of context. Passed to AbbBuilder instance.
+     * @param string                     $appRootPath Base path of source files. Passed to AppPath class for instance.
+     *
+     * @return AppBuilder Builder of application.
      */
     public function createAppBuilderFromPersisted(IContainerBuilderPersister $persister, $contextName, $appRootPath)
     {
@@ -52,9 +59,11 @@ class AppBuilderFactory
     }
 
     /**
-     * @param $appRootPath
+     * Returns all dependencies needed by AppBuilder as array.
      *
-     * @return array
+     * @param string $appRootPath Base path of source files.
+     *
+     * @return array All dependencies needed by AppBuilder as array.
      */
     protected function getAppBuilderDependencies($appRootPath)
     {

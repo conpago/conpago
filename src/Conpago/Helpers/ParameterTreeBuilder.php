@@ -25,7 +25,7 @@ class ParameterTreeBuilder
     }
 
     /**
-     * @param array $array
+     * @param array  $array
      * @param string $delimiter
      *
      * @return array|boolean

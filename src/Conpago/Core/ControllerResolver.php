@@ -20,18 +20,25 @@ use Conpago\Helpers\Contract\IRequestDataReader;
 use Conpago\Presentation\Contract\IController;
 use Conpago\Presentation\Contract\IControllerResolver;
 
+/**
+ * Class resolves controller based on request and configuration.
+ */
 class ControllerResolver implements IControllerResolver
 {
 
     /**
+     * Application configuration.
+     *
      * @var \Conpago\Config\Contract\IAppConfig
      */
     private $appConfig;
 
     /**
-     * @param IRequestDataReader $requestDataReader
-     * @param IAppConfig         $appConfig
-     * @param IFactory[]         $controllerFactories
+     * Creates new instance of controller resolver.
+     *
+     * @param IRequestDataReader $requestDataReader   Request data access provider.
+     * @param IAppConfig         $appConfig           Application configuration.
+     * @param IFactory[]         $controllerFactories Collection of named controller factories.
      *
      * @inject Factory <\Conpago\IController> $controllerFactories
      */
@@ -47,13 +54,21 @@ class ControllerResolver implements IControllerResolver
     }
 
     /**
-     * @return IController
-     * @throws ControllerNotFoundException
+     * Gets controller instance.
+     * Controller instance is produced with factory of name from request or default name from configuration.
+     *
+     * @return IController Instance of produced controller.
+     *
+     * @throws ControllerNotFoundException If factory with given name does not exists.
      */
     public function getController()
     {
         $params         = $this->requestDataReader->getRequestData()->getParameters();
-        $controllerName = isset($params['interactor']) ? $params['interactor'] : $this->appConfig->getDefaultInteractor();
+        $controllerName = $this->appConfig->getDefaultInteractor();
+
+        if (isset($params['interactor'])) {
+            $controllerName = $params['interactor'];
+        };
 
         $controllerArrayKey = $controllerName.'Controller';
 
@@ -66,11 +81,15 @@ class ControllerResolver implements IControllerResolver
     }
 
     /**
+     *  Collection of named controller factories.
+     *
      * @var IFactory[]
      */
     protected $controllerFactories;
 
     /**
+     * Request data access provider.
+     *
      * @var IRequestDataReader
      */
     private $requestDataReader;

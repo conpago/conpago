@@ -14,19 +14,31 @@
 namespace Conpago\Presentation;
 
 use Conpago\Presentation\Contract\IPlainPresenter;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use InvalidArgumentException;
 
+/**
+ * Default implementation for presenting data as is.
+ */
 class PlainPresenter implements IPlainPresenter
 {
 
+    /**
+     * Serialize and present data as is.
+     *
+     * @param mixed $data Data to present.
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException If the provided argument is of type 'array' or 'object'.
+     */
     public function show($data)
     {
         if (is_array($data)) {
-            throw new Exception('Argument $data cannot be array.');
+            throw new InvalidArgumentException('Argument $data cannot be array.');
         }
 
         if (is_object($data)) {
-            throw new Exception('Argument $data cannot be object.');
+            throw new InvalidArgumentException('Argument $data cannot be object.');
         }
 
         echo $data;

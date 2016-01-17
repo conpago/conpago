@@ -21,7 +21,10 @@ class ControllerResolverTest extends \PHPUnit_Framework_TestCase
     {
         $this->requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
         $this->appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
-        $this->requestData = $this->getMock('Conpago\Core\RequestData');
+        $this->requestData = $this
+            ->getMockBuilder('Conpago\Core\RequestData')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->requestDataReader->expects($this->any())
                 ->method('getRequestData')->willReturn($this->requestData);
