@@ -32,7 +32,7 @@ class WebAppTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingTimeZoneWithoutError()
     {
-        $this->assertNotEquals('Europe/Warsaw', date_default_timezone_get());
+        $this->assertNotEquals('CST6CDT', date_default_timezone_get());
         $this->appConfig->expects($this->any())->method('getTimeZone')->willReturn('Europe/Warsaw');
         $this->webApp->run();
         $this->assertEquals('Europe/Warsaw', date_default_timezone_get());
