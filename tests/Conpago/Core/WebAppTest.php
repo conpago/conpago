@@ -8,19 +8,26 @@
 
 namespace Conpago\Core;
 
+use Conpago\Config\Contract\IAppConfig;
+use Conpago\Helpers\Contract\IRequestData;
+use Conpago\Helpers\Contract\IRequestDataReader;
+use Conpago\Helpers\Contract\IResponse;
+use Conpago\Logging\Contract\ILogger;
+use Conpago\Presentation\Contract\IController;
+
 class WebAppTest extends \PHPUnit_Framework_TestCase
 {
     public function testHttp500ErrorOnExceptionFromRequestDataReader()
     {
-        $controller = $this->getMock('Conpago\Presentation\Contract\IController');
-        $logger = $this->getMock('Conpago\Logging\Contract\ILogger');
-        $response = $this->getMock('Conpago\Helpers\Contract\IResponse');
+        $controller = $this->createMock(IController::class);
+        $logger = $this->createMock(ILogger::class);
+        $response = $this->createMock(IResponse::class);
         $response->expects($this->once())->method('setHttpResponseCode')->with(500);
 
-        $requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
+        $requestDataReader = $this->createMock(IRequestDataReader::class);
         $requestDataReader->expects($this->any())->method('getRequestData')->willThrowException(new \Exception());
 
-        $appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
+        $appConfig = $this->createMock(IAppConfig::class);
 
         $webApp = new WebApp($requestDataReader, $controller, $response, $logger, $appConfig);
         $webApp->run();
@@ -28,19 +35,19 @@ class WebAppTest extends \PHPUnit_Framework_TestCase
 
     public function testHttp500ErrorOnExceptionFromController()
     {
-        $logger = $this->getMock('Conpago\Logging\Contract\ILogger');
+        $logger = $this->createMock(ILogger::class);
 
-        $response = $this->getMock('Conpago\Helpers\Contract\IResponse');
+        $response = $this->createMock(IResponse::class);
         $response->expects($this->once())->method('setHttpResponseCode')->with(500);
 
-        $requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
-        $requestData = $this->getMock('Conpago\Helpers\Contract\IRequestData');
+        $requestDataReader = $this->createMock(IRequestDataReader::class);
+        $requestData = $this->createMock(IRequestData::class);
         $requestDataReader->expects($this->any())->method('getRequestData')->willReturn($requestData);
 
-        $controller = $this->getMock('Conpago\Presentation\Contract\IController');
+        $controller = $this->createMock(IController::class);
         $controller->expects($this->once())->method('execute')->willThrowException(new \Exception());
 
-        $appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
+        $appConfig = $this->createMock(IAppConfig::class);
 
         $webApp = new WebApp($requestDataReader, $controller, $response, $logger, $appConfig);
         $webApp->run();
@@ -48,18 +55,18 @@ class WebAppTest extends \PHPUnit_Framework_TestCase
 
     public function testExecuteController()
     {
-        $logger = $this->getMock('Conpago\Logging\Contract\ILogger');
+        $logger = $this->createMock(ILogger::class);
 
-        $response = $this->getMock('Conpago\Helpers\Contract\IResponse');
+        $response = $this->createMock(IResponse::class);
 
-        $requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
-        $requestData = $this->getMock('Conpago\Helpers\Contract\IRequestData');
+        $requestDataReader = $this->createMock(IRequestDataReader::class);
+        $requestData = $this->createMock(IRequestData::class);
         $requestDataReader->expects($this->any())->method('getRequestData')->willReturn($requestData);
 
-        $controller = $this->getMock('Conpago\Presentation\Contract\IController');
+        $controller = $this->createMock(IController::class);
         $controller->expects($this->once())->method('execute')->with($requestData);
 
-        $appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
+        $appConfig = $this->createMock(IAppConfig::class);
 
         $webApp = new WebApp($requestDataReader, $controller, $response, $logger, $appConfig);
         $webApp->run();

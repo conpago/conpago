@@ -8,6 +8,8 @@
 
 namespace Conpago\Helpers;
 
+use Conpago\Utils\ServerAccessor;
+
 class ArgsTest extends \PHPUnit_Framework_TestCase
 {
     private $args;
@@ -16,7 +18,7 @@ class ArgsTest extends \PHPUnit_Framework_TestCase
 
     public function testOnlyScript()
     {
-        $this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
+        $this->serverAccessor = $this->createMock(ServerAccessor::class);
         $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
         $this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script'));
 
@@ -27,7 +29,7 @@ class ArgsTest extends \PHPUnit_Framework_TestCase
 
     public function testNoArgv()
     {
-        $this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
+        $this->serverAccessor = $this->createMock(ServerAccessor::class);
         $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(false);
         $this->serverAccessor->expects($this->never())->method('getValue')->with('argv');
 
@@ -36,7 +38,7 @@ class ArgsTest extends \PHPUnit_Framework_TestCase
 
     public function testScriptWithArgs()
     {
-        $this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
+        $this->serverAccessor = $this->createMock(ServerAccessor::class);
         $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
         $this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script', 'arg1', 'arg2'));
 
@@ -47,7 +49,7 @@ class ArgsTest extends \PHPUnit_Framework_TestCase
 
     public function testScriptWithOption()
     {
-        $this->serverAccessor = $this->getMock('Conpago\Utils\ServerAccessor');
+        $this->serverAccessor = $this->createMock(ServerAccessor::class);
         $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
         $this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script', '-o1', 'option1'));
 

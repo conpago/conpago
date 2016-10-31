@@ -21,7 +21,7 @@ class RequestDataReader implements IRequestDataReader
 {
 
     /**
-     * @var Conpago\Helpers\Contract\IRequestData
+     * @var IRequestData
      */
     protected $requestData;
 

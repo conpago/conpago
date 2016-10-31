@@ -8,6 +8,9 @@
 
 namespace Conpago\Helpers;
 
+use BadMethodCallException;
+use Conpago\Helpers\Contract\IRequest;
+
 class RequestParserTest extends \PHPUnit_Framework_TestCase
 {
     private $request;
@@ -16,13 +19,13 @@ class RequestParserTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->request = $this->getMock('Conpago\Helpers\Contract\IRequest');
+        $this->request = $this->createMock(IRequest::class);
         $this->requestParser = new RequestParser($this->request);
     }
 
     public function testThrowsBadMethodCallExceptionFor()
     {
-        $this->setExpectedException('BadMethodCallException');
+        $this->expectException(BadMethodCallException::class);
         $this->request->expects($this->any())->method('getContentType')->willReturn('bad content type');
 
         $requestParser = new RequestParser($this->request);

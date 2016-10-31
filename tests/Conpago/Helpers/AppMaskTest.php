@@ -8,6 +8,8 @@
 
 namespace Conpago\Helpers;
 
+use Conpago\Helpers\Contract\IAppPath;
+
 class AppMaskTest extends \PHPUnit_Framework_TestCase
 {
     private $appPath;
@@ -20,7 +22,7 @@ class AppMaskTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->appPath = $this->getMock('Conpago\Helpers\Contract\IAppPath');
+        $this->appPath = $this->createMock(IAppPath::class);
         $this->appPath->expects($this->any())->method('source')->willReturn(self::SRC);
         $this->appPath->expects($this->any())->method('config')->willReturn(self::CONFIG);
 

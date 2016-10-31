@@ -8,6 +8,8 @@
 
 namespace Conpago\Presentation;
 
+use Exception;
+
 class PlainPresenterTest extends \PHPUnit_Framework_TestCase
 {
     public function testGeneratesNullPlain()
@@ -36,7 +38,8 @@ class PlainPresenterTest extends \PHPUnit_Framework_TestCase
 
     public function test_GeneratesErrorForArray()
     {
-        $this->setExpectedException('Exception', 'Argument $data cannot be array.');
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Argument $data cannot be array.');
 
         $plainPresenter = new PlainPresenter();
         $plainPresenter->show(array('test' => 'a'));
@@ -44,7 +47,8 @@ class PlainPresenterTest extends \PHPUnit_Framework_TestCase
 
     public function test_GeneratesErrorForObject()
     {
-        $this->setExpectedException('Exception', 'Argument $data cannot be object.');
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Argument $data cannot be object.');
 
         $plainPresenter = new PlainPresenter();
         $plainPresenter->show((object)array('test' => 'a'));

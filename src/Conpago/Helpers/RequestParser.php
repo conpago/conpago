@@ -142,7 +142,7 @@ class RequestParser implements IRequestParser
     }
 
     /**
-     * @return mixed
+     * @return void
      */
     private function initializeContentType()
     {

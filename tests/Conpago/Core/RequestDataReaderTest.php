@@ -8,12 +8,15 @@
 
 namespace Conpago\Core;
 
+use Conpago\Helpers\Contract\IRequestData;
+use Conpago\Helpers\Contract\IRequestParser;
+
 class RequestDataReaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetRequestData()
     {
-        $requestData = $this->getMock('Conpago\Helpers\Contract\IRequestData');
-        $requestParser = $this->getMock('Conpago\Helpers\Contract\IRequestParser');
+        $requestData = $this->createMock(IRequestData::class);
+        $requestParser = $this->createMock(IRequestParser::class);
         $requestParser->expects($this->once())->method('parseRequestData')->willReturn($requestData);
 
         $requestDataReader = new RequestDataReader($requestParser);

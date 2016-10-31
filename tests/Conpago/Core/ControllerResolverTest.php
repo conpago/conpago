@@ -8,6 +8,12 @@
 
 namespace Conpago\Core;
 
+use Conpago\Config\Contract\IAppConfig;
+use Conpago\DI\IFactory;
+use Conpago\Exceptions\ControllerNotFoundException;
+use Conpago\Helpers\Contract\IRequestDataReader;
+use Conpago\Presentation\Contract\IController;
+
 class ControllerResolverTest extends \PHPUnit_Framework_TestCase
 {
     public $requestData;
@@ -19,9 +25,9 @@ class ControllerResolverTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->requestDataReader = $this->getMock('Conpago\Helpers\Contract\IRequestDataReader');
-        $this->appConfig = $this->getMock('Conpago\Config\Contract\IAppConfig');
-        $this->requestData = $this->getMock('Conpago\Core\RequestData');
+        $this->requestDataReader = $this->createMock(IRequestDataReader::class);
+        $this->appConfig = $this->createMock(IAppConfig::class);
+        $this->requestData = $this->createMock(RequestData::class);
 
         $this->requestDataReader->expects($this->any())
                 ->method('getRequestData')->willReturn($this->requestData);
@@ -29,7 +35,8 @@ class ControllerResolverTest extends \PHPUnit_Framework_TestCase
 
     public function testNotExistingController()
     {
-        $this->setExpectedException('Conpago\Exceptions\ControllerNotFoundException', 'Controller \'\' not found.');
+        $this->expectException(ControllerNotFoundException::class);
+        $this->expectExceptionMessage('Controller \'\' not found.');
         $controllerResolver = new ControllerResolver(
                 $this->requestDataReader,
                 $this->appConfig,
@@ -46,9 +53,9 @@ class ControllerResolverTest extends \PHPUnit_Framework_TestCase
 
         $this->requestData->expects($this->once())->method('getParameters')->willReturn(array('interactor' => 'nonDefault'));
 
-        $controller = $this->getMock('Conpago\IController');
+        $controller = $this->createMock(IController::class);
 
-        $commandFactory = $this->getMock('Conpago\DI\IFactory');
+        $commandFactory = $this->createMock(IFactory::class);
         $commandFactory->expects($this->once())->method('createInstance')->willReturn($controller);
 
         $this->controllerFactories['nonDefaultController'] = $commandFactory;
@@ -67,9 +74,9 @@ class ControllerResolverTest extends \PHPUnit_Framework_TestCase
                 ->method('getDefaultInteractor')
                 ->willReturn('default');
 
-        $controller = $this->getMock('Conpago\IController');
+        $controller = $this->createMock(IController::class);
 
-        $commandFactory = $this->getMock('Conpago\DI\IFactory');
+        $commandFactory = $this->createMock(IFactory::class);
         $commandFactory->expects($this->once())->method('createInstance')->willReturn($controller);
 
         $this->controllerFactories['defaultController'] = $commandFactory;
