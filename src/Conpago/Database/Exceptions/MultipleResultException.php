@@ -15,6 +15,9 @@ namespace Conpago\Database\Exceptions;
 
 use Conpago\Exceptions\Exception;
 
+/**
+ * General exception for too many results.
+ */
 class MultipleResultException extends Exception
 {
 }

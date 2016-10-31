@@ -15,12 +15,17 @@ namespace Conpago\Database\Exceptions;
 
 use Conpago\Exceptions\Exception;
 
+/**
+ * General exception for broken unique constraint.
+ */
 class ColumnUniqueConstraintException extends Exception
 {
 
     /**
-     * @param null       $columnName
-     * @param \Exception $innerException
+     * Creates exception instance.
+     *
+     * @param string|null $columnName     Name of not unique column.
+     * @param \Exception  $innerException Base exception thrown from database access package.
      */
     public function __construct($columnName = null, \Exception $innerException = null)
     {
@@ -30,11 +35,15 @@ class ColumnUniqueConstraintException extends Exception
     }
 
     /**
+     * Name of not unique column.
+     *
      * @var string
      */
     public $columnName;
 
     /**
+     * Base exception thrown from database access package.
+     *
      * @var \Exception
      */
     public $innerException;

@@ -25,17 +25,13 @@ class ParameterTreeBuilder
     }
 
     /**
-     * @param $array
+     * @param array  $array
      * @param string $delimiter
      *
      * @return array|boolean
      */
-    private function explodeTree($array, $delimiter = '_')
+    private function explodeTree(array $array, $delimiter = '_')
     {
-        if (!is_array($array)) {
-            return false;
-        }
-
         $splitRE   = '/'.preg_quote($delimiter, '/').'/';
         $returnArr = array();
         foreach ($array as $key => $val) {

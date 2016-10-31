@@ -15,31 +15,61 @@ namespace Conpago\Core;
 
 use Conpago\Helpers\Contract\IRequestData;
 
+/**
+ * Represents current request specified data.
+ */
 class RequestData implements IRequestData
 {
 
     /**
-     * @var array
+     * Creates new RequestData instance.
+     *
+     * @param string[] $urlElements   Elements of requested Url.
+     * @param string   $requestMethod Request http method.
+     * @param string   $format        Request data format.
+     * @param string[] $parameters    Request parameters read from url and body.
+     */
+    public function __construct(array $urlElements, $requestMethod, $format, array $parameters)
+    {
+        $this->urlElements   = $urlElements;
+        $this->requestMethod = $requestMethod;
+        $this->format        = $format;
+        $this->parameters    = $parameters;
+
+    }
+
+    /**
+     * Elements of requested Url.
+     *
+     * @var string[]
      */
     private $urlElements;
 
     /**
+     * Request http method.
+     *
      * @var string
      */
     private $requestMethod;
 
     /**
+     * Request data format.
+     *
      * @var string
      */
     private $format;
 
     /**
-     * @var array
+     * Request parameters read from url and body.
+     *
+     * @var string[]
      */
     private $parameters;
 
     /**
-     * @return array
+     * Gets elements of requested Url.
+     *
+     * @return string[] Elements of requested Url.
      */
     public function getUrlElements()
     {
@@ -48,16 +78,9 @@ class RequestData implements IRequestData
     }
 
     /**
-     * @param $value
-     */
-    public function setUrlElements($value)
-    {
-        $this->urlElements = $value;
-
-    }
-
-    /**
-     * @return string
+     * Gets request http method.
+     *
+     * @return string Request http method.
      */
     public function getRequestMethod()
     {
@@ -66,16 +89,9 @@ class RequestData implements IRequestData
     }
 
     /**
-     * @param $value
-     */
-    public function setRequestMethod($value)
-    {
-        $this->requestMethod = $value;
-
-    }
-
-    /**
-     * @return array
+     * Gets request parameters read from url and body.
+     *
+     * @return string[] Request parameters read from url and body.
      */
     public function getParameters()
     {
@@ -84,29 +100,13 @@ class RequestData implements IRequestData
     }
 
     /**
-     * @param $value
-     */
-    public function setParameters($value)
-    {
-        $this->parameters = $value;
-
-    }
-
-    /**
-     * @return string
+     * Gets request data format
+     *
+     * @return string Request data format.
      */
     public function getFormat()
     {
         return $this->format;
-
-    }
-
-    /**
-     * @param $value
-     */
-    public function setFormat($value)
-    {
-        $this->format = $value;
 
     }
 }
