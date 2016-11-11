@@ -94,6 +94,11 @@
         <exec command="phploc src" />
     </target>
 
-    <target name="validate" depends="phpunit,phpcpd,phpmd,pdepend,phpcs" />
-    <target name="ci" depends="init,update,phpunit-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci" hidden="true" />
+    <target name="humbug" description="update composer packages">
+        <exec command="composer update" passthru="true" />
+    </target>
+    <target name="humbug-ci" depends="humbug" hidden="true"/>
+
+    <target name="validate" depends="phpunit,phpcpd,phpmd,pdepend,phpcs,humbug" />
+    <target name="ci" depends="init,update,phpunit-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci,humbug-ci" hidden="true" />
 </project>

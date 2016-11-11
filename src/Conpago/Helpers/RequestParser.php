@@ -42,14 +42,13 @@ class RequestParser implements IRequestParser
     public function parseRequestData()
     {
         if ($this->requestData == null) {
-            $this->requestData = new RequestData();
-
-            $this->getRequestMethod();
             $this->initializeContentType();
-            $this->getUrlElements();
-            $this->parseIncomingParams();
 
-            $this->determineFormat();
+            $this->requestData = new RequestData(
+                $this->getUrlElements(),
+                $this->getRequestMethod(),
+                $this->determineFormat(),
+                $this->parseIncomingParams());
         }
 
         return $this->requestData;
@@ -57,12 +56,12 @@ class RequestParser implements IRequestParser
 
     private function getRequestMethod()
     {
-        $this->requestData->setRequestMethod($this->request->getRequestMethod());
+        return $this->request->getRequestMethod();
     }
 
     private function getUrlElements()
     {
-        $this->requestData->setUrlElements($this->convertPathInfoToArray($this->request->getPathInfo()));
+        return $this->convertPathInfoToArray($this->request->getPathInfo());
     }
 
     /**
@@ -80,7 +79,7 @@ class RequestParser implements IRequestParser
         $urlParameters = $this->parseQueryString();
         $bodyParameters = $this->parseBody();
 
-        $this->requestData->setParameters($this->mergeUrlAndBodyParameters($urlParameters, $bodyParameters));
+        return $this->mergeUrlAndBodyParameters($urlParameters, $bodyParameters);
     }
 
     /**
@@ -151,7 +150,7 @@ class RequestParser implements IRequestParser
 
     private function determineFormat()
     {
-        $this->requestData->setFormat($this->getRequestDataFormat());
+        return $this->getRequestDataFormat();
     }
 
     private function getRequestDataFormat()

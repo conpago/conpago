@@ -18,7 +18,7 @@
 		"conpago/conpago-utils": "dev-master",
 		"conpago/conpago-contract": "dev-master",
 		"conpago/conpago-system": "dev-master",
-		"phing/phing": "2.14.x-dev"
+		"phing/phing": "2.*"
 	},
 	"require-dev": {
 
@@ -29,7 +29,8 @@
 		"sebastian/phpcpd": "2.*",
 		"phpdocumentor/phpdocumentor": "2.*",
 		"phploc/phploc": "2.*",
-		"phpunit/phpunit": "5.*"
+		"phpunit/phpunit": "5.*",
+		"humbug/humbug" : "*"
 	},
 	"autoload": {
 		"psr-0": {

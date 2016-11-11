@@ -44,18 +44,6 @@ use Conpago\DI\IContainerBuilder;
             $this->appBuilder->buildApp();
         }
 
-        public function testAppBuilderBuildAppWithAdditionalModules()
-        {
-            $this->setContainerBuilderMocks();
-            $this->setModuleMocks();
-
-            $additionalModule = $this->createMock('Conpago\DI\IModule');
-            $additionalModule->expects($this->once())->method('build')->with($this->containerBuilder);
-
-            $this->appBuilder->registerAdditionalModule($additionalModule);
-            $this->appBuilder->buildApp();
-        }
-
         public function testAppBuilderBuildGetApp()
         {
             $app = $this->createMock('Conpago\Contract\IApp');
