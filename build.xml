@@ -95,7 +95,7 @@
     </target>
 
     <target name="humbug" description="update composer packages">
-        <exec command="composer update" passthru="true" />
+        <exec command="humbug" />
     </target>
     <target name="humbug-ci" depends="humbug" hidden="true"/>
 
