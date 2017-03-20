@@ -40,7 +40,7 @@ class ControllerResolver implements IControllerResolver
      * @param IAppConfig         $appConfig           Application configuration.
      * @param IFactory[]         $controllerFactories Collection of named controller factories.
      *
-     * @inject Factory <\Conpago\IController> $controllerFactories
+     * @inject Factory <\Conpago\Presentation\Contract\IController> $controllerFactories
      */
     public function __construct(
         IRequestDataReader $requestDataReader,

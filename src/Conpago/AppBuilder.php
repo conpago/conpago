@@ -93,7 +93,7 @@ class AppBuilder
         $moduleMask = implode(
             DIRECTORY_SEPARATOR,
             array(
-             $this->appPath->root(),
+             $this->appPath->root()->get(),
              'src',
              $this->contextName.'Module.php',
             )

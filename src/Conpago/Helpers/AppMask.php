@@ -32,7 +32,7 @@ class AppMask implements IAppMask
         return implode(
             DIRECTORY_SEPARATOR,
             array(
-             $this->appPath->source(),
+             $this->appPath->source()->get(),
              '*Module.php',
             )
         );
@@ -44,7 +44,7 @@ class AppMask implements IAppMask
         return implode(
             DIRECTORY_SEPARATOR,
             array(
-             $this->appPath->config(),
+             $this->appPath->config()->get(),
              '*.php',
             )
         );
