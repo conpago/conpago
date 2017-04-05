@@ -8,11 +8,14 @@
 
 namespace Conpago\Config;
 
-class ConfigBaseTest extends \PHPUnit_Framework_TestCase
+use Conpago\Config\Contract\IConfig;
+use PHPUnit\Framework\TestCase;
+
+class ConfigBaseTest extends TestCase
 {
     public function test_()
     {
-        $config = $this->createMock('Conpago\Config\Contract\IConfig');
+        $config = $this->createMock(IConfig::class);
         $configBase = new TestConfigBase($config);
         $this->assertSame($config, $configBase->getConfig());
     }

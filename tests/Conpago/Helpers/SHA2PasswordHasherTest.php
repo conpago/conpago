@@ -8,7 +8,9 @@
 
 namespace Conpago\Helpers;
 
-class SHA2PasswordHasherTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class SHA2PasswordHasherTest extends TestCase
 {
     public function testHash()
     {

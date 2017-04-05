@@ -14,8 +14,9 @@ use Conpago\Helpers\Contract\IRequestDataReader;
 use Conpago\Helpers\Contract\IResponse;
 use Conpago\Logging\Contract\ILogger;
 use Conpago\Presentation\Contract\IController;
+use PHPUnit\Framework\TestCase;
 
-class WebAppTest extends \PHPUnit_Framework_TestCase
+class WebAppTest extends TestCase
 {
     public function testHttp500ErrorOnExceptionFromRequestDataReader()
     {

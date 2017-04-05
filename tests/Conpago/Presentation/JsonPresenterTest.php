@@ -8,22 +8,16 @@
 
 namespace Conpago\Presentation;
 
-class JsonPresenterTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class JsonPresenterTest extends TestCase
 {
-    public function testGeneratesNullJson()
-    {
-        $this->expectOutputString(null);
-
-        $jsonPresenter = new JsonPresenter();
-        $jsonPresenter->showJson(null);
-    }
-
     public function test_GeneratesEmptyJson()
     {
         $this->expectOutputString('""');
 
         $jsonPresenter = new JsonPresenter();
-        $jsonPresenter->showJson('');
+        $jsonPresenter->showJson(null);
     }
 
     public function test_GeneratesArrayJson()

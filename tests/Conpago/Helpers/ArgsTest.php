@@ -9,11 +9,13 @@
 namespace Conpago\Helpers;
 
 use Conpago\Utils\ServerAccessor;
+use PHPUnit\Framework\TestCase;
 
-class ArgsTest extends \PHPUnit_Framework_TestCase
+class ArgsTest extends TestCase
 {
     private $args;
 
+    /** @var  \PHPUnit_Framework_MockObject_MockObject | ServerAccessor */
     private $serverAccessor;
 
     public function testOnlyScript()

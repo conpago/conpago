@@ -9,17 +9,10 @@
 namespace Conpago\Presentation;
 
 use Exception;
+use PHPUnit\Framework\TestCase;
 
-class PlainPresenterTest extends \PHPUnit_Framework_TestCase
+class PlainPresenterTest extends TestCase
 {
-    public function testGeneratesNullPlain()
-    {
-        $this->expectOutputString(null);
-
-        $plainPresenter = new PlainPresenter();
-        $plainPresenter->show(null);
-    }
-
     public function test_GeneratesEmptyPlain()
     {
         $this->expectOutputString('');
@@ -30,7 +23,7 @@ class PlainPresenterTest extends \PHPUnit_Framework_TestCase
 
     public function test_ShowNumberAsString()
     {
-        $this->expectOutputString(10);
+        $this->expectOutputString("10");
 
         $plainPresenter = new PlainPresenter();
         $plainPresenter->show(10);

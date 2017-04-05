@@ -10,8 +10,9 @@ namespace Conpago\Helpers;
 
 use Conpago\File\Contract\IFileSystem;
 use Conpago\File\Contract\IPath;
+use PHPUnit\Framework\TestCase;
 
-class AppPathTest extends \PHPUnit_Framework_TestCase
+class AppPathTest extends TestCase
     {
         const BASE_PATH = 'base_path';
         const REAL_PATH = 'real';
@@ -119,6 +120,16 @@ class AppPathTest extends \PHPUnit_Framework_TestCase
         }
 
         public function loadClass($className)
+        {
+            throw new \Exception('Not implemented!');
+        }
+
+        public function createDirectory($pathname, $recursive)
+        {
+            throw new \Exception('Not implemented!');
+        }
+
+        public function fileExists($filename)
         {
             throw new \Exception('Not implemented!');
         }

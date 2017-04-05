@@ -10,8 +10,9 @@ namespace Conpago\Core;
 
 use Conpago\File\Contract\IFileSystem;
 use Conpago\Helpers\Contract\IAppPath;
+use PHPUnit\Framework\TestCase;
 
-class BuilderStorageTest extends \PHPUnit_Framework_TestCase
+class BuilderStorageTest extends TestCase
 {
     public function testGetConfiguration()
     {

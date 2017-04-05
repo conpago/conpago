@@ -10,11 +10,18 @@ namespace Conpago\Helpers;
 
 use Conpago\File\Contract\IFileSystem;
 use Conpago\Utils\ServerAccessor;
+use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
-class RequestTest extends \PHPUnit_Framework_TestCase
+class RequestTest extends TestCase
 {
+    /** @var ServerAccessor | MockObject */
     protected $serverAccessor;
+
+    /** @var IFileSystem | MockObject */
     protected $fileSystem;
+
+    /** @var Request */
     protected $request;
 
     public function testGetQueryString()
@@ -67,6 +74,19 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->request = new Request($this->serverAccessor, $this->fileSystem);
 
         $this->assertEquals('ContentType', $this->request->getContentType());
+    }
+
+    public function testGetAccept()
+    {
+        $this->serverAccessor = $this->createMock(ServerAccessor::class);
+        $this->serverAccessor->expects($this->any())->method('contains')->with('ACCEPT')->willReturn(true);
+        $this->serverAccessor->expects($this->any())->method('getValue')->with('ACCEPT')->willReturn('Accept');
+
+        $this->fileSystem = $this->createMock(IFileSystem::class);
+
+        $this->request = new Request($this->serverAccessor, $this->fileSystem);
+
+        $this->assertEquals('Accept', $this->request->getAccept());
     }
 
     public function testGetBody()

@@ -24,14 +24,20 @@ class JsonPresenter implements IJsonPresenter
     /**
      * Serialize and present data as JSON.
      *
-     * @param mixed $data Data to serialize.
+     * @param array $data Data to serialize.
      *
      * @return void
      */
-    public function showJson($data)
+    public function showJson(array $data = null)
     {
-        header('Content-Type: application/json');
+        if (!headers_sent()) {
+            header('Content-Type: application/json');
+        }
 
-        echo json_encode($data, JSON_FORCE_OBJECT);
+        if ($data == null) {
+            echo '""';
+        } else {
+            echo json_encode($data, JSON_FORCE_OBJECT);
+        }
     }
 }

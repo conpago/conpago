@@ -16,6 +16,8 @@
         stopOnIncomplete="false"
         stopOnSkipped="false"
 
+        report-useless-tests="true"
+
         verbose="false"
      >
 

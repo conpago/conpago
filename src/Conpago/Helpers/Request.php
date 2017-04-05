@@ -72,6 +72,14 @@ class Request implements IRequest
 
     }
 
+    /**
+     * @return string Returns accept header value.
+     */
+    public function getAccept()
+    {
+        return $this->getValue('ACCEPT');
+    }
+
     public function getBody()
     {
         return $this->fileSystem->getFileContent('php://input');

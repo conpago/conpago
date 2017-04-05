@@ -8,7 +8,9 @@
 
 namespace Conpago;
 
-class AppBuilderFactoryTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class AppBuilderFactoryTest extends TestCase
 {
     public function testCreateAppBuilder()
     {
