@@ -17,8 +17,7 @@
 		"conpago/conpago-di": "dev-master",
 		"conpago/conpago-utils": "dev-master",
 		"conpago/conpago-contract": "dev-master",
-		"conpago/conpago-system": "dev-master",
-		"phing/phing": "2.*"
+		"conpago/conpago-system": "dev-master"
 	},
 	"require-dev": {
 

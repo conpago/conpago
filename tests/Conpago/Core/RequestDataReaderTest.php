@@ -20,7 +20,7 @@ class RequestDataReaderTest extends TestCase
         $requestParser = $this->createMock(IRequestParser::class);
         $requestParser->expects($this->once())->method('parseRequestData')->willReturn($requestData);
 
-        $requestDataReader = new RequestDataReader($requestParser);
+        $requestDataReader = new RequestProvider($requestParser);
         $this->assertSame($requestData, $requestDataReader->getRequestData());
     }
 }

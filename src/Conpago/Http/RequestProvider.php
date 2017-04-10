@@ -17,7 +17,7 @@ use Conpago\Helpers\Contract\IRequestData;
 use Conpago\Helpers\Contract\IRequestDataReader;
 use Conpago\Helpers\Contract\IRequestParser;
 
-class RequestDataReader implements IRequestDataReader
+class RequestProvider implements IRequestDataReader
 {
 
     /**

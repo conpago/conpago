@@ -18,7 +18,7 @@ use Conpago\Helpers\Contract\IRequestData;
 /**
  * Represents current request specified data.
  */
-class RequestData implements IRequestData
+class Request implements IRequestData
 {
 
     /**

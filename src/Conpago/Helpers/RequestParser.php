@@ -13,7 +13,7 @@
 
 namespace Conpago\Helpers;
 
-use Conpago\Core\RequestData;
+use Conpago\Core\Request;
 use Conpago\Helpers\Contract\IRequest;
 use Conpago\Helpers\Contract\IRequestParser;
 
@@ -22,7 +22,7 @@ class RequestParser implements IRequestParser
     private $contentType;
 
     /**
-     * @var RequestData
+     * @var Request
      */
     protected $requestData;
 
@@ -37,14 +37,14 @@ class RequestParser implements IRequestParser
     }
 
     /**
-     * @return RequestData
+     * @return Request
      */
     public function parseRequestData()
     {
         if ($this->requestData == null) {
             $this->initializeContentType();
 
-            $this->requestData = new RequestData(
+            $this->requestData = new Request(
                 $this->getUrlElements(),
                 $this->getRequestMethod(),
                 $this->determineFormat(),

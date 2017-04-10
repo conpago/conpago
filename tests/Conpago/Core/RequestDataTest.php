@@ -14,21 +14,21 @@ class RequestDataTest extends TestCase
 {
     public function testFormat()
     {
-        $this->assertEquals('format', (new RequestData([], null, 'format', []))->getFormat());
+        $this->assertEquals('format', (new Request([], null, 'format', []))->getFormat());
     }
 
     public function testParameters()
     {
-        $this->assertEquals(['parameters'], (new RequestData([], null, null, ['parameters']))->getParameters());
+        $this->assertEquals(['parameters'], (new Request([], null, null, ['parameters']))->getParameters());
     }
 
     public function testRequestMethod()
     {
-        $this->assertEquals('requestMethod', (new RequestData([], 'requestMethod', null, ['parameters']))->getRequestMethod());
+        $this->assertEquals('requestMethod', (new Request([], 'requestMethod', null, ['parameters']))->getRequestMethod());
     }
 
     public function testUrlElements()
     {
-        $this->assertEquals(['urlElements'], (new RequestData(['urlElements'], null, null, []))->getUrlElements());
+        $this->assertEquals(['urlElements'], (new Request(['urlElements'], null, null, []))->getUrlElements());
     }
 }
