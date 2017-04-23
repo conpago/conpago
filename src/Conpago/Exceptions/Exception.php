@@ -13,6 +13,9 @@
 
 namespace Conpago\Exceptions;
 
+/**
+ * General system exception.
+ */
 class Exception extends \Exception
 {
 }

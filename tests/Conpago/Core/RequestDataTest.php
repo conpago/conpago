@@ -8,7 +8,9 @@
 
 namespace Conpago\Core;
 
-class RequestDataTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class RequestDataTest extends TestCase
 {
     public function testFormat()
     {

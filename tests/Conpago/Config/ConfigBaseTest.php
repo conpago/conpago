@@ -8,7 +8,9 @@
 
 namespace Conpago\Config;
 
-class ConfigBaseTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ConfigBaseTest extends TestCase
 {
     public function test_()
     {

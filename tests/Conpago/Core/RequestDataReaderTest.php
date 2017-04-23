@@ -10,8 +10,9 @@ namespace Conpago\Core;
 
 use Conpago\Helpers\Contract\IRequestData;
 use Conpago\Helpers\Contract\IRequestParser;
+use PHPUnit\Framework\TestCase;
 
-class RequestDataReaderTest extends \PHPUnit_Framework_TestCase
+class RequestDataReaderTest extends TestCase
 {
     public function testGetRequestData()
     {

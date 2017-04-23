@@ -10,8 +10,9 @@ namespace Conpago\Helpers;
 
 use Conpago\File\Contract\IFileSystem;
 use Conpago\File\Contract\IPath;
+use PHPUnit\Framework\TestCase;
 
-class AppPathTest extends \PHPUnit_Framework_TestCase
+class AppPathTest extends TestCase
     {
         const BASE_PATH = 'base_path';
         const REAL_PATH = 'real';
@@ -121,5 +122,30 @@ class AppPathTest extends \PHPUnit_Framework_TestCase
         public function loadClass($className)
         {
             throw new \Exception('Not implemented!');
+        }
+
+        /**
+         * Attempts to create the directory specified by pathname.
+         *
+         * @param string $pathname The directory path.
+         * @param bool $recursive Allows the creation of nested directories specified in the pathname.
+         *
+         * @return bool
+         */
+        public function createDirectory($pathname, $recursive)
+        {
+            return mkdir($pathname, $recursive);
+        }
+
+        /**
+         * Checks whether a file or directory exists.
+         *
+         * @param string $filename Path to the file or directory.
+         *
+         * @return bool
+         */
+        public function fileExists($filename)
+        {
+            return file_exists($filename);
         }
     }

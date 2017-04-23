@@ -8,7 +8,9 @@
 
 namespace Conpago\Database\Exceptions;
 
-class ColumnUniqueConstraintExceptionTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ColumnUniqueConstraintExceptionTest extends TestCase
 {
     const COLUMN_NAME = 'columnName';
 

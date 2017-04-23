@@ -8,29 +8,36 @@
 
 namespace Conpago\Presentation;
 
-class JsonPresenterTest extends \PHPUnit_Framework_TestCase
+use Conpago\Helpers\Contract\IResponse;
+use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
+
+class JsonPresenterTest extends TestCase
 {
-    public function testGeneratesNullJson()
-    {
-        $this->expectOutputString(null);
-
-        $jsonPresenter = new JsonPresenter();
-        $jsonPresenter->showJson(null);
-    }
-
-    public function test_GeneratesEmptyJson()
-    {
-        $this->expectOutputString('""');
-
-        $jsonPresenter = new JsonPresenter();
-        $jsonPresenter->showJson('');
-    }
+    /** @var IResponse | MockObject */
+    private $responseMock;
 
     public function test_GeneratesArrayJson()
     {
         $this->expectOutputString('{"test":"a"}');
 
-        $jsonPresenter = new JsonPresenter();
-        $jsonPresenter->showJson(array('test' => 'a'));
+        $jsonPresenter = new JsonPresenter($this->responseMock);
+        $jsonPresenter->showJson(['test' => 'a']);
+    }
+
+    public function test_showJson_ShouldCallResponseSetContentTypeWithProperContentType()
+    {
+        $this->responseMock
+            ->expects($this->once())
+            ->method('setContentType')
+            ->with('application/json');
+
+        $jsonPresenter = new JsonPresenter($this->responseMock);
+        $jsonPresenter->showJson(['test' => 'a']);
+    }
+
+    public function setUp()
+    {
+        $this->responseMock = $this->createMock(IResponse::class);
     }
 }

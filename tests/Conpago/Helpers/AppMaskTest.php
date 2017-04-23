@@ -8,23 +8,39 @@
 
 namespace Conpago\Helpers;
 
+use Conpago\File\Contract\IPath;
 use Conpago\Helpers\Contract\IAppPath;
+use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
-class AppMaskTest extends \PHPUnit_Framework_TestCase
+class AppMaskTest extends TestCase
 {
+    /** @var IAppPath */
     private $appPath;
 
+    /** @var  IPath | MockObject */
+    private $srcPath;
+
+    /** @var  IPath | MockObject */
+    private $configPath;
+
+    /** @var AppMask */
     private $appMask;
 
     const SRC = 'src';
-
     const CONFIG = 'config';
 
     protected function setUp()
     {
         $this->appPath = $this->createMock(IAppPath::class);
-        $this->appPath->expects($this->any())->method('source')->willReturn(self::SRC);
-        $this->appPath->expects($this->any())->method('config')->willReturn(self::CONFIG);
+        $this->srcPath = $this->createMock(IPath::class);
+        $this->srcPath->method('get')->willReturn(self::SRC);
+
+        $this->configPath = $this->createMock(IPath::class);
+        $this->configPath->method('get')->willReturn(self::CONFIG);
+
+        $this->appPath->method('source')->willReturn($this->srcPath);
+        $this->appPath->method('config')->willReturn($this->configPath);
 
         $this->appMask = new AppMask($this->appPath);
     }

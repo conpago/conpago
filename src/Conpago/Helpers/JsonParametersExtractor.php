@@ -13,11 +13,16 @@
 
 namespace Conpago\Helpers;
 
+/**
+ * Tool class for extract parameters from json object .
+ */
 class JsonParametersExtractor extends ParametersExtractor
 {
 
     /**
-     * @return array
+     * Gets extracted parametrs.
+     *
+     * @return array Extracted parameters.
      */
     public function getParameters()
     {

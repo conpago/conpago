@@ -10,8 +10,9 @@ namespace Conpago\Helpers;
 
 use BadMethodCallException;
 use Conpago\Helpers\Contract\IRequest;
+use PHPUnit\Framework\TestCase;
 
-class RequestParserTest extends \PHPUnit_Framework_TestCase
+class RequestParserTest extends TestCase
 {
     private $request;
 

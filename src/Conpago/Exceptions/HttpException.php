@@ -13,6 +13,9 @@
 
 namespace Conpago\Exceptions;
 
+/**
+ * General exception for http specific exceptions.
+ */
 class HttpException extends Exception
 {
 }

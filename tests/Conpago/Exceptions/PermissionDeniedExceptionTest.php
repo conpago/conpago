@@ -8,7 +8,9 @@
 
 namespace Conpago\Exceptions;
 
-class PermissionDeniedExceptionTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PermissionDeniedExceptionTest extends TestCase
 {
     public function testCreate()
     {

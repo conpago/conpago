@@ -13,6 +13,9 @@
 
 namespace Conpago\Exceptions;
 
+/**
+ * General exception thrown when request cant be handled properly.
+ */
 class Http400BadRequestException extends HttpException
 {
 }

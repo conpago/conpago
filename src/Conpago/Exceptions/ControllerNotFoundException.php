@@ -13,6 +13,9 @@
 
 namespace Conpago\Exceptions;
 
+/**
+ * General exception thrown when requested controller cannot be found.
+ */
 class ControllerNotFoundException extends Exception
 {
 }

@@ -13,6 +13,7 @@
 
 namespace Conpago\Presentation;
 
+use Conpago\Helpers\Contract\IResponse;
 use Conpago\Presentation\Contract\IJsonPresenter;
 
 /**
@@ -20,17 +21,29 @@ use Conpago\Presentation\Contract\IJsonPresenter;
  */
 class JsonPresenter implements IJsonPresenter
 {
+    /** @var IResponse */
+    private $response;
+
+    /**
+     * JsonPresenter constructor.
+     *
+     * @param IResponse $response
+     */
+    public function __construct(IResponse $response)
+    {
+        $this->response = $response;
+    }
 
     /**
      * Serialize and present data as JSON.
      *
-     * @param mixed $data Data to serialize.
+     * @param array $data Data to serialize.
      *
      * @return void
      */
-    public function showJson($data)
+    public function showJson(array $data)
     {
-        header('Content-Type: application/json');
+        $this->response->setContentType('application/json');
 
         echo json_encode($data, JSON_FORCE_OBJECT);
     }

@@ -13,6 +13,10 @@
 
 namespace Conpago\Helpers;
 
+/**
+ * Provides tool to build associative array from array of strings separated by equals sign.
+ * This is ObjectMethod and every instance should be used once.
+ */
 class NameValueCollectionBuilder
 {
 
@@ -20,12 +24,24 @@ class NameValueCollectionBuilder
 
     private $flatParameterList = array();
 
-    public function __construct($pairs)
+    /**
+     * NameValueCollectionBuilder constructor.
+     *
+     * @param string[] $pairs Collection of strings containing name=value scheme.
+     */
+    public function __construct(array $pairs)
     {
         $this->pairs = $pairs;
 
     }
 
+    /**
+     * Build associative array from pairs passed by constructor.
+     * If name exists multiple times in collection, values will be grouped into array and
+     * returned as value of name key.
+     *
+     * @return array Associative array with key => value pairs
+     */
     public function build()
     {
         $this->convertPairsToList();
@@ -42,7 +58,7 @@ class NameValueCollectionBuilder
     }
 
     /**
-     * @param $pair
+     * @param string $pair
      *
      * @return array
      */
@@ -61,7 +77,7 @@ class NameValueCollectionBuilder
     }
 
     /**
-     * @param $namedValue
+     * @param string $namedValue
      */
     private function addNamedValue($namedValue)
     {
@@ -79,7 +95,7 @@ class NameValueCollectionBuilder
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return boolean
      */
@@ -90,7 +106,7 @@ class NameValueCollectionBuilder
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @param $value
      */
     private function addArrayValue($name, $value)
@@ -104,7 +120,7 @@ class NameValueCollectionBuilder
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return boolean
      */

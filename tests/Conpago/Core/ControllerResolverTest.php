@@ -13,8 +13,9 @@ use Conpago\DI\IFactory;
 use Conpago\Exceptions\ControllerNotFoundException;
 use Conpago\Helpers\Contract\IRequestDataReader;
 use Conpago\Presentation\Contract\IController;
+use PHPUnit\Framework\TestCase;
 
-class ControllerResolverTest extends \PHPUnit_Framework_TestCase
+class ControllerResolverTest extends TestCase
 {
     public $requestData;
     private $requestDataReader;

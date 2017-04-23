@@ -15,10 +15,12 @@ namespace Conpago\Helpers;
 
 use Conpago\Helpers\Contract\IPasswordHasher;
 
+/**
+ * SHA2 algorithm based password hasher.
+ */
 class SHA2PasswordHasher implements IPasswordHasher
 {
-
-    private $algorithm = 'sha512';
+    const ALGORITHM = 'sha512';
 
     /**
      * Calculate hash for given password.
@@ -29,7 +31,7 @@ class SHA2PasswordHasher implements IPasswordHasher
      */
     public function calculateHash($password)
     {
-        return hash($this->algorithm, $password);
+        return hash(self::ALGORITHM, $password);
 
     }
 }

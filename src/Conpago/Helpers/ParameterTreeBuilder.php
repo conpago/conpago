@@ -79,8 +79,7 @@ class ParameterTreeBuilder
      */
     private function parseNameValuePairs($pairs)
     {
-        $builder = new NameValueCollectionBuilder($pairs);
-        return $builder->build();
+        return (new NameValueCollectionBuilder($pairs))->build();
 
     }
 }
