@@ -20,6 +20,7 @@ use Conpago\Helpers\Contract\IRequestDataReader;
 use Conpago\Helpers\Contract\IResponse;
 use Conpago\Logging\Contract\ILogger;
 use Conpago\Presentation\Contract\IController;
+use Conpago\Time\Contract\ITimeZone;
 
 /**
  * Represents web application which handle Http requests.
@@ -27,61 +28,47 @@ use Conpago\Presentation\Contract\IController;
 class WebApp implements IApp
 {
 
-    /**
-     * Controller which handle request.
-     *
-     * @var IController
-     */
+    /** @var IController */
     private $controller;
 
-    /**
-     * Provides access to request data.
-     *
-     * @var IRequestDataReader
-     */
+    /** @var IRequestDataReader */
     private $requestDataReader;
 
-    /**
-     * Provides ability to set response http specific data.
-     *
-     * @var IResponse
-     */
+    /** @var IResponse */
     private $response;
 
-    /**
-     * Provides ability for logging.
-     *
-     * @var ILogger
-     */
+    /** @var ILogger */
     private $logger;
 
-    /**
-     * Application configuration provider.
-     *
-     * @var IAppConfig
-     */
+    /** @var IAppConfig */
     private $appConfig;
+
+    /** @var ITimeZone */
+    private $timeZone;
 
     /**
      * Creates new instance of web application.
      *
      * @param IRequestDataReader $requestDataReader Provides access to request data.
-     * @param IController        $controller        Controller which handle request.
-     * @param IResponse          $response          Provides ability to set response http specific data.
-     * @param ILogger            $logger            Provides ability for logging.
-     * @param IAppConfig         $appConfig         Application configuration provider.
+     * @param IController $controller Controller which handle request.
+     * @param IResponse $response Provides ability to set response http specific data.
+     * @param ILogger $logger Provides ability for logging.
+     * @param ITimeZone $timeZone Provides wrapper for PHP timezone utilities.
+     * @param IAppConfig $appConfig Application configuration provider.
      */
     public function __construct(
         IRequestDataReader $requestDataReader,
         IController $controller,
         IResponse $response,
         ILogger $logger,
+        ITimeZone $timeZone,
         IAppConfig $appConfig
     ) {
         $this->requestDataReader = $requestDataReader;
         $this->controller        = $controller;
         $this->response          = $response;
         $this->logger            = $logger;
+        $this->timeZone          = $timeZone;
         $this->appConfig         = $appConfig;
 
     }
@@ -133,8 +120,8 @@ class WebApp implements IApp
     private function init()
     {
         $timeZone = $this->appConfig->getTimeZone();
-        if ($timeZone != null) {
-            date_default_timezone_set($timeZone);
+        if (!empty($timeZone)) {
+            $this->timeZone->setDefaultTimeZone($timeZone);
         }
 
     }
