@@ -30,6 +30,7 @@
         <directory suffix=".php">src</directory>
         <exclude>
             <file>src/Conpago/Helpers/Response.php</file>
+            <file>src/Conpago/Config/ConfigBase.php</file>
         </exclude>
     </whitelist>
     </filter>

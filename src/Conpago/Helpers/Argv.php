@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bgolek
+ * User: Bartosz Gołek
  * Date: 2015-12-02
  * Time: 09:50
  *
@@ -13,19 +13,29 @@
 
 namespace Conpago\Helpers;
 
+/**
+ * Class Argv represents parameters given when calling script from command line
+ */
 class Argv
 {
 
+    /**
+     * Argv constructor.
+     */
     public function __construct()
     {
         $this->options   = array();
         $this->arguments = array();
-
     }
 
+    /**
+     * @var array key value pairs for options
+     */
     public $options;
 
+    /** @var array */
     public $arguments;
 
+    /** @var string script name */
     public $script;
 }

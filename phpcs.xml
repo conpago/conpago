@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<ruleset name="Conpago">
- <description>The Conpago coding standard.</description>
-
- <file>./src</file>
-
- <rule ref="./vendor/conpago/conpago-dev-tools/phpcs/Conpago/ruleset.xml"/>
-
-</ruleset>

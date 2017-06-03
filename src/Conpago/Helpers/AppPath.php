@@ -65,10 +65,11 @@ class AppPath implements IAppPath
                             'tmp',
                             'sessions',
                            );
-
     }
 
     /**
+     * @param array $elements
+     *
      * @return IPath
      */
     private function getPath(array $elements)
@@ -76,7 +77,6 @@ class AppPath implements IAppPath
         $path     = implode(DIRECTORY_SEPARATOR, $elements);
         $realPath = $this->fileSystem->realPath($path);
         return new Path($path, $realPath);
-
     }
 
     /**
@@ -85,7 +85,6 @@ class AppPath implements IAppPath
     public function cache()
     {
         return $this->getPath($this->cache);
-
     }
 
     /**
@@ -94,7 +93,6 @@ class AppPath implements IAppPath
     public function sessions()
     {
         return $this->getPath($this->sessions);
-
     }
 
     /**
@@ -103,7 +101,6 @@ class AppPath implements IAppPath
     public function config()
     {
         return $this->getPath($this->config);
-
     }
 
     /**
@@ -112,7 +109,6 @@ class AppPath implements IAppPath
     public function root()
     {
         return $this->getPath($this->root);
-
     }
 
     /**
@@ -121,7 +117,6 @@ class AppPath implements IAppPath
     public function templates()
     {
         return $this->getPath($this->templates);
-
     }
 
     /**
@@ -130,6 +125,5 @@ class AppPath implements IAppPath
     public function source()
     {
         return $this->getPath($this->source);
-
     }
 }

@@ -14,12 +14,17 @@ use Conpago\Exceptions\ControllerNotFoundException;
 use Conpago\Helpers\Contract\IRequestDataReader;
 use Conpago\Presentation\Contract\IController;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class ControllerResolverTest extends TestCase
 {
-    public $requestData;
+    /** @var RequestData | MockObject */
+    private $requestData;
+
+    /** @var RequestDataReader | MockObject */
     private $requestDataReader;
 
+    /** @var IAppConfig | MockObject */
     private $appConfig;
 
     private $controllerFactories = array();
@@ -39,9 +44,10 @@ class ControllerResolverTest extends TestCase
         $this->expectException(ControllerNotFoundException::class);
         $this->expectExceptionMessage('Controller \'\' not found.');
         $controllerResolver = new ControllerResolver(
-                $this->requestDataReader,
-                $this->appConfig,
-                $this->controllerFactories);
+            $this->requestDataReader,
+            $this->appConfig,
+            $this->controllerFactories
+        );
 
         $controllerResolver->getController();
     }
@@ -52,7 +58,9 @@ class ControllerResolverTest extends TestCase
                 ->method('getDefaultInteractor')
                 ->willReturn('default');
 
-        $this->requestData->expects($this->once())->method('getParameters')->willReturn(array('interactor' => 'nonDefault'));
+        $this->requestData
+            ->method('getParameters')
+            ->willReturn(array('interactor' => 'nonDefault'));
 
         $controller = $this->createMock(IController::class);
 
@@ -62,30 +70,34 @@ class ControllerResolverTest extends TestCase
         $this->controllerFactories['nonDefaultController'] = $commandFactory;
 
         $controllerResolver = new ControllerResolver(
-                $this->requestDataReader,
-                $this->appConfig,
-                $this->controllerFactories);
+            $this->requestDataReader,
+            $this->appConfig,
+            $this->controllerFactories
+        );
 
         $this->assertEquals($controller, $controllerResolver->getController());
     }
 
     public function testDefaultInteractorController()
     {
-        $this->appConfig->expects($this->any())
-                ->method('getDefaultInteractor')
-                ->willReturn('default');
+        $this->appConfig
+            ->method('getDefaultInteractor')
+            ->willReturn('default');
 
         $controller = $this->createMock(IController::class);
 
         $commandFactory = $this->createMock(IFactory::class);
-        $commandFactory->expects($this->once())->method('createInstance')->willReturn($controller);
+        $commandFactory
+            ->method('createInstance')
+            ->willReturn($controller);
 
         $this->controllerFactories['defaultController'] = $commandFactory;
 
         $controllerResolver = new ControllerResolver(
-                $this->requestDataReader,
-                $this->appConfig,
-                $this->controllerFactories);
+            $this->requestDataReader,
+            $this->appConfig,
+            $this->controllerFactories
+        );
 
         $this->assertEquals($controller, $controllerResolver->getController());
     }

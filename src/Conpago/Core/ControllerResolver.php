@@ -50,7 +50,6 @@ class ControllerResolver implements IControllerResolver
         $this->controllerFactories = $controllerFactories;
         $this->requestDataReader   = $requestDataReader;
         $this->appConfig           = $appConfig;
-
     }
 
     /**
@@ -77,7 +76,6 @@ class ControllerResolver implements IControllerResolver
         }
 
         return $this->controllerFactories[$controllerArrayKey]->createInstance();
-
     }
 
     /**

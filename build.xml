@@ -24,10 +24,6 @@
         <phpunit configuration="./phpunit.xml" />
     </target>
     <target name="phpunit-ci" hidden="true">
-        <!--<phpunit codecoverage="true" configuration="./phpunit.xml">-->
-            <!--<formatter todir="${build}/CodeCoverage" type="clover" outfile="clover.xml" />-->
-            <!--<formatter todir="${build}" type="xml" outfile="phpunit.xml" />-->
-        <!--</phpunit>-->
         <exec executable="./vendor/bin/phpunit" passthru="true" >
             <arg value="--log-junit"/>
             <arg value="${build}/phpunit.xml"/>
@@ -63,10 +59,14 @@
     </target>
 
     <target name="phpcs">
-        <phpcodesniffer standard="./vendor/conpago/conpago-dev-tools/phpcs/Conpago/ruleset.xml" format="summary" file="./src" allowedFileExtensions="php php5 inc"/>
+        <phpcodesniffer standard="PSR2" format="summary" file="./src" allowedFileExtensions="php php5 inc"/>
+        <phpcodesniffer standard="PSR2" format="summary" file="./tests" allowedFileExtensions="php php5 inc"/>
     </target>
     <target name="phpcs-ci" hidden="true">
-        <phpcodesniffer standard="./vendor/conpago/conpago-dev-tools/phpcs/Conpago/ruleset.xml" format="summary" file="./src" allowedFileExtensions="php php5 inc">
+        <phpcodesniffer standard="PSR2" format="summary" file="./src" allowedFileExtensions="php php5 inc">
+            <formatter type="checkstyle" outfile="${build}/phpcs.xml"/>
+        </phpcodesniffer>
+        <phpcodesniffer standard="PSR2" format="summary" file="./tests" allowedFileExtensions="php php5 inc">
             <formatter type="checkstyle" outfile="${build}/phpcs.xml"/>
         </phpcodesniffer>
     </target>
@@ -94,11 +94,6 @@
         <exec command="phploc src" />
     </target>
 
-    <target name="humbug" description="update composer packages">
-        <exec command="humbug" />
-    </target>
-    <target name="humbug-ci" depends="humbug" hidden="true"/>
-
-    <target name="validate" depends="phpunit,phpcpd,phpmd,pdepend,phpcs,humbug" />
-    <target name="ci" depends="init,update,phpunit-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci,humbug-ci" hidden="true" />
+    <target name="validate" depends="phpunit,phpcpd,phpmd,pdepend,phpcs" />
+    <target name="ci" depends="init,update,phpunit-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci" hidden="true" />
 </project>

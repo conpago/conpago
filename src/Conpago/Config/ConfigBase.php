@@ -36,6 +36,5 @@ abstract class ConfigBase
     public function __construct(IConfig $config)
     {
         $this->config = $config;
-
     }
 }

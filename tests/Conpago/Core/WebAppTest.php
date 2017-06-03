@@ -44,7 +44,7 @@ class WebAppTest extends TestCase
     /** @var  ITimeZone | MockObject */
     private $timeZoneMock;
 
-    public function testRun_ShouldSetHttp500Error_IfRequestDataReaderThrowsException()
+    public function testRunShouldSetHttp500ErrorIfRequestDataReaderThrowsException()
     {
         $this->requestDataReaderMock->method('getRequestData')->willThrowException(new \Exception());
         $this->responseMock->expects($this->once())->method('setHttpResponseCode')->with(500);
@@ -52,7 +52,7 @@ class WebAppTest extends TestCase
         $this->webApp->run();
     }
 
-    public function testRun_ShouldSetHttp500Error_IfControllerThrowsException()
+    public function testRunShouldSetHttp500ErrorIfControllerThrowsException()
     {
         $this->responseMock->expects($this->once())->method('setHttpResponseCode')->with(500);
 
@@ -64,7 +64,7 @@ class WebAppTest extends TestCase
         $this->webApp->run();
     }
 
-    public function testRun_ShouldRunControllerWithRequestedData()
+    public function testRunShouldRunControllerWithRequestedData()
     {
         $requestData = $this->createMock(IRequestData::class);
         $this->requestDataReaderMock->method('getRequestData')->willReturn($requestData);
@@ -73,7 +73,7 @@ class WebAppTest extends TestCase
         $this->webApp->run();
     }
 
-    public function testRun_ShouldSetTimeZone_IfAppConfigReturnsNotEmptyValue()
+    public function testRunShouldSetTimeZoneIfAppConfigReturnsNotEmptyValue()
     {
         $requestData = $this->createMock(IRequestData::class);
         $this->requestDataReaderMock->method('getRequestData')->willReturn($requestData);
@@ -89,7 +89,7 @@ class WebAppTest extends TestCase
         $this->webApp->run();
     }
 
-    public function testRun_ShouldNotSetTimeZone_IfAppConfigReturnsEmptyValue()
+    public function testRunShouldNotSetTimeZoneIfAppConfigReturnsEmptyValue()
     {
         $requestData = $this->createMock(IRequestData::class);
         $this->requestDataReaderMock->method('getRequestData')->willReturn($requestData);
@@ -104,7 +104,7 @@ class WebAppTest extends TestCase
         $this->webApp->run();
     }
 
-    public function testRun_ShouldNotSetTimeZone_IfAppConfigReturnsNull()
+    public function testRunShouldNotSetTimeZoneIfAppConfigReturnsNull()
     {
         $requestData = $this->createMock(IRequestData::class);
         $this->requestDataReaderMock->method('getRequestData')->willReturn($requestData);
@@ -134,6 +134,7 @@ class WebAppTest extends TestCase
             $this->responseMock,
             $this->loggerMock,
             $this->timeZoneMock,
-            $this->appConfigMock);
+            $this->appConfigMock
+        );
     }
 }

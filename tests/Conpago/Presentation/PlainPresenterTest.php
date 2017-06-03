@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class PlainPresenterTest extends TestCase
 {
-    public function test_GeneratesEmptyPlain()
+    public function testShowShouldPrintNothingIfDataIsEmpty()
     {
         $this->expectOutputString('');
 
@@ -21,7 +21,7 @@ class PlainPresenterTest extends TestCase
         $plainPresenter->show('');
     }
 
-    public function test_ShowNumberAsString()
+    public function testShowShouldPrintNumbersAsString()
     {
         $this->expectOutputString('10');
 
@@ -29,7 +29,7 @@ class PlainPresenterTest extends TestCase
         $plainPresenter->show(10);
     }
 
-    public function test_GeneratesErrorForArray()
+    public function testShowShouldThrowExceptionIfArrayIsPassed()
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Argument $data cannot be array.');
@@ -38,7 +38,7 @@ class PlainPresenterTest extends TestCase
         $plainPresenter->show(array('test' => 'a'));
     }
 
-    public function test_GeneratesErrorForObject()
+    public function testShowShouldThrowExceptionIfObjectIsPassed()
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Argument $data cannot be object.');

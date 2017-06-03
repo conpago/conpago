@@ -70,7 +70,6 @@ class WebApp implements IApp
         $this->logger            = $logger;
         $this->timeZone          = $timeZone;
         $this->appConfig         = $appConfig;
-
     }
 
     /**
@@ -87,7 +86,6 @@ class WebApp implements IApp
             $this->logger->addCritical('Exception caught', array('exception' => $e));
             $this->response->setHttpResponseCode(500);
         }
-
     }
 
     /**
@@ -98,7 +96,6 @@ class WebApp implements IApp
     private function getRequestData()
     {
         return $this->requestDataReader->getRequestData();
-
     }
 
     /**
@@ -109,7 +106,6 @@ class WebApp implements IApp
     private function executeController()
     {
         $this->controller->execute($this->getRequestData());
-
     }
 
     /**
@@ -123,6 +119,5 @@ class WebApp implements IApp
         if (!empty($timeZone)) {
             $this->timeZone->setDefaultTimeZone($timeZone);
         }
-
     }
 }

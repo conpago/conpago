@@ -32,6 +32,5 @@ class SHA2PasswordHasher implements IPasswordHasher
     public function calculateHash($password)
     {
         return hash(self::ALGORITHM, $password);
-
     }
 }

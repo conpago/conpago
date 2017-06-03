@@ -31,7 +31,6 @@ class ColumnUniqueConstraintException extends Exception
     {
         $this->columnName     = $columnName;
         $this->innerException = $innerException;
-
     }
 
     /**

@@ -80,7 +80,6 @@ class AppBuilder
         $this->contextName      = $contextName;
         $this->fileSystem       = $fileSystem;
         $this->containerBuilder = $containerBuilder;
-
     }
 
     /**
@@ -103,7 +102,6 @@ class AppBuilder
             $class = $this->loadModule($filePath);
             $class->build($this->containerBuilder);
         }
-
     }
 
     /**
@@ -118,7 +116,6 @@ class AppBuilder
         }
 
         return $this->container;
-
     }
 
     /**
@@ -131,7 +128,6 @@ class AppBuilder
         $this->registerFileSystem();
         $this->registerAppPath();
         $this->loadModules();
-
     }
 
     /**
@@ -142,7 +138,6 @@ class AppBuilder
     public function getLogger()
     {
         return $this->getContainer()->resolve('Conpago\Logging\Contract\ILogger');
-
     }
 
     /**
@@ -153,7 +148,6 @@ class AppBuilder
     public function getApp()
     {
         return $this->getContainer()->resolve('Conpago\Contract\IApp');
-
     }
 
     /**
@@ -164,7 +158,6 @@ class AppBuilder
     private function registerFileSystem()
     {
         $this->containerBuilder->registerInstance($this->fileSystem)->asA('Conpago\File\Contract\IFileSystem');
-
     }
 
     /**
@@ -175,7 +168,6 @@ class AppBuilder
     private function registerAppPath()
     {
         $this->containerBuilder->registerInstance($this->appPath)->asA('Conpago\Helpers\Contract\IAppPath');
-
     }
 
     /**
@@ -188,6 +180,5 @@ class AppBuilder
     protected function loadModule($filePath)
     {
         return $this->fileSystem->loadClass($filePath);
-
     }
 }

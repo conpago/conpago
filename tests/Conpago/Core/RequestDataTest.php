@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bgolek
+ * User: Bartosz Gołek
  * Date: 2014-10-17
  * Time: 08:03
  */
@@ -24,7 +24,10 @@ class RequestDataTest extends TestCase
 
     public function testRequestMethod()
     {
-        $this->assertEquals('requestMethod', (new RequestData([], 'requestMethod', null, ['parameters']))->getRequestMethod());
+        $this->assertEquals(
+            'requestMethod',
+            (new RequestData([], 'requestMethod', null, ['parameters']))->getRequestMethod()
+        );
     }
 
     public function testUrlElements()

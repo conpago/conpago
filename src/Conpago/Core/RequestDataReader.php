@@ -31,7 +31,6 @@ class RequestDataReader implements IRequestDataReader
     public function __construct(IRequestParser $requestParser)
     {
         $this->requestParser = $requestParser;
-
     }
 
     /**
@@ -44,7 +43,6 @@ class RequestDataReader implements IRequestDataReader
         }
 
         return $this->requestData;
-
     }
 
     /**

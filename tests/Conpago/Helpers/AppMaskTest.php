@@ -48,16 +48,17 @@ class AppMaskTest extends TestCase
     public function testModuleMask()
     {
         $this->assertEquals(
-                $this->buildPath(array(self::SRC, '*Module.php')),
-                $this->appMask->moduleMask());
+            $this->buildPath(array(self::SRC, '*Module.php')),
+            $this->appMask->moduleMask()
+        );
     }
 
     public function testConfigMask()
     {
         $this->assertEquals(
-                $this->buildPath(array(self::CONFIG, '*.php')),
-                $this->appMask->configMask()
-            );
+            $this->buildPath(array(self::CONFIG, '*.php')),
+            $this->appMask->configMask()
+        );
     }
 
     private function buildPath(array $array)

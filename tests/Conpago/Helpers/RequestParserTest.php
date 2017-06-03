@@ -9,13 +9,17 @@
 namespace Conpago\Helpers;
 
 use BadMethodCallException;
+use Conpago\Core\RequestData;
 use Conpago\Helpers\Contract\IRequest;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class RequestParserTest extends TestCase
 {
+    /** @var Request | MockObject */
     private $request;
 
+    /** @var RequestParser */
     private $requestParser;
 
     protected function setUp()
@@ -35,36 +39,34 @@ class RequestParserTest extends TestCase
 
     public function testEmptyRequest()
     {
-        $this->setUp();
-        $this->_testRequestParser('html', array(), '', array());
+        $this->doTestRequestParser('html', [], '', []);
     }
 
     public function testEmptyJsonRequest()
     {
-        $this->setUp();
         $this->setContentType('application/json');
-        $this->_testRequestParser('json', array(), '', array());
+        $this->doTestRequestParser('json', array(), '', array());
     }
 
     public function testJsonRequestWithUrlElements()
     {
         $this->setContentType('application/json');
         $this->setPathInfo('path/info');
-        $this->_testRequestParser('json', array(), '', array('path', 'info'));
+        $this->doTestRequestParser('json', array(), '', array('path', 'info'));
     }
 
     public function testJsonRequestWithRequestMethod()
     {
         $this->setContentType('application/json');
         $this->setRequestMethod('requestMethod');
-        $this->_testRequestParser('json', array(), 'requestMethod', array());
+        $this->doTestRequestParser('json', array(), 'requestMethod', array());
     }
 
     public function testJsonRequestWithQueryString()
     {
         $this->setContentType('application/json');
         $this->setQueryString('a=1&b=2');
-        $this->_testRequestParser('json', array('a' => 1, 'b' => 2), '', array());
+        $this->doTestRequestParser('json', array('a' => 1, 'b' => 2), '', array());
     }
 
     public function testJsonRequestWithSimpleBody()
@@ -75,7 +77,7 @@ class RequestParserTest extends TestCase
                     'b' => 2
                 ));
         $this->setBody($body);
-        $this->_testRequestParser('json', array('a' => 1, 'b' => 2), '', array());
+        $this->doTestRequestParser('json', array('a' => 1, 'b' => 2), '', array());
     }
 
     public function testJsonRequestWithTreeBody()
@@ -83,7 +85,7 @@ class RequestParserTest extends TestCase
         $this->setContentType('application/json');
         $body = json_encode(array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2));
         $this->setBody($body);
-        $this->_testRequestParser('json', array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2), '', array());
+        $this->doTestRequestParser('json', array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2), '', array());
     }
 
     public function testJsonRequestIntegration()
@@ -96,38 +98,39 @@ class RequestParserTest extends TestCase
         $body = json_encode(array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2));
         $this->setBody($body);
 
-        $this->_testRequestParser('json',
-                array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2),
-                'requestMethod',
-                array('path', 'info'));
+        $this->doTestRequestParser(
+            'json',
+            array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2),
+            'requestMethod',
+            array('path', 'info')
+        );
     }
 
     public function testEmptyHtmlRequest()
     {
-        $this->setUp();
         $this->setContentType('application/x-www-form-urlencoded');
-        $this->_testRequestParser('html', array(), '', array());
+        $this->doTestRequestParser('html', array(), '', array());
     }
 
     public function testHtmlRequestWithUrlElements()
     {
         $this->setContentType('application/x-www-form-urlencoded');
         $this->setPathInfo('path/info');
-        $this->_testRequestParser('html', array(), '', array('path', 'info'));
+        $this->doTestRequestParser('html', array(), '', array('path', 'info'));
     }
 
     public function testHtmlRequestWithRequestMethod()
     {
         $this->setContentType('application/x-www-form-urlencoded');
         $this->setRequestMethod('requestMethod');
-        $this->_testRequestParser('html', array(), 'requestMethod', array());
+        $this->doTestRequestParser('html', array(), 'requestMethod', array());
     }
 
     public function testHtmlRequestWithQueryString()
     {
         $this->setContentType('application/x-www-form-urlencoded');
         $this->setQueryString('a=1&b=2');
-        $this->_testRequestParser('html', array('a' => 1, 'b' => 2), '', array());
+        $this->doTestRequestParser('html', array('a' => 1, 'b' => 2), '', array());
     }
 
     public function testHtmlRequestWithSimpleBody()
@@ -135,7 +138,7 @@ class RequestParserTest extends TestCase
         $this->setContentType('application/x-www-form-urlencoded');
         $body = 'a=1&b=2';
         $this->setBody($body);
-        $this->_testRequestParser('html', array('a' => 1, 'b' => 2), '', array());
+        $this->doTestRequestParser('html', array('a' => 1, 'b' => 2), '', array());
     }
 
     public function testHtmlRequestWithTreeBody()
@@ -143,7 +146,7 @@ class RequestParserTest extends TestCase
         $this->setContentType('application/x-www-form-urlencoded');
         $body = 'a.a=1.1&a.b=1.2&b=2';
         $this->setBody($body);
-        $this->_testRequestParser('html', array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2), '', array());
+        $this->doTestRequestParser('html', array('a' => array('a' => '1.1', 'b' => '1.2'), 'b' => 2), '', array());
     }
 
     public function testHtmlRequestWithDeepTreeBody()
@@ -151,7 +154,7 @@ class RequestParserTest extends TestCase
         $this->setContentType('application/x-www-form-urlencoded');
         $body = 'a.a.a=1.1.1&a.a.b=1.1.2';
         $this->setBody($body);
-        $this->_testRequestParser('html', array('a' => array('a' => array('a' => '1.1.1', 'b' => '1.1.2'))), '', array());
+        $this->doTestRequestParser('html', ['a' => ['a' => ['a' => '1.1.1', 'b' => '1.1.2']]], '', []);
     }
 
     public function testHtmlRequestIntegration()
@@ -164,8 +167,9 @@ class RequestParserTest extends TestCase
         $body = 'a=2&b=1&c.a=3&c.b=4&d=5&d=6';
         $this->setBody($body);
 
-        $this->_testRequestParser('html',
-                array(
+        $this->doTestRequestParser(
+            'html',
+            array(
                     'a' => '2',
                     'b' => '1',
                     'c' => array(
@@ -173,8 +177,9 @@ class RequestParserTest extends TestCase
                         'b' => '4'
                     ),
                     'd' => array('5', '6')),
-                'requestMethod',
-                array('path', 'info'));
+            'requestMethod',
+            array('path', 'info')
+        );
     }
 
     public function testHtmlRequestWithArrayBody()
@@ -182,41 +187,43 @@ class RequestParserTest extends TestCase
         $this->setContentType('application/x-www-form-urlencoded');
         $body = 'a=1&a=2&a=3';
         $this->setBody($body);
-        $this->_testRequestParser('html', array('a' => array('1', '2', '3')), '', array());
+        $this->doTestRequestParser('html', array('a' => array('1', '2', '3')), '', array());
     }
 
         /**
-         * @param $requestData
+         * @param RequestData $requestData
          * @param $format
          * @param $parameters
          * @param $requestMethod
          * @param $urlElements
          */
-        protected function assertRequestData($requestData, $format, $parameters, $requestMethod, $urlElements)
-        {
-            $this->assertEquals(array(
-                    'getFormat' => $format,
-                    'getParameters' => $parameters,
-                    'getRequestMethod' => $requestMethod,
-                    'getUrlElements' => $urlElements
-                ),
-                array(
-                    'getFormat' => $requestData->getFormat(),
-                    'getParameters' => $requestData->getParameters(),
-                    'getRequestMethod' => $requestData->getRequestMethod(),
-                    'getUrlElements' => $requestData->getUrlElements()
-                ));
-        }
+    protected function assertRequestData(RequestData $requestData, $format, $parameters, $requestMethod, $urlElements)
+    {
+        $this->assertEquals(
+            array(
+            'getFormat' => $format,
+            'getParameters' => $parameters,
+            'getRequestMethod' => $requestMethod,
+            'getUrlElements' => $urlElements
+            ),
+            array(
+            'getFormat' => $requestData->getFormat(),
+            'getParameters' => $requestData->getParameters(),
+            'getRequestMethod' => $requestData->getRequestMethod(),
+            'getUrlElements' => $requestData->getUrlElements()
+            )
+        );
+    }
 
         /**
          * @param $contentType
          *
          * @return mixed
          */
-        protected function setContentType($contentType)
-        {
-            return $this->request->expects($this->any())->method('getContentType')->willReturn($contentType);
-        }
+    protected function setContentType($contentType)
+    {
+        return $this->request->expects($this->any())->method('getContentType')->willReturn($contentType);
+    }
 
         /**
          * @param $format
@@ -224,41 +231,41 @@ class RequestParserTest extends TestCase
          * @param $requestMethod
          * @param $urlElements
          */
-        protected function _testRequestParser($format, $parameters, $requestMethod, $urlElements)
-        {
-            $requestData = $this->requestParser->parseRequestData();
-            $this->assertRequestData($requestData, $format, $parameters, $requestMethod, $urlElements);
-        }
+    private function doTestRequestParser($format, $parameters, $requestMethod, $urlElements)
+    {
+        $requestData = $this->requestParser->parseRequestData();
+        $this->assertRequestData($requestData, $format, $parameters, $requestMethod, $urlElements);
+    }
 
         /**
          * @param $pathInfo
          */
-        protected function setPathInfo($pathInfo)
-        {
-            $this->request->expects($this->any())->method('getPathInfo')->willReturn($pathInfo);
-        }
+    protected function setPathInfo($pathInfo)
+    {
+        $this->request->expects($this->any())->method('getPathInfo')->willReturn($pathInfo);
+    }
 
         /**
          * @param $requestMethod
          */
-        protected function setRequestMethod($requestMethod)
-        {
-            $this->request->expects($this->any())->method('getRequestMethod')->willReturn($requestMethod);
-        }
+    protected function setRequestMethod($requestMethod)
+    {
+        $this->request->expects($this->any())->method('getRequestMethod')->willReturn($requestMethod);
+    }
 
         /**
          * @param $queryString
          */
-        protected function setQueryString($queryString)
-        {
-            $this->request->expects($this->any())->method('getQueryString')->willReturn($queryString);
-        }
+    protected function setQueryString($queryString)
+    {
+        $this->request->expects($this->any())->method('getQueryString')->willReturn($queryString);
+    }
 
         /**
          * @param $body
          */
-        protected function setBody($body)
-        {
-            $this->request->expects($this->any())->method('getBody')->willReturn($body);
-        }
+    protected function setBody($body)
+    {
+        $this->request->expects($this->any())->method('getBody')->willReturn($body);
+    }
 }

@@ -35,19 +35,16 @@ class Args implements IArgs
         }
 
         $this->argv = $this->parseArgv();
-
     }
 
     public function getArguments()
     {
         return $this->argv->arguments;
-
     }
 
     public function getScript()
     {
         return $this->argv->script;
-
     }
 
     /**
@@ -58,7 +55,6 @@ class Args implements IArgs
     public function getOption($option)
     {
         return $this->argv->options[$option];
-
     }
 
     /**
@@ -69,7 +65,6 @@ class Args implements IArgs
     public function hasOption($option)
     {
         return array_key_exists($option, $this->argv->options);
-
     }
 
     protected function parseArgv()
@@ -78,6 +73,5 @@ class Args implements IArgs
 
         $argvParser = new ArgvParser($argv);
         return $argvParser->parse();
-
     }
 }

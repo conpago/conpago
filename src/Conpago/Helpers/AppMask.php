@@ -24,7 +24,6 @@ class AppMask implements IAppMask
     public function __construct(IAppPath $appPath)
     {
         $this->appPath = $appPath;
-
     }
 
     public function moduleMask()
@@ -36,7 +35,6 @@ class AppMask implements IAppMask
              '*Module.php',
             )
         );
-
     }
 
     public function configMask()
@@ -48,6 +46,5 @@ class AppMask implements IAppMask
              '*.php',
             )
         );
-
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bgolek
+ * User: Bartosz Gołek
  * Date: 2015-12-02
  * Time: 09:48
  *
@@ -21,7 +21,6 @@ class ParameterTreeBuilder
         $pairs             = $this->extractNameValuePairs($str);
         $flatParameterList = $this->parseNameValuePairs($pairs);
         return $this->explodeTree($flatParameterList, '.');
-
     }
 
     /**
@@ -57,7 +56,6 @@ class ParameterTreeBuilder
         }//end foreach
 
         return $returnArr;
-
     }
 
     /**
@@ -69,7 +67,6 @@ class ParameterTreeBuilder
     {
         // split on outer delimiter
         return explode('&', $str);
-
     }
 
     /**
@@ -80,6 +77,5 @@ class ParameterTreeBuilder
     private function parseNameValuePairs($pairs)
     {
         return (new NameValueCollectionBuilder($pairs))->build();
-
     }
 }

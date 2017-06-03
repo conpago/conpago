@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bgolek
+ * User: Bartosz Gołek
  * Date: 2014-10-15
  * Time: 08:04
  */
@@ -78,35 +78,35 @@ class RequestTest extends TestCase
         $this->assertEquals('body', $this->request->getBody());
     }
 
-    public function test_GetQueryString_ShouldReturnNull_IfServerAccessorContainsWillReturnFalse()
+    public function testGetQueryStringShouldReturnNullIfServerAccessorContainsWillReturnFalse()
     {
         $this->serverAccessor->method('contains')->with('QUERY_STRING')->willReturn(false);
 
         $this->assertEquals(null, $this->request->getQueryString());
     }
 
-    public function test_GetPathInfo_ShouldReturnNull_IfServerAccessorContainsWillReturnFalse()
+    public function testGetPathInfoShouldReturnNullIfServerAccessorContainsWillReturnFalse()
     {
         $this->serverAccessor->method('contains')->with('PATH_INFO')->willReturn(false);
 
         $this->assertEquals(null, $this->request->getPathInfo());
     }
 
-    public function test_GetRequestMethod_ShouldReturnNull_IfServerAccessorContainsWillReturnFalse()
+    public function testGetRequestMethodShouldReturnNullIfServerAccessorContainsWillReturnFalse()
     {
         $this->serverAccessor->method('contains')->with('REQUEST_METHOD')->willReturn(false);
 
         $this->assertEquals(null, $this->request->getRequestMethod());
     }
 
-    public function test_GetContentType_ShouldReturnNull_IfServerAccessorContainsWillReturnFalse()
+    public function testGetContentTypeShouldReturnNullIfServerAccessorContainsWillReturnFalse()
     {
         $this->serverAccessor->method('contains')->with('CONTENT_TYPE')->willReturn(false);
 
         $this->assertEquals(null, $this->request->getContentType());
     }
 
-    public function test_GetAccept_ShouldReturnNull_IfServerAccessorContainsWillReturnFalse()
+    public function testGetAcceptShouldReturnNullIfServerAccessorContainsWillReturnFalse()
     {
         $this->serverAccessor->method('contains')->with('ACCEPT')->willReturn(false);
 

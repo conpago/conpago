@@ -17,7 +17,7 @@ class JsonPresenterTest extends TestCase
     /** @var IResponse | MockObject */
     private $responseMock;
 
-    public function test_GeneratesArrayJson()
+    public function testShowJsonShouldPrintJsonDataIfArrayIsPassed()
     {
         $this->expectOutputString('{"test":"a"}');
 
@@ -25,7 +25,7 @@ class JsonPresenterTest extends TestCase
         $jsonPresenter->showJson(['test' => 'a']);
     }
 
-    public function test_showJson_ShouldCallResponseSetContentTypeWithProperContentType()
+    public function testShowJsonShouldCallResponseSetContentTypeWithProperContentType()
     {
         $this->responseMock
             ->expects($this->once())

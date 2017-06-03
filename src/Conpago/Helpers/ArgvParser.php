@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bgolek
+ * User: Bartosz Gołek
  * Date: 2015-12-02
  * Time: 09:50
  *
@@ -21,7 +21,6 @@ class ArgvParser
     public function __construct(array $argv)
     {
         $this->argv = $argv;
-
     }
 
     public function parse()
@@ -51,18 +50,15 @@ class ArgvParser
         }
 
         return $result;
-
     }
 
     private function isOption($arg)
     {
         return $arg[0] == '-';
-
     }
 
     private function option($arg)
     {
         return substr($arg, 1);
-
     }
 }

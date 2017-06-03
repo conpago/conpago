@@ -36,7 +36,6 @@ class AppBuilderFactory
     {
         list($fileSystem, $containerBuilder, $appPath) = $this->getAppBuilderDependencies($appRootPath);
         return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
-
     }
 
     /**
@@ -55,7 +54,6 @@ class AppBuilderFactory
         $containerBuilder = $persister->loadContainerBuilder();
 
         return new AppBuilder($fileSystem, $appPath, $containerBuilder, $contextName);
-
     }
 
     /**
@@ -76,6 +74,5 @@ class AppBuilderFactory
                 $containerBuilder,
                 $appPath,
                );
-
     }
 }

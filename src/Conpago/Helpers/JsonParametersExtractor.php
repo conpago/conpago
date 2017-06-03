@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bgolek
+ * User: Bartosz Gołek
  * Date: 2015-12-02
  * Time: 09:46
  *
@@ -37,6 +37,5 @@ class JsonParametersExtractor extends ParametersExtractor
         }
 
         return $parameters;
-
     }
 }

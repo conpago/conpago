@@ -106,7 +106,8 @@ class AppBuilderTest extends TestCase
             $this->fileSystem,
             $this->appPath,
             $this->containerBuilder,
-            'x');
+            'x'
+        );
     }
 
     protected function setContainerBuilderMocks()

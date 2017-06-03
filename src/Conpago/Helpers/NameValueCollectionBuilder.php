@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bgolek
+ * User: Bartosz Gołek
  * Date: 2015-12-02
  * Time: 09:49
  *
@@ -32,7 +32,6 @@ class NameValueCollectionBuilder
     public function __construct(array $pairs)
     {
         $this->pairs = $pairs;
-
     }
 
     /**
@@ -46,7 +45,6 @@ class NameValueCollectionBuilder
     {
         $this->convertPairsToList();
         return $this->flatParameterList;
-
     }
 
     private function convertPairsToList()
@@ -54,7 +52,6 @@ class NameValueCollectionBuilder
         foreach ($this->pairs as $pair) {
             $this->addNamedValue($this->createNamedValueFromNameValueString($pair));
         }
-
     }
 
     /**
@@ -73,7 +70,6 @@ class NameValueCollectionBuilder
                          'name'  => $exploded[0],
                          'value' => $exploded[1],
                         );
-
     }
 
     /**
@@ -91,7 +87,6 @@ class NameValueCollectionBuilder
         }
 
         $this->addScalarValue($namedValue->name, $namedValue->value);
-
     }
 
     /**
@@ -102,7 +97,6 @@ class NameValueCollectionBuilder
     private function isNameAlreadyExists($name)
     {
         return isset($this->flatParameterList[$name]);
-
     }
 
     /**
@@ -116,7 +110,6 @@ class NameValueCollectionBuilder
         }
 
         $this->flatParameterList[$name][] = $value;
-
     }
 
     /**
@@ -127,7 +120,6 @@ class NameValueCollectionBuilder
     private function isScalarValueConversionNeeded($name)
     {
         return !is_array($this->flatParameterList[$name]);
-
     }
 
     /**
@@ -137,6 +129,5 @@ class NameValueCollectionBuilder
     private function addScalarValue($name, $value)
     {
         $this->flatParameterList[$name] = $value;
-
     }
 }

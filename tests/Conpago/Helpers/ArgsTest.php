@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bgolek
+ * User: Bartosz Gołek
  * Date: 2014-10-13
  * Time: 07:59
  */
@@ -20,8 +20,8 @@ class ArgsTest extends TestCase
     public function testOnlyScript()
     {
         $this->serverAccessor = $this->createMock(ServerAccessor::class);
-        $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
-        $this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script'));
+        $this->serverAccessor->method('contains')->with('argv')->willReturn(true);
+        $this->serverAccessor->method('getValue')->with('argv')->willReturn(array('script'));
 
         $this->args = new Args($this->serverAccessor);
 
@@ -31,7 +31,7 @@ class ArgsTest extends TestCase
     public function testNoArgv()
     {
         $this->serverAccessor = $this->createMock(ServerAccessor::class);
-        $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(false);
+        $this->serverAccessor->method('contains')->with('argv')->willReturn(false);
         $this->serverAccessor->expects($this->never())->method('getValue')->with('argv');
 
         $this->args = new Args($this->serverAccessor);
@@ -40,8 +40,8 @@ class ArgsTest extends TestCase
     public function testScriptWithArgs()
     {
         $this->serverAccessor = $this->createMock(ServerAccessor::class);
-        $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
-        $this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script', 'arg1', 'arg2'));
+        $this->serverAccessor->method('contains')->with('argv')->willReturn(true);
+        $this->serverAccessor->method('getValue')->with('argv')->willReturn(array('script', 'arg1', 'arg2'));
 
         $this->args = new Args($this->serverAccessor);
 
@@ -51,8 +51,8 @@ class ArgsTest extends TestCase
     public function testScriptWithOption()
     {
         $this->serverAccessor = $this->createMock(ServerAccessor::class);
-        $this->serverAccessor->expects($this->any())->method('contains')->with('argv')->willReturn(true);
-        $this->serverAccessor->expects($this->any())->method('getValue')->with('argv')->willReturn(array('script', '-o1', 'option1'));
+        $this->serverAccessor->method('contains')->with('argv')->willReturn(true);
+        $this->serverAccessor->method('getValue')->with('argv')->willReturn(array('script', '-o1', 'option1'));
 
         $this->args = new Args($this->serverAccessor);
 

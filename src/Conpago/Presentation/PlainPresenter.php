@@ -42,6 +42,5 @@ class PlainPresenter implements IPlainPresenter
         }
 
         echo $data;
-
     }
 }

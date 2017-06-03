@@ -18,8 +18,9 @@ class ColumnUniqueConstraintExceptionTest extends TestCase
     {
         $innerException = new \Exception();
         $ex = new ColumnUniqueConstraintException(
-                self::COLUMN_NAME, $innerException
-            );
+            self::COLUMN_NAME,
+            $innerException
+        );
 
         $this->assertEquals(self::COLUMN_NAME, $ex->columnName);
         $this->assertSame($innerException, $ex->innerException);

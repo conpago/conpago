@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bgolek
+ * User: Bartosz Gołek
  * Date: 2014-10-17
  * Time: 08:10
  */
@@ -14,6 +14,12 @@ use PHPUnit\Framework\TestCase;
 
 class BuilderStorageTest extends TestCase
 {
+    const CONTEXT_CONTAINER_PATH =
+        'root' . DIRECTORY_SEPARATOR.
+        'tmp' . DIRECTORY_SEPARATOR.
+        'persistent' . DIRECTORY_SEPARATOR.
+        'contextContainer';
+
     public function testGetConfiguration()
     {
         $fileSystem = $this->createMock(IFileSystem::class);
@@ -25,7 +31,7 @@ class BuilderStorageTest extends TestCase
         $fileSystem
                 ->expects($this->once())
                 ->method('getFileContent')
-                ->with('root'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'persistent'.DIRECTORY_SEPARATOR.'contextContainer');
+                ->with(self::CONTEXT_CONTAINER_PATH);
 
         $builderStorage->getConfiguration();
     }
@@ -43,7 +49,7 @@ class BuilderStorageTest extends TestCase
                 ->expects($this->once())
                 ->method('setFileContent')
                 ->with(
-                    'root'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'persistent'.DIRECTORY_SEPARATOR.'contextContainer',
+                    self::CONTEXT_CONTAINER_PATH,
                     $results
                 );
 

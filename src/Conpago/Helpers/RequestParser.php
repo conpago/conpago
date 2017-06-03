@@ -48,7 +48,8 @@ class RequestParser implements IRequestParser
                 $this->getUrlElements(),
                 $this->getRequestMethod(),
                 $this->determineFormat(),
-                $this->parseIncomingParams());
+                $this->parseIncomingParams()
+            );
         }
 
         return $this->requestData;

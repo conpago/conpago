@@ -56,7 +56,6 @@ class BuilderStorage implements IContainerBuilderStorage
              $contextName.'Container',
             )
         );
-
     }
 
     /**
@@ -69,7 +68,6 @@ class BuilderStorage implements IContainerBuilderStorage
     public function putConfiguration(array $configuration)
     {
         $this->filesystem->setFileContent($this->fileName, serialize($configuration));
-
     }
 
     /**
@@ -80,6 +78,5 @@ class BuilderStorage implements IContainerBuilderStorage
     public function getConfiguration()
     {
         return unserialize($this->filesystem->getFileContent($this->fileName));
-
     }
 }

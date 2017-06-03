@@ -35,7 +35,6 @@ class RequestData implements IRequestData
         $this->requestMethod = $requestMethod;
         $this->format        = $format;
         $this->parameters    = $parameters;
-
     }
 
     /**
@@ -74,7 +73,6 @@ class RequestData implements IRequestData
     public function getUrlElements()
     {
         return $this->urlElements;
-
     }
 
     /**
@@ -85,7 +83,6 @@ class RequestData implements IRequestData
     public function getRequestMethod()
     {
         return $this->requestMethod;
-
     }
 
     /**
@@ -96,7 +93,6 @@ class RequestData implements IRequestData
     public function getParameters()
     {
         return $this->parameters;
-
     }
 
     /**
@@ -107,6 +103,5 @@ class RequestData implements IRequestData
     public function getFormat()
     {
         return $this->format;
-
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bgolek
+ * User: Bartosz Gołek
  * Date: 2015-12-02
  * Time: 09:48
  *
@@ -22,6 +22,5 @@ class DummyParametersExtractor extends ParametersExtractor
     public function getParameters()
     {
         return [];
-
     }
 }

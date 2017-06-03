@@ -22,7 +22,6 @@
 	},
 	"require-dev": {
 
-		"conpago/conpago-dev-tools": "dev-master",
 		"pdepend/pdepend": "2.5.x",
 		"phpmd/phpmd": "2.6.x",
 		"squizlabs/php_codesniffer": "2.8.x",
