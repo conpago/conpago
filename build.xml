@@ -24,16 +24,11 @@
         <phpunit configuration="./phpunit.xml" />
     </target>
     <target name="phpunit-ci" hidden="true">
-        <exec executable="./vendor/bin/phpunit" passthru="true" >
-            <arg value="--log-junit"/>
-            <arg value="${build}/phpunit.xml"/>
-            <arg value="--coverage-html"/>
-            <arg value="${build}/CodeCoverage"/>
-            <arg value="--coverage-clover"/>
-            <arg value="${build}/CodeCoverage/clover.xml"/>
-            <arg value="-c"/>
-            <arg value="./phpunit.xml"/>
-        </exec>
+        <autoloader autoloaderpath="./vendor/autoload.php"/>
+        <phpunit codecoverage="true" configuration="./phpunit.xml">
+            <formatter todir="${build}/CodeCoverage" type="clover" outfile="clover.xml" />
+            <formatter todir="${build}" type="xml" outfile="phpunit.xml" />
+        </phpunit>
     </target>
 
     <target name="phpmd">
@@ -48,6 +43,7 @@
     </target>
 
     <target name="pdepend">
+        <mkdir dir="build" />
         <phpdepend file="./src">
             <logger type="summary-xml" outfile="${build}/summary.xml"/>
             <logger type="jdepend-xml" outfile="${build}/jdepend.xml"/>
@@ -59,24 +55,38 @@
     </target>
 
     <target name="phpcs">
-        <phpcodesniffer standard="PSR2" format="summary" file="./src" allowedFileExtensions="php php5 inc"/>
-        <phpcodesniffer standard="PSR2" format="summary" file="./tests" allowedFileExtensions="php php5 inc"/>
+        <phpcodesniffer standard="PSR2" file="./src" allowedFileExtensions="php php5 inc">
+            <fileset dir=".">
+                <include name="src/**/*.php"/>
+                <include name="tasks/**/*.php"/>
+            </fileset>
+        </phpcodesniffer>
     </target>
     <target name="phpcs-ci" hidden="true">
         <phpcodesniffer standard="PSR2" format="summary" file="./src" allowedFileExtensions="php php5 inc">
             <formatter type="checkstyle" outfile="${build}/phpcs.xml"/>
-        </phpcodesniffer>
-        <phpcodesniffer standard="PSR2" format="summary" file="./tests" allowedFileExtensions="php php5 inc">
-            <formatter type="checkstyle" outfile="${build}/phpcs.xml"/>
+            <fileset dir=".">
+                <include name="src/**/*.php"/>
+                <include name="tasks/**/*.php"/>
+            </fileset>
         </phpcodesniffer>
     </target>
 
     <target name="phpcpd">
-        <phpcpd file="./src"/>
+        <phpcpd>
+            <fileset dir=".">
+                <include name="src/**/*.php"/>
+                <include name="tasks/**/*.php"/>
+            </fileset>
+        </phpcpd>
     </target>
     <target name="phpcpd-ci" hidden="true">
-        <phpcpd file="./src">
+        <phpcpd>
             <formatter type="pmd" outfile="${build}/phpcpd.xml"/>
+            <fileset dir=".">
+                <include name="src/**/*.php"/>
+                <include name="tasks/**/*.php"/>
+            </fileset>
         </phpcpd>
     </target>
 
