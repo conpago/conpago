@@ -24,7 +24,7 @@
         <exec command="phpunit -c phpunit.xml" passthru="true" />
     </target>
     <target name="phpunit-ci" hidden="true">
-        <exec command="phpunit -c phpunit.xml --coverage-clover ./build/CodeCoverage/clover.xml" passthru="true" />
+        <exec command="phpunit -c phpunit.xml --log-junit ./build/phpunit.xml --coverage-clover ./build/CodeCoverage/clover.xml" passthru="true" />
     </target>
 
     <target name="phpmd">
