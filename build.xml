@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <project name="Conpago" default="default" basedir=".">
     <property name="src" value="./src" override="true"/>
+    <property name="tests" value="./tests" override="true"/>
     <property name="build" value="./build" override="true"/>
 
     <target name="default" hidden="true">
@@ -10,9 +11,14 @@
     </target>
 
     <target name="init" hidden="true">
-        <!-- Create the time stamp -->
         <tstamp/>
-        <!-- Create the build directory structure used by compile -->
+    </target>
+
+    <target name="clean" depends="init" hidden="true">
+        <delete dir="${build}"/>
+    </target>
+
+    <target name="prepare" depends="clean" hidden="true">
         <mkdir dir="${build}"/>
     </target>
 
@@ -20,82 +26,47 @@
         <exec command="composer update" passthru="true" />
     </target>
 
-    <target name="phpunit">
+    <target name="phpunit" depends="prepare">
         <exec command="phpunit -c phpunit.xml" passthru="true" />
     </target>
-    <target name="phpunit-ci" hidden="true">
-        <exec command="phpunit -c phpunit.xml --log-junit ./build/phpunit.xml --coverage-clover ./build/CodeCoverage/clover.xml" passthru="true" />
+    <target name="phpunit-ci" depends="prepare" hidden="true">
+        <exec command="phpunit -c phpunit.xml --log-junit ./${build}/phpunit.xml --coverage-clover ./${build}/CodeCoverage/clover.xml" passthru="true" />
     </target>
 
     <target name="phpmd">
-        <exec command="phpmd ./src text codesize,design,naming,unusedcode,controversial,cleancode" passthru="true" />
+        <exec command="phpmd ${src},${tests} text codesize,design,naming,unusedcode,controversial,cleancode" passthru="true" />
     </target>
-    <target name="phpmd-ci" hidden="true">
-        <exec command="phpmd ./src xml codesize,design,naming,unusedcode,controversial,cleancode --reportfile=${build}/pmd.xml" passthru="true" />
+    <target name="phpmd-ci" depends="prepare" hidden="true">
+        <exec command="phpmd ${src},${tests} xml codesize,design,naming,unusedcode,controversial,cleancode --reportfile=${build}/pmd.xml" passthru="true" />
     </target>
 
-    <target name="pdepend">
-        <mkdir dir="${build}" />
-        <phpdepend file="./src">
-            <logger type="summary-xml" outfile="${build}/summary.xml"/>
-            <logger type="jdepend-xml" outfile="${build}/jdepend.xml"/>
-            <logger type="jdepend-chart" outfile="${build}/jdepend.svg"/>
-            <logger type="overview-pyramid" outfile="${build}/pyramid.svg"/>
-        </phpdepend>
+    <target name="pdepend" depends="prepare">
+        <exec command="pdepend --summary-xml=${build}/summary.xml --jdepend-xml=${build}/jdepend.xml --jdepend-chart=${build}/jdepend.svg --overview-pyramid=${build}/pyramid.svg ${src},${tests}" passthru="true" />
     </target>
     <target name="pdepend-ci" depends="pdepend" hidden="true">
     </target>
 
     <target name="phpcs">
-        <phpcodesniffer standard="PSR2" file="./src" allowedFileExtensions="php php5 inc">
-            <fileset dir=".">
-                <include name="src/**/*.php"/>
-                <include name="tasks/**/*.php"/>
-            </fileset>
-        </phpcodesniffer>
+        <exec command="phpcs --standard=PSR2 ${src} ${tests}" passthru="true" />
     </target>
-    <target name="phpcs-ci" hidden="true">
-        <phpcodesniffer standard="PSR2" format="summary" file="./src" allowedFileExtensions="php php5 inc">
-            <formatter type="checkstyle" outfile="${build}/phpcs.xml"/>
-            <fileset dir=".">
-                <include name="src/**/*.php"/>
-                <include name="tasks/**/*.php"/>
-            </fileset>
-        </phpcodesniffer>
+    <target name="phpcs-ci" depends="prepare" hidden="true">
+        <exec command="phpcs --standard=PSR2 --report=checkstyle --report-file=${build}/phpcs.xml ${src} ${tests}" passthru="true" />
     </target>
 
     <target name="phpcpd">
-        <phpcpd>
-            <fileset dir=".">
-                <include name="src/**/*.php"/>
-                <include name="tasks/**/*.php"/>
-            </fileset>
-        </phpcpd>
+        <exec command="phpcpd ${src} ${tests}" passthru="true" />
     </target>
-    <target name="phpcpd-ci" hidden="true">
-        <phpcpd>
-            <formatter type="pmd" outfile="${build}/phpcpd.xml"/>
-            <fileset dir=".">
-                <include name="src/**/*.php"/>
-                <include name="tasks/**/*.php"/>
-            </fileset>
-        </phpcpd>
+    <target name="phpcpd-ci" depends="prepare" hidden="true">
+        <exec command="phpcpd --log-pmd=${build}/phpcpd.xml ${src} ${tests}" passthru="true" />
     </target>
-
-    <target name="phpdoc">
-        <mkdir dir="./docs/api"/>
-        <phpdoc2 title="Conpago API Documentation" destdir="./docs/api">
-            <fileset dir="./src">
-                <include name="**/*.php" />
-            </fileset>
-        </phpdoc2>
-    </target>
-    <target name="phpdoc-ci" depends="phpdoc" hidden="true"/>
 
     <target name="phploc">
-        <exec command="phploc src" />
+        <exec command="phploc ${src} ${test}" passthru="true" />
+    </target>
+    <target name="phploc-ci" depends="prepare">
+        <exec command="phploc --log-xml=${build}/phploc.xml ${src} ${test}" passthru="true" />
     </target>
 
-    <target name="validate" depends="phpunit,phpcpd,phpmd,pdepend,phpcs" />
-    <target name="ci" depends="init,update,phpunit-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci" hidden="true" />
+    <target name="validate" depends="phpunit,phpcpd,phpmd,pdepend,phpcs,phploc" />
+    <target name="ci" depends="update,phpunit-ci,phpcpd-ci,phpmd-ci,pdepend-ci,phpcs-ci,phploc-ci" hidden="true" />
 </project>
