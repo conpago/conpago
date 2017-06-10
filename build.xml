@@ -61,7 +61,7 @@
     </target>
 
     <target name="phploc">
-        <exec command="phploc ${src} ${test}" passthru="true" />
+        <exec command="phploc ${src} ${tests}" passthru="true" />
     </target>
     <target name="phploc-ci" depends="prepare">
         <exec command="phploc --log-xml=${build}/phploc.xml ${src} ${test}" passthru="true" />
